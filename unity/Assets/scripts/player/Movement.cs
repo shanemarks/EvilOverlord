@@ -14,14 +14,15 @@ public class Movement : MonoBehaviour {
 
 	public float MovementSpeed = 1;
 
+	Collider _playerCollider;
 
+	Item OnItem;
 
-
-
-	void Start () {
+	void Start () 
+	{
+		_playerCollider = GetComponent<Collider> ();
 		Debug.Log ("Starting Movement");
 		_trans = gameObject.transform;
-
 	}
 	
 	void Update () 
@@ -56,11 +57,17 @@ public class Movement : MonoBehaviour {
 
 	void MoveUp()
 	{
+		Ray r  = new Ray(transform.position,new Vector3(0,1,0));
+		RaycastHit hit;
+		collider.Raycast(r,out hit,500);
+		Debug.Log (hit.collider);
+	
 		_trans.localPosition += new Vector3 (0,MovementSpeed, 0);
 	}
 
 	void MoveDown ()
 	{
+
 		_trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
 	}
 
@@ -77,7 +84,24 @@ public class Movement : MonoBehaviour {
 	void FireAction ()
 	{
 		Debug.Log ("Action Fired");
+		if (OnItem != null)
+		{
+			OnItem.PickUp ();
+		}
+	}
+	
+	void OnCollisionEnter (Collision c)
+	{
+		Debug.Log ("hit");
+		if (c.collider.tag == "Item")
+		{
+			OnItem = c.collider.gameObject.GetComponent<Item>();
+		}
 	}
 
+	void OnCollisionExit (Collision c)
+	{
+		OnItem = null;
+	}
 
 }

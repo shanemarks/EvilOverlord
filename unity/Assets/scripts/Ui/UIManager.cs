@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UIManager : MonoBehaviour {
+public class UIManager : SingletonBehaviour<UIManager> {
+
+	public UIPanel PlayerPanel;
 
 	void AnswerPhone ()
 	{

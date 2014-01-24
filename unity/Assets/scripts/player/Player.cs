@@ -12,10 +12,14 @@ public class Player: MonoBehaviour {
 
 	public ItemType[] ItemsOwned;
 
+	public Color  PlayerColor;
+
+	public UISprite PlayerSprite;
+
 
 	void Start ()
 	{
-		_movement = GetComponent <Movement> ();
+	
 		_trans = gameObject.transform;
 		_trans.localPosition = StartPos;
 	}
