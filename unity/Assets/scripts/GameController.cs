@@ -12,10 +12,11 @@ public enum RoomObject {Bed, BunkBed, Sink, Toilet, Rug, Crate, WallLamp}
 public enum VentObject {VentA, VentB}
 
 
-public class GameController : MonoBehaviour 
+public class GameController : SingletonBehaviour<GameController> 
 {
 	
 	Dictionary<RoomObject, ItemType> roomItemLocations;
+
 
 
 	static bool IsGeneralItem(ItemType itemType)
@@ -106,7 +107,11 @@ public class GameController : MonoBehaviour
 
 
 
+	public void PlayerActivatedLocation(Player player, RoomObject roomObject)
+	{
 
+		Debug.Log ("GameController::PlayerActivatedLocation "+roomObject);
+	}
 
 
 

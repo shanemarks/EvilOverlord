@@ -88,7 +88,7 @@ public class Movement : MonoBehaviour {
 		{
 			Debug.Log ("Action Fired");
 			//TODO
-			//GameMaster.instance.ProcessEvent (GetComponent<Player>, 	OnRoomLocation.roomObjectType);
+			GameController.instance.PlayerActivatedLocation (GetComponent<Player>(), OnRoomLocation.roomObjectType);
 
 		}
 	}
