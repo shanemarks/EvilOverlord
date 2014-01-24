@@ -2,15 +2,33 @@
 using System.Collections.Generic;
 
 
-public enum ItemType {BoobyTrap, Knife, FakeKnife, GasMask}
 
-public enum RoomObject {Bed, BunkBed, GasVent, FakeVent, Sink, Toilet, Rug, Crate, WallLamp}
+
+
+public enum ItemType {None, SomethingUseful, SomeKnife, BoobyTrap, Knife, FakeKnife, GasMask}
+
+public enum RoomObject {Bed, BunkBed, Sink, Toilet, Rug, Crate, WallLamp}
+
+public enum VentObject {VentA, VentB}
 
 
 public class GameController : MonoBehaviour 
 {
 	
 	Dictionary<RoomObject, ItemType> roomItemLocations;
+
+
+	static bool IsGeneralItem(ItemType itemType)
+	{
+		if (itemType == ItemType.None)
+			return true;
+		if (itemType == ItemType.SomethingUseful)
+			return true;
+		if (itemType == ItemType.SomeKnife)
+			return true;
+
+		return false;
+	}
 
 	void SetupRoomObjects()
 	{
@@ -22,6 +40,9 @@ public class GameController : MonoBehaviour
 
 		foreach (ItemType itemType in System.Enum.GetValues(typeof(ItemType)))
 		{
+			if (IsGeneralItem(itemType))
+				continue;
+
 			roomItems.Add (itemType);
 		}
 
@@ -40,7 +61,8 @@ public class GameController : MonoBehaviour
 	}
 
 
-	public enum GameState {Intro, GiveHeadphone, Instructing, Finish}
+
+	public enum GameState {Unintialised, Intro, GiveHeadphone, Instructing, Finish}
 
 
 	FSM<GameState> state = new FSM<GameState>();
@@ -48,6 +70,7 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
+		Debug.Log("GameController::Start");
 		state[GameState.Intro].changeToStateFunction = RestartGame;
 
 		state.ChangeState(GameState.Intro);
@@ -63,6 +86,8 @@ public class GameController : MonoBehaviour
 		Debug.Log ("Restarting Game");
 		SetupRoomObjects();
 		// do anything else that is needed
+
+//		state.ChangeState(
 	}
 
 
