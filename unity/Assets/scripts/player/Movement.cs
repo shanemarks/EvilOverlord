@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour {
 
 	Collider _playerCollider;
 
-	Item OnItem;
+	RoomLocation OnRoomLocation;
 
 	void Start () 
 	{
@@ -83,25 +83,28 @@ public class Movement : MonoBehaviour {
 
 	void FireAction ()
 	{
-		Debug.Log ("Action Fired");
-		if (OnItem != null)
+
+		if (OnRoomLocation != null)
 		{
-			OnItem.PickUp ();
+			Debug.Log ("Action Fired");
+			//TODO
+			//GameMaster.instance.ProcessEvent (GetComponent<Player>, 	OnRoomLocation.roomObjectType);
+
 		}
 	}
 	
 	void OnCollisionEnter (Collision c)
 	{
-		Debug.Log ("hit");
+
 		if (c.collider.tag == "Item")
 		{
-			OnItem = c.collider.gameObject.GetComponent<Item>();
+			OnRoomLocation = c.collider.gameObject.GetComponent<RoomLocation>();
 		}
 	}
 
 	void OnCollisionExit (Collision c)
 	{
-		OnItem = null;
+		OnRoomLocation = null;
 	}
 
 }
