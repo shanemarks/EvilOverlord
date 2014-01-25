@@ -49,6 +49,8 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i]._movement.MovementSpeed = MovementSpeed;
 			Players[i].PlayerIcon = UIManager.instance.PlayerIcons[i];
 			Players[i].IsAlive = true;
+			Players[i].IsHoldingItem = false;
+			Players[i].GetComponent<UIPanel>().depth = 100-i;
 		}
 
  		UIManager.instance.UpdateCharacterIcons ();
