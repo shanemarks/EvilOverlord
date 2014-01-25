@@ -367,6 +367,8 @@ public class GameController : SingletonBehaviour<GameController>
 
 		Debug.Log ("GameController::PlayerActivatedLocation "+roomObject);
 
+		//TODO:
+		// After the poison check. if (player.ItemsOwned) != null {Pickup object}
 
 		if (roomObject == ventWithPoison)
 		{
@@ -375,7 +377,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 			return;
 		}
-		else if (roomObject == RoomObject.CleanVent || roomObject == RoomObject.RustyVent)
+		else if (roomObject == RoomObject.CleanVent || roomObject == RoomObject.RustyVent )
 		{
 			UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "vent did nothing");
 			return;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using RaxterWorks.GamepadInputManager;
 public class PlayerController : SingletonBehaviour<PlayerController>
 {
 
@@ -51,6 +51,33 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i].IsAlive = true;
 			Players[i].ItemsOwned = ItemType.None;
 			Players[i].GetComponent<UIPanel>().depth = 100-i;
+			if (Input.GetJoystickNames().Length >1)
+			{
+				if (i == 0)
+				{
+					Players[i]._movement._controller = Movement.ControllerType.XboxRight;
+					Players[i]._movement.ControllerNumber = 0;
+				}
+				if (i == 1)
+				{
+					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
+					Players[i]._movement.ControllerNumber = 0;
+				}
+			}
+			if (Input.GetJoystickNames().Length >=2)
+			{
+				if (i == 2)
+					{
+						Players[i]._movement._controller = Movement.ControllerType.XboxRight;
+						Players[i]._movement.ControllerNumber = 1;
+					}
+					if (i == 3)
+					{
+						Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
+						Players[i]._movement.ControllerNumber = 1;
+					}
+			}
+			
 		}
 
  		UIManager.instance.UpdateCharacterIcons ();
@@ -67,7 +94,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 		lowest.GetComponent<UIPanel> ().depth = 100;
 		baseWidth = 144;
-
+	
 
 		for (int i = 1 ; i < PlayerCount; i++)
 		{

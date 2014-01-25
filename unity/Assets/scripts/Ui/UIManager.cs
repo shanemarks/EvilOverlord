@@ -42,13 +42,13 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		}
 	}
 	
-	void AnswerPhone ()
+	public void AnswerPhone ()
 	{
 		Debug.Log ("Answer Phone");
 		GameController.instance.PlayInstructions();
 	}
 
-	void ReplayInstruction()
+	public void ReplayInstruction()
 	{
 		GameController.instance.SayInstruction();
 	}
@@ -89,9 +89,15 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public void CreateObjectPickupAnimation (Vector3 v, string s)
 	{
-		GameObject go = 		NGUITools.AddChild(Transient.gameObject,ObjectPickupPrefab);
+		GameObject go = 	NGUITools.AddChild(Transient.gameObject,ObjectPickupPrefab);
 		go.transform.position = v;
 		go.GetComponent<UILabel>().text = s;
 	}
 
+
+	void ResetGame ()
+	{
+		Debug.Log ("Reset Game");
+		Application.LoadLevel(Application.loadedLevel);
+	}
 }
