@@ -67,5 +67,8 @@ public class Player: MonoBehaviour {
 		_movement.enabled = true;
 		GetComponent<UIPanel>().alpha = 1;
 	}
+
+	
+
 }
 
