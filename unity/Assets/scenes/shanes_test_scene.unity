@@ -463,7 +463,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 45
   mHeight: 85
-  mDepth: 7
+  mDepth: 9
   autoResizeBoxCollider: 0
   mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
   mSpriteName: LeftWall
@@ -865,7 +865,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 45
   mHeight: 85
-  mDepth: 7
+  mDepth: 8
   autoResizeBoxCollider: 0
   mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
   mSpriteName: LeftWall
@@ -929,8 +929,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 18.0000057, y: 50, z: 0}
-  m_Center: {x: -2.86102295e-06, y: 1.90734863e-06, z: 0}
+  m_Size: {x: 17.9999924, y: 50, z: 0}
+  m_Center: {x: -9.53674316e-07, y: 0, z: 0}
 --- !u!114 &312467850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,7 +947,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 18
   mHeight: 50
-  mDepth: 9
+  mDepth: 22
   autoResizeBoxCollider: 1
   mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
   mSpriteName: Vent
@@ -2171,7 +2171,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 770820172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -97, y: -41, z: 0}
+  m_LocalPosition: {x: -98, y: -41, z: 0}
   m_LocalScale: {x: 1.00008011, y: 1.00008011, z: 1.00007999}
   m_Children: []
   m_Father: {fileID: 212589718}
@@ -2191,7 +2191,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 45
   mHeight: 85
-  mDepth: 7
+  mDepth: 19
   autoResizeBoxCollider: 0
   mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
   mSpriteName: LeftWall
@@ -2985,7 +2985,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 27.9999886, y: 36, z: 0}
-  m_Center: {x: -7.62939453e-06, y: 0, z: 0}
+  m_Center: {x: -3.81469727e-06, y: 0, z: 0}
 --- !u!114 &973914151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3871,6 +3871,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8bd74b58dcee10c4b9eec195040c7f29, type: 2}
+      propertyPath: _bgmusic
+      value: 
+      objectReference: {fileID: 957428958}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8bd74b58dcee10c4b9eec195040c7f29, type: 2}
   m_RootGameObject: {fileID: 2108715092}
@@ -4150,7 +4154,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 45
   mHeight: 85
-  mDepth: 2
+  mDepth: 7
   autoResizeBoxCollider: 0
   mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
   mSpriteName: RightWall
@@ -4309,7 +4313,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 66
   mHeight: 50
-  mDepth: 9
+  mDepth: 11
   autoResizeBoxCollider: 0
   mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
   mSpriteName: GreenBed
@@ -4495,7 +4499,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 45
   mHeight: 85
-  mDepth: 7
+  mDepth: 5
   autoResizeBoxCollider: 0
   mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
   mSpriteName: RightWall
@@ -7012,6 +7016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d824c2e51c3ff84398f834f244d69e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bgmusic: {fileID: 957428958}
   voice_nb: 2
   voiceRate: -2
 --- !u!4 &2108715094

@@ -40,11 +40,13 @@ public class Movement : MonoBehaviour {
 	
 	void Update () 
 	{
+
 		if (GamepadInput.GetButtonUp(Button.Select,ControllerNumber) || GamepadInput.GetButtonUp(Button.Start,ControllerNumber))
 		{
-			UIManager.instance.AnswerPhone ();
+		UIManager.instance.AnswerPhone ();
 		}
 
+	
 		if (_thePlayer.IsAlive)
 		{
 
