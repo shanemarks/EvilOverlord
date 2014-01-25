@@ -58,18 +58,30 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 	void Update ()
 	{
-		/*Player lowest = Players[0];
+		Player lowest = Players[0];
+		Player highest = Players[0];
 
-		for (int i = 0 ; i < PlayerCount; i++)
+		float baseWidth;
+		float adjFactor = Mathf.Sqrt (3);
+		float vertexRatio = 18 / 25;
+
+		lowest.GetComponent<UIPanel> ().depth = 100;
+		baseWidth = 144;
+
+
+		for (int i = 1 ; i < PlayerCount; i++)
 		{
-			if (lowest.transform.position.y < Players[i].transform.position.y)
+			if(Players[i].transform.y < lowest.transform.y) 
 			{
-				int temp = lowest.GetComponent<UIPanel>().depth;
-				lowest.GetComponent<UIPanel>().depth = Players[i].GetComponent<UIPanel>().depth;
-				Players[i].GetComponent<UIPanel>().depth = temp;
+				Players[i].GetComponent<UIPanel>().depth = lowest.GetComponent<UIPanel>().depth - 10;
 				lowest = Players[i];
 			}
-		}*/
+			else if(Players[i].transform.y > highest.transform.y) 
+			{
+				Players[i].GetComponent<UIPanel>().depth = highest.GetComponent<UIPanel>().depth + 10;
+				highest = Players[i];
+			}
+		}
 	}
 
 }
