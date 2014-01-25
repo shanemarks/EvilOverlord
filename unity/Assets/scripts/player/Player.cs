@@ -30,7 +30,7 @@ public class Player: MonoBehaviour {
 	{
 		// TODO it items contain boobytrap, asplode the person
 
-		if (!IsAlive)
+		if (IsAlive)
 		{
 			if (ItemsOwned == ItemType.BoobyTrap)
 			{
