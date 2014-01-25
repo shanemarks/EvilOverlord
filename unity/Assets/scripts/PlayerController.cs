@@ -25,6 +25,8 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 	public Player[] Players;
 	void Start ()
 	{
+
+
 		Debug.Log ("Starting Player Controller");
 
 		Players = new Player[PlayerCount];
@@ -34,12 +36,12 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			GameObject go = NGUITools.AddChild(UIManager.instance.PlayerPanel.gameObject, PlayerPrefab);
 
 			Players[i] = go.GetComponent<Player>();
-
+			Players[i].name = "player" + i;
 			Players[i]._movement.Up = Up[i];
 			Players[i]._movement.Down = Down[i];
 			Players[i]._movement.Left = Left[i];		
 			Players[i]._movement.Right = Right[i];	
-			Players[i].StartPos = new Vector3 (i*200,0,0);
+			Players[i].StartPos = new Vector3 ((i+2)*200,0,0);
 			Players[i].transform.localPosition = Players[i].StartPos;
 			Players[i].PlayerColor = PlayerColors[i];
 			Players[i].PlayerSprite.color = PlayerColors[i];

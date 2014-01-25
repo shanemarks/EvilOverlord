@@ -8,7 +8,7 @@ public class InstructionInfo
 	public const string RevealPrevTruth = "Last person wanted me to give you this piece of information, it is true that ...";
 	public const string RevealPrevLied = "Last person wanted me to lie to you about this piece of information, it is not true that ...";
 	
-	public const string Is = "is";
+	public const string Is = " is";
 	public const string IsNot = "is not";
 	
 	public const string Fake = "fake and will not gas the room";
@@ -30,9 +30,9 @@ public class InstructionInfo
 	{
 		switch (roomObject)
 		{
-		case RoomObject.Bed:
-		case RoomObject.BunkBed:
-		case RoomObject.Rug:
+		case RoomObject.RedBed:
+		case RoomObject.GreenBed:
+		case RoomObject.Shelf:
 			return "under";
 		case RoomObject.Crate:
 		case RoomObject.Sink:
@@ -48,12 +48,12 @@ public class InstructionInfo
 	{
 		switch (roomObject)
 		{
-		case RoomObject.Bed:
-			return "the bed";
-		case RoomObject.BunkBed:
-			return "the bunk bed";
-		case RoomObject.Rug:
-			return "the rug";
+		case RoomObject.RedBed:
+			return "the red bed";
+		case RoomObject.GreenBed:
+			return "the green bed";
+		case RoomObject.Shelf:
+			return "the shelf";
 		case RoomObject.Crate:
 			return "the crate";
 		case RoomObject.Sink:
@@ -146,19 +146,25 @@ public class InstructionInfo
 	
 	public PassOnInfo passOnInfo;
 
+	bool FirstRound { get { return previousInstructionInfo == null; } }
 
 	public string CreateString()
 	{
 		string mainString = "";
 		if (revealInfo.revealPreviousIntent && previousInstructionInfo.passOnInfo.willTellNextPlayerSomething)
 		{
-			if (previousInstructionInfo.passOnInfo.willLie)
-				mainString += RevealPrevLied;
-			else
-				mainString += RevealPrevTruth;
-			mainString += "\n\n";
+			if (!FirstRound)
+			{
+				if (previousInstructionInfo.passOnInfo.willLie)
+					mainString += RevealPrevLied;
+				else
+					mainString += RevealPrevTruth;
+				mainString += "\n\n";
+			}
+
 
 		}
+
 
 
 		if (mainInfo.infoType == MainInfo.InfoType.ItemLocation)
@@ -192,7 +198,7 @@ public class InstructionInfo
 				mainString += Where + " " + GetItemName(passOnInfo.infoToTell.itemType) + (passOnInfo.infoToTell.negateTruth ? IsNot : Is);
 			}
 		}
-
+	
 		return mainString;
 	}
 

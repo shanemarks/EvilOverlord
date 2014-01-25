@@ -15,8 +15,8 @@ public class Movement : MonoBehaviour {
 	public float MovementSpeed = 1;
 
 	Collider _playerCollider;
+	[SerializeField] Player _thePlayer;
 
-	RoomLocation OnRoomLocation;
 
 
 
@@ -25,6 +25,7 @@ public class Movement : MonoBehaviour {
 		_playerCollider = GetComponent<Collider> ();
 		Debug.Log ("Starting Movement");
 		_trans = gameObject.transform;
+	
 	}
 	
 	void Update () 
@@ -66,10 +67,9 @@ public class Movement : MonoBehaviour {
 
 		if (hit.collider != null)
 		{
-			if (hit.collider.tag == "boundary")
-			{
+
 				return true;
-			}
+
 		}
 		return false;
 
@@ -172,11 +172,10 @@ public class Movement : MonoBehaviour {
 	void FireAction ()
 	{
 
-		if (OnRoomLocation != null)
+		if (_thePlayer.OnRoomLocation != null)
 		{
 			Debug.Log ("Action Fired");
-			//TODO
-			GameController.instance.PlayerActivatedLocation (GetComponent<Player>(), OnRoomLocation.roomObjectType);
+			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
 
 		}
 	}
@@ -184,15 +183,47 @@ public class Movement : MonoBehaviour {
 	void OnCollisionEnter (Collision c)
 	{
 
+
 		if (c.collider.tag == "Item")
 		{
-			OnRoomLocation = c.collider.gameObject.GetComponent<RoomLocation>();
+			if (_thePlayer.OnRoomLocation != null)
+			{	
+				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
+			}
+
+			RoomLocation r = c.collider.gameObject.GetComponent<RoomLocation>();
+			bool occupied = false;
+
+			foreach (Player p in PlayerController.instance.Players)
+			{
+
+	
+				if (p.OnRoomLocation == r)
+				{
+
+					occupied = true;
+				}
+			}
+
+			if (!occupied)
+			{
+
+				_thePlayer.OnRoomLocation = r;
+				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color = _thePlayer.PlayerColor;
+			}
 		}
 	}
 
 	void OnCollisionExit (Collision c)
 	{
-		OnRoomLocation = null;
+		if (c.collider.tag != "Player")
+		{
+			if (_thePlayer.OnRoomLocation != null)
+			{
+				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
+				_thePlayer.OnRoomLocation = null;
+			}
+		}
 	}
 
 }

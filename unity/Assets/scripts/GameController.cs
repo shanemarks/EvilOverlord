@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public enum ItemType {None, SomethingUseful, SomeKnife, BoobyTrap, Knife, FakeKnife, GasMask}
 
-public enum RoomObject {Bed, BunkBed, Sink, Toilet, Rug, Crate, WallLamp}
+public enum RoomObject {RedBed, GreenBed, Sink, Toilet, Shelf, Crate, WallLamp}
 
 public enum VentObject {Vent, RustyVent}
 
@@ -197,7 +197,9 @@ public class GameController : SingletonBehaviour<GameController>
 	void Instructing(GameState oldState, GameState newState)
 	{
 		Debug.Log ("GameController::Instructing");
-		Debug.Log (instructionList[instructionList.Count-1].CreateString());
+		string  s = instructionList[instructionList.Count-1].CreateString();
+		UIManager.instance.TextInfo.text = s;
+		VoiceSpeaker.instance.Talk (s);
 		state.ChangeState(GameState.GiveHeadphone);
 	}
 
