@@ -495,7 +495,26 @@ public class GameController : SingletonBehaviour<GameController>
 	}
 
 
-
+	
+	public static string GetItemName(PickupType pickupType)
+	{
+		switch (pickupType)
+		{
+		case PickupType.BoobyTrap1:
+		case PickupType.BoobyTrap2:
+		case PickupType.BoobyTrap3:
+			return "booby trap";
+		case PickupType.FakeKnife:
+		case PickupType.RealKnife1:
+		case PickupType.RealKnife2:
+			return "knife";
+		case PickupType.GasMask1:
+			return "gas mask";
+		case PickupType.GasTrap:
+			return "gas trap";
+		}
+		return "a non item";
+	}
 
 	public void PlayerActivatedLocation(Player player, LocationType roomLocation)
 	{
@@ -506,10 +525,13 @@ public class GameController : SingletonBehaviour<GameController>
 		{
 			// TODO display item picked up
 			player.ItemsOwned = TakeObjectFrom(roomLocation);
+
+			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, GetItemName(player.ItemsOwned)+"!");
 		}
 		else
 		{
 			// TODO display item NOT picked up
+			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "nothing");
 		}
 //
 //		if (roomObject == ventWithPoison)
