@@ -68,7 +68,13 @@ public class Player: MonoBehaviour {
 			IsAlive =  false;
 			_movement.enabled = false;
 			notifiedAboutGasMask = false;
-			
+			if (OnRoomLocation != null)
+			{
+				OnRoomLocation.gameObject.GetComponent<UISprite>().color = Color.white;
+
+				OnRoomLocation =null;
+
+			}
 			HOTween.To(GetComponent<UIPanel>(), 1f, "alpha", 0f);
 		}
 	}
@@ -78,6 +84,8 @@ public class Player: MonoBehaviour {
 		_movement.enabled = true;
 		GetComponent<UIPanel>().alpha = 1;
 	}
+
+
 
 	
 

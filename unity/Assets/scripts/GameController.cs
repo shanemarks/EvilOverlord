@@ -528,6 +528,24 @@ public class GameController : SingletonBehaviour<GameController>
 
 			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, GetItemName(player.ItemsOwned)+"!");
 		}
+		else if (roomObject == RoomObject.CleanVent || roomObject == RoomObject.RustyVent )
+		{
+			UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "vent did nothing");
+			return;
+		}
+		
+		if (!unexploredLocations.Contains(roomObject))
+		{
+			Debug.Log (roomObject + " has already been explored");
+			return;
+		}
+
+		unexploredLocations.Remove(roomObject);
+
+		if (roomItemLocations[roomObject] != ItemType.BoobyTrap)
+		{
+			UIManager.instance.CreateObjectPickupAnimation (player.transform.position,"Object Picked Up");
+		}
 		else
 		{
 			// TODO display item NOT picked up
