@@ -10,7 +10,7 @@ public class Player: MonoBehaviour {
 	public Vector3 StartPos;
 	public Transform _trans;
 
-	public List<ItemType> ItemsOwned;
+	public ItemType ItemsOwned;
 
 	public Color  PlayerColor;
 
@@ -29,6 +29,14 @@ public class Player: MonoBehaviour {
 	void Update ()
 	{
 		// TODO it items contain boobytrap, asplode the person
+
+		if (IsAlive)
+		{
+			if (ItemsOwned == ItemType.BoobyTrap)
+			{
+				KillPlayer ();
+			}
+		}
 
 	}
 

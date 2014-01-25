@@ -360,7 +360,15 @@ public class GameController : SingletonBehaviour<GameController>
 
 		unexploredLocations.Remove(roomObject);
 
-		player.ItemsOwned.Add(roomItemLocations[roomObject]);
+		if (roomItemLocations[roomObject] != ItemType.BoobyTrap)
+		{
+			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"Object Picked Up");
+		}
+		else
+		{
+			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"BOOBY TRAP!");
+		}
+		player.ItemsOwned = roomItemLocations[roomObject];
 	}
 
 
