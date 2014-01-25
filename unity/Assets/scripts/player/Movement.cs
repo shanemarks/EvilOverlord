@@ -113,7 +113,7 @@ public class Movement : MonoBehaviour {
 					MoveRight ();
 				}
 				
-				if (GamepadInput.GetButtonUp(Button.RightTrigger,ControllerNumber))
+				if (GamepadInput.GetButton(Button.RightTrigger,ControllerNumber))
 				{
 					FireAction ();
 				}
@@ -151,7 +151,7 @@ public class Movement : MonoBehaviour {
 					MoveRight ();
 				}
 				
-				if (GamepadInput.GetButtonUp(Button.LeftTrigger,ControllerNumber))
+				if (GamepadInput.GetButton(Button.LeftTrigger,ControllerNumber))
 				{
 					FireAction ();
 				}
