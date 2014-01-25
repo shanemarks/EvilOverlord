@@ -74,6 +74,58 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
+--- !u!1 &57244733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100150, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 57244734}
+  - 114: {fileID: 57244735}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &57244734
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400150, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 57244733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .449303985, y: -.737025559, z: -.0866699219}
+  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &57244735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400192, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 57244733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!1 &70770375
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,18 +205,18 @@ Transform:
   m_Children:
   - {fileID: 277581739}
   - {fileID: 184332584}
-  - {fileID: 1961601183}
+  - {fileID: 1964335243}
   - {fileID: 1980331660}
   - {fileID: 2054032745}
   - {fileID: 2069752907}
-  - {fileID: 2096055615}
+  - {fileID: 161313794}
   - {fileID: 778054027}
   - {fileID: 789575483}
-  - {fileID: 365197248}
+  - {fileID: 764177561}
   - {fileID: 1227991311}
   - {fileID: 1254432786}
   - {fileID: 1312886960}
-  - {fileID: 1458274537}
+  - {fileID: 1981933650}
   - {fileID: 642022739}
   - {fileID: 1022766297}
   - {fileID: 1062086236}
@@ -179,12 +231,27 @@ Transform:
   - {fileID: 1533601281}
   - {fileID: 1589098616}
   - {fileID: 1601533014}
-  - {fileID: 1729129754}
+  - {fileID: 57244734}
   - {fileID: 1762481885}
-  - {fileID: 1821424220}
+  - {fileID: 1873409316}
   - {fileID: 101630643}
   - {fileID: 1628843300}
   - {fileID: 2073780820}
+  - {fileID: 1931239232}
+  - {fileID: 1304541266}
+  - {fileID: 1111906736}
+  - {fileID: 1035605353}
+  - {fileID: 1684094129}
+  - {fileID: 1951790194}
+  - {fileID: 1383397689}
+  - {fileID: 592022932}
+  - {fileID: 2096055615}
+  - {fileID: 168189263}
+  - {fileID: 1961601183}
+  - {fileID: 1821424220}
+  - {fileID: 1729129754}
+  - {fileID: 1458274537}
+  - {fileID: 365197248}
   m_Father: {fileID: 212589718}
 --- !u!1 &101630642
 GameObject:
@@ -418,7 +485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!1 &159818105
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +532,110 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
   mSpriteName: LeftWall
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+--- !u!1 &161313793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100156, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 161313794}
+  - 114: {fileID: 161313795}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &161313794
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400156, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 161313793}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0171573926, y: -.737025559, z: -.0866699219}
+  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &161313795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400198, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 161313793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+--- !u!1 &168189262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100128, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 168189263}
+  - 114: {fileID: 168189264}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &168189263
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400128, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 168189262}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.73998487, y: -1.16702127, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &168189264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400170, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 168189262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
   mFillCenter: 1
   mType: 0
   mFillDirection: 4
@@ -547,7 +717,7 @@ Transform:
   m_GameObject: {fileID: 212589717}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -284.329987, y: 279, z: 0}
-  m_LocalScale: {x: 5.30000019, y: 5.30000019, z: 1}
+  m_LocalScale: {x: 5.4000001, y: 5.4000001, z: 1}
   m_Children:
   - {fileID: 1672960317}
   - {fileID: 88242871}
@@ -591,14 +761,14 @@ MonoBehaviour:
   widgetsAreStatic: 0
   cullWhileDragging: 0
   worldToLocal:
-    e00: 101.886787
+    e00: 100
     e01: 0
     e02: 0
-    e03: 53.8808479
+    e03: 52.8830566
     e10: 0
-    e11: 101.886787
+    e11: 100
     e12: 0
-    e13: -52.8751907
+    e13: -51.8960228
     e20: 0
     e21: 0
     e22: 540
@@ -686,7 +856,7 @@ Transform:
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 232169900}
   m_LocalRotation: {x: 0, y: 0, z: .707106829, w: -.707106829}
-  m_LocalPosition: {x: -196, y: -36, z: 0}
+  m_LocalPosition: {x: -206, y: -41, z: 0}
   m_LocalScale: {x: 1.00001895, y: 1.00001895, z: 1.00007999}
   m_Children: []
   m_Father: {fileID: 212589718}
@@ -740,7 +910,7 @@ Transform:
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 276387375}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17, y: -198, z: 0}
+  m_LocalPosition: {x: 12, y: -246, z: 0}
   m_LocalScale: {x: 1.00001895, y: 1.00001895, z: 1.00007999}
   m_Children: []
   m_Father: {fileID: 212589718}
@@ -918,7 +1088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 7
-  IsVent: 1
+  occupiedPlayer: {fileID: 0}
 --- !u!61 &312467849
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -968,7 +1138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!1 &365197247
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,8 +1161,8 @@ Transform:
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 365197247}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.845761001, y: -.737025559, z: -.0866699219}
-  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_LocalPosition: {x: -.845760703, y: -1.16702127, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
   m_Children: []
   m_Father: {fileID: 88242871}
 --- !u!114 &365197249
@@ -1399,7 +1568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!61 &516285427
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1574,7 +1742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!61 &571625157
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1614,6 +1781,58 @@ MonoBehaviour:
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
   mTexture: {fileID: 0}
   mMat: {fileID: 0}
+--- !u!1 &592022931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100130, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 592022932}
+  - 114: {fileID: 592022933}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &592022932
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400130, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 592022931}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0171570182, y: -.953180671, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &592022933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400172, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 592022931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!1 &606508742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1668,7 +1887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 5
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!114 &606508746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2190,6 +2409,58 @@ MonoBehaviour:
   mClipRange: {x: 0, y: 0, z: 0, w: 0}
   mClipSoftness: {x: 40, y: 40}
   mDepth: 9999
+--- !u!1 &764177560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100146, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 764177561}
+  - 114: {fileID: 764177562}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &764177561
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400146, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 764177560}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.845761001, y: -.737025559, z: -.0866699219}
+  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &764177562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400188, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 764177560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!1 &770820172
 GameObject:
   m_ObjectHideFlags: 0
@@ -2585,9 +2856,13 @@ MonoBehaviour:
   - {fileID: 864002511}
   ALIVE_ICON: Alive
   DEAD_ICON: Dead
-  CRATE_ICON: Holding
+  KNIFE_ICON: HoldingKnife
+  MASK_ICON: HoldingMask
   Transient: {fileID: 844763735}
+  PlayerIconBorders: []
   ObjectPickupPrefab: {fileID: 100000, guid: 0fc55464d3bf97648a604eb7f06f1a98, type: 2}
+  Blood: {fileID: 0}
+  GibAnim: {fileID: 0}
 --- !u!4 &918878525
 Transform:
   m_ObjectHideFlags: 0
@@ -2944,7 +3219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 3
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!60 &973914150
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2998,7 +3273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 2
 --- !u!1 &1022766296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3033,6 +3307,58 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 1022766296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+--- !u!1 &1035605352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100138, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1035605353}
+  - 114: {fileID: 1035605354}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1035605353
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400138, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1035605352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .880665004, y: -.953180254, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &1035605354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400180, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1035605352}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
@@ -3421,6 +3747,58 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!1 &1111906735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100140, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1111906736}
+  - 114: {fileID: 1111906737}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1111906736
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400140, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1111906735}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .449304014, y: -.953180254, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &1111906737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400182, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1111906735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!1 &1128196428
 GameObject:
   m_ObjectHideFlags: 0
@@ -3607,7 +3985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!61 &1174919280
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3790,7 +4167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b754273e241c54d43bc1384ec0061021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knifeRange: .300000012
+  knifeRange: .5
   chanceToRevealPreviousIntent: .300000012
   chanceToNegateInfo: 0
   chanceToGenerliseToSomethingUseful: .200000003
@@ -3887,7 +4264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 2
 --- !u!1 &1276714018
 GameObject:
   m_ObjectHideFlags: 0
@@ -4032,6 +4408,58 @@ Prefab:
   m_RootGameObject: {fileID: 212589717}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1304541265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100142, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1304541266}
+  - 114: {fileID: 1304541267}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1304541266
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400142, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1304541265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.413908571, y: -.953180254, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &1304541267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400184, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1304541265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!1 &1312886959
 GameObject:
   m_ObjectHideFlags: 0
@@ -4168,7 +4596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 1
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!114 &1337460001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4181,7 +4609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!1001 &1340317219
 Prefab:
   m_ObjectHideFlags: 0
@@ -4294,7 +4721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 0
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!60 &1357115297
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -4323,7 +4750,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
+--- !u!1 &1383397688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100132, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1383397689}
+  - 114: {fileID: 1383397690}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1383397689
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400132, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1383397688}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.74000001, y: -.953180671, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &1383397690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400174, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1383397688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!1 &1404630096
 GameObject:
   m_ObjectHideFlags: 0
@@ -4399,8 +4877,8 @@ Transform:
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 1458274536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.413909167, y: -.737025559, z: -.0866699219}
-  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_LocalPosition: {x: -.413908809, y: -1.16702127, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
   m_Children: []
   m_Father: {fileID: 88242871}
 --- !u!114 &1458274538
@@ -5073,7 +5551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 6
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!60 &1631243005
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5102,7 +5580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 2
 --- !u!1 &1663236788
 GameObject:
   m_ObjectHideFlags: 0
@@ -5215,14 +5692,14 @@ MonoBehaviour:
   widgetsAreStatic: 0
   cullWhileDragging: 0
   worldToLocal:
-    e00: 407.54715
+    e00: 400
     e01: 0
     e02: 0
-    e03: -15.1766052
+    e03: -19.1677704
     e10: 0
-    e11: 407.54715
+    e11: 400
     e12: 0
-    e13: 67.4992371
+    e13: 71.4159088
     e20: 0
     e21: 0
     e22: 540
@@ -5299,6 +5776,58 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!1 &1684094128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100136, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1684094129}
+  - 114: {fileID: 1684094130}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1684094129
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400136, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1684094128}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.31232083, y: -.953180254, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &1684094130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400178, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1684094128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!1 &1703576703
 GameObject:
   m_ObjectHideFlags: 0
@@ -5376,8 +5905,8 @@ Transform:
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 1729129753}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .449303985, y: -.737025559, z: -.0866699219}
-  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_LocalPosition: {x: .449291348, y: -1.16702127, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
   m_Children: []
   m_Father: {fileID: 88242871}
 --- !u!114 &1729129755
@@ -5513,6 +6042,7 @@ MonoBehaviour:
   _trans: {fileID: 0}
   ItemsOwned: 0
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  Index: -1
   PlayerSprite: {fileID: 1960916175}
   PlayerIcon: {fileID: 0}
   PlayerHeadSprite: {fileID: 965423241}
@@ -5628,8 +6158,8 @@ Transform:
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 1821424219}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .880664766, y: -.737025559, z: -.0866699219}
-  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_LocalPosition: {x: .880652368, y: -1.16702127, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
   m_Children: []
   m_Father: {fileID: 88242871}
 --- !u!114 &1821424221
@@ -5711,6 +6241,58 @@ MonoBehaviour:
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
   mTexture: {fileID: 0}
   mMat: {fileID: 0}
+--- !u!1 &1873409314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100152, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1873409316}
+  - 114: {fileID: 1873409315}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1873409315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400194, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1873409314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+--- !u!4 &1873409316
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400152, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1873409314}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .880664766, y: -.737025559, z: -.0866699219}
+  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_Children: []
+  m_Father: {fileID: 88242871}
 --- !u!1 &1880668390
 GameObject:
   m_ObjectHideFlags: 0
@@ -5841,7 +6423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 2
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!58 &1881731509
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5866,7 +6448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 2
 --- !u!1 &1888627548
 GameObject:
   m_ObjectHideFlags: 0
@@ -6020,7 +6601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 0
-  IsVent: 1
+  occupiedPlayer: {fileID: 0}
 --- !u!61 &1908668996
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6045,7 +6626,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
+--- !u!1 &1931239231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100144, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1931239232}
+  - 114: {fileID: 1931239233}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1931239232
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400144, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1931239231}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.845760524, y: -.953180254, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &1931239233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400186, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1931239231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!1 &1939766747
 GameObject:
   m_ObjectHideFlags: 0
@@ -6114,7 +6746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 4
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!60 &1939766751
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -6143,7 +6775,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 2
+--- !u!1 &1951790193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100134, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1951790194}
+  - 114: {fileID: 1951790195}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1951790194
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400134, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1951790193}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0171570182, y: -.953180254, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &1951790195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400176, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1951790193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
 --- !u!1 &1960916173
 GameObject:
   m_ObjectHideFlags: 0
@@ -6219,8 +6902,8 @@ Transform:
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 1961601182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.31232035, y: -.737025559, z: -.0866699219}
-  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_LocalPosition: {x: 1.31230867, y: -1.16702127, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
   m_Children: []
   m_Father: {fileID: 88242871}
 --- !u!114 &1961601184
@@ -6230,6 +6913,58 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 1961601182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+--- !u!1 &1964335242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100154, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1964335243}
+  - 114: {fileID: 1964335244}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1964335243
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400154, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1964335242}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.31232035, y: -.737025559, z: -.0866699219}
+  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &1964335244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400196, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1964335242}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
@@ -6345,6 +7080,58 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 1980331659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 44
+  mHeight: 22
+  mDepth: -6
+  autoResizeBoxCollider: 0
+  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
+  mSpriteName: Floor
+  mFillCenter: 1
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+--- !u!1 &1981933649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100148, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1981933650}
+  - 114: {fileID: 1981933651}
+  m_Layer: 8
+  m_Name: floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1981933650
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400148, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1981933649}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.413909167, y: -.737025559, z: -.0866699219}
+  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_Children: []
+  m_Father: {fileID: 88242871}
+--- !u!114 &1981933651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400190, guid: 954dcb31cb02a45499f8bbf0a76b39b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1288480540}
+  m_GameObject: {fileID: 1981933649}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
@@ -6633,8 +7420,8 @@ Transform:
   m_PrefabInternal: {fileID: 1288480540}
   m_GameObject: {fileID: 2096055614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .0171573926, y: -.737025559, z: -.0866699219}
-  m_LocalScale: {x: .00981499907, y: .00981499907, z: .0018519999}
+  m_LocalPosition: {x: .0171451122, y: -1.16702127, z: -.0866699219}
+  m_LocalScale: {x: .009815, y: .009815, z: .00185200002}
   m_Children: []
   m_Father: {fileID: 88242871}
 --- !u!114 &2096055616
