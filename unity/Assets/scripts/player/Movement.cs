@@ -153,8 +153,13 @@ public class Movement : MonoBehaviour {
 		Boundary b = CheckHitGetBoundary(Vector3.down + 2*Vector3.right);
 
 		
+<<<<<<< HEAD
 		if (!CheckHit(Vector3.down + 2*Vector3.right )) _trans.localPosition -=  new Vector3 (-2,1, 0).normalized * MovementSpeed ;
 		else 
+=======
+		if (!CheckHit(Vector3.down)) _trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
+	/*	else 
+>>>>>>> 4bd98dc489771a3aa73bf657e2dcdd33f3a0e414
 		{
 			if (b != null)
 			{
@@ -163,7 +168,7 @@ public class Movement : MonoBehaviour {
 			}
 
 			else  if (!CheckHit(Vector3.right))   _trans.localPosition += new Vector3 (MovementSpeed,0, 0);
-		}
+		}*/
 	}
 
 	void MoveLeft ()
@@ -190,7 +195,6 @@ public class Movement : MonoBehaviour {
 				
 			}
 
-			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"Object Picked Up");
 			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
 
 
