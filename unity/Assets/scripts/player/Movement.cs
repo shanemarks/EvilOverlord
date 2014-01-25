@@ -388,8 +388,40 @@ public class Movement : MonoBehaviour {
 
 	}
 
-	
-	void OnCollisionEnter (Collision c)
+	void OnTriggerEnter2D (Collider2D c)
+	{
+		Debug.Log ("Trigger fired");
+		if (c.tag == "Item") {
+			if (_thePlayer.OnRoomLocation != null)
+			{	
+				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
+			}
+			
+			RoomLocation r = c.gameObject.GetComponent<RoomLocation>();
+			bool occupied = false;
+			
+			foreach (Player p in PlayerController.instance.Players)
+			{
+				
+				
+				if (p.OnRoomLocation == r)
+				{
+					
+					occupied = true;
+				}
+			}
+			
+			if (!occupied)
+			{
+				
+				_thePlayer.OnRoomLocation = r;
+				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color = _thePlayer.PlayerColor;
+			}
+		}
+	}
+
+
+	void OnCollisionEnter2D (Collision2D c)
 	{
 		Debug.Log ("Registering collision with " + c.collider.name);
 		if (c.collider.tag == "Item")
@@ -432,6 +464,19 @@ public class Movement : MonoBehaviour {
 				_thePlayer.OnRoomLocation = null;
 			}
 		}
+	}
+
+	void OnTriggerExit2D (Collider2D c)
+	{
+		if (c.tag != "Player")
+		{
+			if (_thePlayer.OnRoomLocation != null)
+			{
+				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
+				_thePlayer.OnRoomLocation = null;
+			}
+		}
+
 	}
 
 }
