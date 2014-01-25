@@ -21,10 +21,10 @@ using System.Collections;
 using System.Runtime.InteropServices;
 
 
-
 public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 	
 {
+	public AudioSource _bgmusic;
 	
 	[DllImport ("Voice_speaker.dll", EntryPoint="VoiceAvailable")] private static extern int    VoiceAvailable();
 	
@@ -56,7 +56,7 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 	
 	[DllImport ("Voice_speaker.dll", EntryPoint="SpeakToFile")]    private static extern int    SpeakToFile(string filename, string ttospeak);
 	
-	[DllImport ("Voice_speaker.dll", EntryPoint="GetVoiceState")]  private static extern int    GetVoiceState();
+	[DllImport ("Voice_speaker.dll", EntryPoint="GetVoiceState")]  public static extern int    GetVoiceState();
 	
 	[DllImport ("Voice_speaker.dll", EntryPoint="GetVoiceVolume")] private static extern int    GetVoiceVolume();
 	
@@ -147,6 +147,22 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 			
 		}
 		
+	}
+
+	void Update ()
+	{
+		if (GetVoiceState() == 0)
+		{
+			_bgmusic.volume = 1f;
+		}
+		
+		else if (GetVoiceState() == 1)
+		{
+			_bgmusic.volume = 0.45f;
+		}
+		
+
+
 	}
 
 	public void Talk (string s)
