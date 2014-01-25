@@ -38,6 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d824c2e51c3ff84398f834f244d69e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bgmusic: {fileID: 0}
   voice_nb: 2
   voiceRate: -2
 --- !u!1001 &100100000

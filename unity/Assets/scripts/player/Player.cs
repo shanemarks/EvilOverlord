@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using Holoville.HOTween;
 
@@ -17,7 +17,7 @@ public class Player: MonoBehaviour {
 
 	public int Index = -1;
 
-	public UISprite PlayerSprite, PlayerIcon;
+	public UISprite PlayerSprite, PlayerIcon, PlayerHeadSprite, FrontFootSprite, BackFootSprite;
 	public RoomLocation OnRoomLocation;
 
 

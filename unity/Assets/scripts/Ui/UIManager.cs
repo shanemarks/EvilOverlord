@@ -45,7 +45,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	public void AnswerPhone ()
 	{
 		Debug.Log ("Answer Phone");
-		GameController.instance.PlayInstructions();
+		if (VoiceSpeaker.GetVoiceState() ==0)	GameController.instance.PlayInstructions();
 	}
 
 	public void ReplayInstruction()
@@ -91,7 +91,19 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	{
 		GameObject go = 	NGUITools.AddChild(Transient.gameObject,ObjectPickupPrefab);
 		go.transform.position = v;
+
+
 		go.GetComponent<UILabel>().text = s;
+
+	}
+	public void CreateObjectPickupAnimation (Vector3 v, string s, Color c)
+	{
+		GameObject go = 	NGUITools.AddChild(Transient.gameObject,ObjectPickupPrefab);
+		go.transform.position = v;
+		go.GetComponent<UILabel>().color = c;
+		
+		go.GetComponent<UILabel>().text = s;
+		
 	}
 
 
