@@ -40,6 +40,7 @@ public class Movement : MonoBehaviour {
 	
 	void Update () 
 	{
+		Debug.Log (GamepadInput.GetButton(XBOXButton.Y,ControllerNumber) );
 
 		if (GamepadInput.GetButtonUp(Button.Select,ControllerNumber) || GamepadInput.GetButtonUp(Button.Start,ControllerNumber))
 		{
@@ -389,7 +390,7 @@ public class Movement : MonoBehaviour {
 	}
 
 	
-	void OnCollisionEnter (Collision c)
+	void OnCollisionEnter2D (Collision2D c)
 	{
 		Debug.Log ("Registering collision with " + c.collider.name);
 		if (c.collider.tag == "Item")

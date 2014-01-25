@@ -5605,9 +5605,9 @@ GameObject:
   - 4: {fileID: 1732594768}
   - 114: {fileID: 1732594773}
   - 114: {fileID: 1732594772}
-  - 65: {fileID: 1732594771}
-  - 54: {fileID: 1732594770}
   - 114: {fileID: 1732594769}
+  - 50: {fileID: 1732594771}
+  - 61: {fileID: 1732594770}
   m_Layer: 8
   m_Name: player1
   m_TagString: Player
@@ -5650,11 +5650,11 @@ MonoBehaviour:
     e00: 540
     e01: 0
     e02: 0
-    e03: 847.825073
+    e03: 846.700073
     e10: 0
     e11: 540
     e12: 0
-    e13: -1.125
+    e13: -1.23853207
     e20: 0
     e21: 0
     e22: 540
@@ -5668,35 +5668,34 @@ MonoBehaviour:
   mClipRange: {x: 0, y: 0, z: 0, w: 0}
   mClipSoftness: {x: 40, y: 40}
   mDepth: 0
---- !u!54 &1732594770
-Rigidbody:
+--- !u!61 &1732594770
+BoxCollider2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 5400000, guid: fd9e74bd25f43264aa46dbd2e4627809,
+  m_PrefabParentObject: {fileID: 6100000, guid: fd9e74bd25f43264aa46dbd2e4627809,
     type: 2}
   m_PrefabInternal: {fileID: 803575436}
   m_GameObject: {fileID: 1732594767}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!65 &1732594771
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6500000, guid: fd9e74bd25f43264aa46dbd2e4627809,
-    type: 2}
-  m_PrefabInternal: {fileID: 803575436}
-  m_GameObject: {fileID: 1732594767}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 70.9000015, y: 94.9899979, z: 0}
-  m_Center: {x: 3.81469727e-05, y: 17.6299992, z: 0}
+  m_Size: {x: 150, y: 150}
+  m_Center: {x: 0, y: 80}
+--- !u!50 &1732594771
+Rigidbody2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5000000, guid: fd9e74bd25f43264aa46dbd2e4627809,
+    type: 2}
+  m_PrefabInternal: {fileID: 803575436}
+  m_GameObject: {fileID: 1732594767}
+  m_Mass: 9.99999975e-05
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_FixedAngle: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
 --- !u!114 &1732594772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5718,6 +5717,9 @@ MonoBehaviour:
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
   PlayerSprite: {fileID: 1960916175}
   PlayerIcon: {fileID: 0}
+  PlayerHeadSprite: {fileID: 965423241}
+  FrontFootSprite: {fileID: 1516880156}
+  BackFootSprite: {fileID: 1276830872}
   OnRoomLocation: {fileID: 0}
 --- !u!114 &1732594773
 MonoBehaviour:
