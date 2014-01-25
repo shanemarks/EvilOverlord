@@ -26,6 +26,9 @@ public class Movement : MonoBehaviour {
 
 	public int ControllerNumber;
 
+	private Collider2D lastCollider;
+	private bool enableLeave;
+
 	Collider _playerCollider;
 	[SerializeField] Player _thePlayer;
 
@@ -191,7 +194,7 @@ public class Movement : MonoBehaviour {
 
 	Boundary CheckHitGetBoundary (Vector2 dir)
 	{
-		/*Ray r  = new Ray(transform.position,dir);
+				/*Ray r  = new Ray(transform.position,dir);
 		RaycastHit hit;
 		Physics.Raycast(r, out hit,0.01f);
 		
@@ -204,20 +207,22 @@ public class Movement : MonoBehaviour {
 			}
 		}
 		return null;*/
-		Ray2D r;
-		Vector2 startCast = new Vector2 (transform.position.x, transform.position.y-0.06f);
-		startCast  = startCast + (dir.normalized * 0.05f);
-		Vector2 dest = startCast + (dir.normalized * 0.05f);
+				Ray2D r;
+				Vector2 startCast = new Vector2 (transform.position.x, transform.position.y - 0.06f);
+				startCast = startCast + (dir.normalized * 0.05f);
+				Vector2 dest = startCast + (dir.normalized * 0.05f);
 
-		Debug.DrawLine (new Vector3(startCast.x, startCast.y, 0), new Vector3(dest.x, dest.y, 0), Color.red, 2);
-		RaycastHit2D hit = Physics2D.Linecast (startCast, dest);
+				Debug.DrawLine (new Vector3 (startCast.x, startCast.y, 0), new Vector3 (dest.x, dest.y, 0), Color.red, 2);
+				RaycastHit2D[] hit = Physics2D.LinecastAll (startCast, dest);
 
-		if (hit.collider != null) {
-			//if(hit.collider.tag == "boundary")
-			//{
-				return hit.collider.gameObject.GetComponent<Boundary> ();
-			//}
+		for (int i = 0; i < hit.Length; i++) {
+			if (hit [i].collider != null && hit[i].collider.tag != "Player") {
+								//if(hit.collider.tag == "boundary")
+								//{
+								return hit[i].collider.gameObject.GetComponent<Boundary> ();
+								//}
 
+			}
 		}
 		return null;
 
@@ -420,52 +425,7 @@ public class Movement : MonoBehaviour {
 		}
 	}
 
-
-	void OnCollisionEnter2D (Collision2D c)
-	{
-		Debug.Log ("Registering collision with " + c.collider.name);
-		if (c.collider.tag == "Item")
-		{
-			if (_thePlayer.OnRoomLocation != null)
-			{	
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
-			}
-
-			RoomLocation r = c.collider.gameObject.GetComponent<RoomLocation>();
-			bool occupied = false;
-
-			foreach (Player p in PlayerController.instance.Players)
-			{
-
 	
-				if (p.OnRoomLocation == r)
-				{
-
-					occupied = true;
-				}
-			}
-
-			if (!occupied)
-			{
-
-				_thePlayer.OnRoomLocation = r;
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color = _thePlayer.PlayerColor;
-			}
-		}
-	}
-
-	void OnCollisionExit (Collision c)
-	{
-		if (c.collider.tag != "Player")
-		{
-			if (_thePlayer.OnRoomLocation != null)
-			{
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
-				_thePlayer.OnRoomLocation = null;
-			}
-		}
-	}
-
 	void OnTriggerExit2D (Collider2D c)
 	{
 		if (c.tag != "Player")
