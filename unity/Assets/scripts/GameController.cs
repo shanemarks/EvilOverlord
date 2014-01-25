@@ -24,6 +24,9 @@ public class GameController : SingletonBehaviour<GameController>
 	RoomObject ventWithPoison;
 
 	public RoomObject VentWithPoison { get { return ventWithPoison; } }
+	
+	bool poisonVentOpen = false;
+	public bool PoisonVentOpen { get { return poisonVentOpen; } }
 
 	static bool IsGeneralItem(ItemType itemType)
 	{
@@ -112,6 +115,9 @@ public class GameController : SingletonBehaviour<GameController>
 	{
 		Debug.Log ("Restarting Game");
 		SetupRoomObjects();
+
+		
+		poisonVentOpen = false;
 
 		// do anything else that is needed
 
@@ -333,14 +339,17 @@ public class GameController : SingletonBehaviour<GameController>
 	}
 
 
-
+	public bool showDebugOutput = false;
 
 	void OnGUI()
 	{
-		GUILayout.Label("");
-		foreach (RoomObject roomObject in roomItemLocations.Keys)
+		if (showDebugOutput)
 		{
-			GUILayout.Label(roomObject +"\t <- "+roomItemLocations[roomObject]);
+			GUILayout.Label("");
+			foreach (RoomObject roomObject in roomItemLocations.Keys)
+			{
+				GUILayout.Label(roomObject +"\t <- "+roomItemLocations[roomObject]);
+			}
 		}
 	}
 
@@ -358,15 +367,25 @@ public class GameController : SingletonBehaviour<GameController>
 			return;
 		}
 
+		if (roomObject == ventWithPoison)
+		{
+			UIManager.instance.CreateObjectPickupAnimation (player.transform.position+Vector3.up*1f, "POISON GAS RELEASED!");
+			poisonVentOpen = true;
+		}
+		else if (roomObject == RoomObject.CleanVent || roomObject == RoomObject.CleanVent)
+		{
+			UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "vent did nothing");
+		}
+
 		unexploredLocations.Remove(roomObject);
 
 		if (roomItemLocations[roomObject] != ItemType.BoobyTrap)
 		{
-			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"Object Picked Up");
+			UIManager.instance.CreateObjectPickupAnimation (player.transform.position,"Object Picked Up");
 		}
 		else
 		{
-			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"BOOBY TRAP!");
+			UIManager.instance.CreateObjectPickupAnimation (player.transform.position,"BOOBY TRAP!");
 		}
 		player.ItemsOwned = roomItemLocations[roomObject];
 	}

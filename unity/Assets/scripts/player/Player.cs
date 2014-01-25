@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Holoville.HOTween;
 
 public class Player: MonoBehaviour {
 		
@@ -28,13 +29,22 @@ public class Player: MonoBehaviour {
 
 	void Update ()
 	{
-		// TODO it items contain boobytrap, asplode the person
 
-		if (IsAlive)
+		if (ItemsOwned == ItemType.BoobyTrap)
 		{
-			if (ItemsOwned == ItemType.BoobyTrap)
+			KillPlayer ();
+		}
+
+
+		if (GameController.instance.PoisonVentOpen)
+		{
+			if (ItemsOwned != ItemType.GasMask)
 			{
-				KillPlayer ();
+				KillPlayer();
+			}
+			else
+			{
+				UIManager.instance.CreateObjectPickupAnimation (transform.position, "Gas mask used");
 			}
 		}
 
@@ -42,14 +52,20 @@ public class Player: MonoBehaviour {
 
 	public void KillPlayer ()
 	{
-		Debug.Log ("Kill player");
-		IsAlive =  false;
-		_movement.enabled = false;
+		if (IsAlive)
+		{
+			Debug.Log ("Kill player");
+			IsAlive =  false;
+			_movement.enabled = false;
+
+			HOTween.To(GetComponent<UIPanel>(), 1f, "alpha", 0f);
+		}
 	}
 	
 	void ResetPlayer ()
 	{
 		_movement.enabled = true;
+		GetComponent<UIPanel>().alpha = 1;
 	}
 }
 
