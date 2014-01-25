@@ -175,7 +175,12 @@ public class Movement : MonoBehaviour {
 		if (_thePlayer.OnRoomLocation != null)
 		{
 			Debug.Log ("Action Fired");
+			if (_thePlayer.OnRoomLocation.IsVent)
+			{
+				//TODO: GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.ventObjectType);
+			}
 			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
+
 
 		}
 	}

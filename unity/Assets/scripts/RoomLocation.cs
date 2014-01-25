@@ -5,4 +5,6 @@ public class RoomLocation : MonoBehaviour
 {
 
 	public RoomObject roomObjectType;
+	public VentObject ventObjectType;
+	public bool IsVent;
 }
