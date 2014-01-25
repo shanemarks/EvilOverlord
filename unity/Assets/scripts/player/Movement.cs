@@ -11,8 +11,9 @@ public class Movement : MonoBehaviour {
 	public KeyCode Right = KeyCode.D;
 	public KeyCode Action = KeyCode.Space;
 	Transform _trans;
-
-	public float MovementSpeed = 1;
+	
+	public float MovementSpeedBase = 1;
+	private float MovementSpeed;
 
 	Collider _playerCollider;
 	[SerializeField] Player _thePlayer;
@@ -34,6 +35,11 @@ public class Movement : MonoBehaviour {
 		{
 			if (UseKeyboard)
 			{
+				if ((Input.GetKey(Up) && Input.GetKey(Left)) || (Input.GetKey(Down) && Input.GetKey(Right)))
+					MovementSpeed = MovementSpeedBase * Mathf.Sqrt (3) / 2;
+				else
+					MovementSpeed = MovementSpeedBase;
+
 				if (Input.GetKey(Up))
 				{
 					MoveUp ();
@@ -98,9 +104,9 @@ public class Movement : MonoBehaviour {
 	void MoveUp()
 	{
 
-		Boundary b = CheckHitGetBoundary(Vector3.up);
+		Boundary b = CheckHitGetBoundary(Vector3.up + 2*Vector3.left); 
 	
-		if (!CheckHit(Vector3.up)) _trans.localPosition += new Vector3 (0,MovementSpeed, 0);
+		if (!CheckHit(Vector3.up + 2*Vector3.left )) _trans.localPosition += new Vector3 (-2,1, 0).normalized * MovementSpeed ;
 
 
 		else
@@ -144,10 +150,10 @@ public class Movement : MonoBehaviour {
 	void MoveDown ()
 	{
 
-		Boundary b = CheckHitGetBoundary(Vector3.down);
+		Boundary b = CheckHitGetBoundary(Vector3.down + 2*Vector3.right);
 
 		
-		if (!CheckHit(Vector3.down)) _trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
+		if (!CheckHit(Vector3.down + 2*Vector3.right )) _trans.localPosition -=  new Vector3 (-2,1, 0).normalized * MovementSpeed ;
 		else 
 		{
 			if (b != null)
@@ -162,13 +168,13 @@ public class Movement : MonoBehaviour {
 
 	void MoveLeft ()
 	{
-		if (!CheckHit(Vector3.left))	_trans.localPosition += new Vector3 (-MovementSpeed,0, 0);
+		if (!CheckHit(Vector3.down + 2*Vector3.left))	_trans.localPosition +=  new Vector3 (-2,-1, 0).normalized * MovementSpeed;
 		else if (!CheckHit(Vector3.down)) _trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
 	}
 
 	void MoveRight ()
 	{
-		if (!CheckHit(Vector3.right))_trans.localPosition += new Vector3 (MovementSpeed,0, 0);
+		if (!CheckHit(Vector3.up + 2*Vector3.right))_trans.localPosition -= new Vector3 (-2,-1, 0).normalized * MovementSpeed;
 		else if (!CheckHit(Vector3.up)) _trans.localPosition += new Vector3 (0,MovementSpeed, 0);
 	}
 
