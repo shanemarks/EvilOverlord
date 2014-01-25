@@ -42,6 +42,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i]._movement.Left = Left[i];		
 			Players[i]._movement.Right = Right[i];	
 			Players[i]._movement.Action = Action[i];
+			Players[i].Index = i;
 			Players[i].StartPos = new Vector3 ((i+4)*125,-50,0);
 			Players[i].transform.localPosition = Players[i].StartPos;
 			Players[i].PlayerColor = PlayerColors[i];
