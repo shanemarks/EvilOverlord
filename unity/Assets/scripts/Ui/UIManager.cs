@@ -5,6 +5,9 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public UIPanel PlayerPanel;
 
+	public Camera UICamera;
+
+	public UILabel TextInfo;
 
 	void AnswerPhone ()
 	{

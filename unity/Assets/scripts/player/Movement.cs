@@ -18,6 +18,8 @@ public class Movement : MonoBehaviour {
 
 	RoomLocation OnRoomLocation;
 
+
+
 	void Start () 
 	{
 		_playerCollider = GetComponent<Collider> ();
@@ -55,30 +57,116 @@ public class Movement : MonoBehaviour {
 	}
 
 
-	void MoveUp()
+	 bool CheckHit (Vector3 dir)
 	{
-		Ray r  = new Ray(transform.position,new Vector3(0,1,0));
+
+		Ray r  = new Ray(transform.position,dir);
 		RaycastHit hit;
-		collider.Raycast(r,out hit,500);
-		Debug.Log (hit.collider);
-	
-		_trans.localPosition += new Vector3 (0,MovementSpeed, 0);
+		Physics.Raycast(r, out hit,0.01f);
+
+		if (hit.collider != null)
+		{
+			if (hit.collider.tag == "boundary")
+			{
+				return true;
+			}
+		}
+		return false;
+
 	}
 
+
+	Boundary CheckHitGetBoundary (Vector3 dir)
+	{
+		Ray r  = new Ray(transform.position,dir);
+		RaycastHit hit;
+		Physics.Raycast(r, out hit,0.01f);
+		
+		if (hit.collider != null)
+		{
+
+			return hit.collider.gameObject.GetComponent<Boundary> ();
+			
+		}
+		return null;
+
+	}
+
+	void MoveUp()
+	{
+
+		Boundary b = CheckHitGetBoundary(Vector3.up);
+	
+		if (!CheckHit(Vector3.up)) _trans.localPosition += new Vector3 (0,MovementSpeed, 0);
+
+
+		else
+		{
+			if (b != null)
+			{
+
+				CheckSlide(b);
+			}
+
+			else
+			{
+				MoveLeft ();
+			}
+		}
+
+	
+	}
+
+
+	void CheckSlide (Boundary b)
+	{
+
+		
+		switch (b.PreferredSlideDirection)
+		{
+		case Boundary.Direction.Left:
+			MoveLeft ();
+			break;
+		case Boundary.Direction.Right:
+			MoveRight ();
+			break;
+		case Boundary.Direction.Up:
+			MoveUp ();
+			break;
+		case Boundary.Direction.Down:
+			MoveDown ();
+			break;
+		}
+	}
 	void MoveDown ()
 	{
 
-		_trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
+		Boundary b = CheckHitGetBoundary(Vector3.down);
+
+		
+		if (!CheckHit(Vector3.down)) _trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
+		else 
+		{
+			if (b != null)
+			{
+				Debug.Log ("checking down slide");
+				CheckSlide(b);
+			}
+
+			else  if (!CheckHit(Vector3.right))   _trans.localPosition += new Vector3 (MovementSpeed,0, 0);
+		}
 	}
 
 	void MoveLeft ()
 	{
-		_trans.localPosition += new Vector3 (-MovementSpeed,0, 0);
+		if (!CheckHit(Vector3.left))	_trans.localPosition += new Vector3 (-MovementSpeed,0, 0);
+		else if (!CheckHit(Vector3.down)) _trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
 	}
 
 	void MoveRight ()
 	{
-		_trans.localPosition += new Vector3 (MovementSpeed,0, 0);
+		if (!CheckHit(Vector3.right))_trans.localPosition += new Vector3 (MovementSpeed,0, 0);
+		else if (!CheckHit(Vector3.up)) _trans.localPosition += new Vector3 (0,MovementSpeed, 0);
 	}
 
 	void FireAction ()
