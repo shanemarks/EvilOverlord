@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Movement : MonoBehaviour {
 
@@ -191,7 +191,7 @@ public class Movement : MonoBehaviour {
 				
 			}
 
-			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"Object Picked Up");
+//			UIManager.instance.CreateObjectPickupAnimation (_thePlayer.transform.position,"Object Picked Up");
 			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
 
 
@@ -199,7 +199,48 @@ public class Movement : MonoBehaviour {
 
 		else
 		{
-			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"Action Triggered");
+
+			if (_thePlayer.ItemsOwned == ItemType.RealKnife || _thePlayer.ItemsOwned == ItemType.FakeKnife)
+			{
+
+				// find nearest player
+				Debug.Log ("Looking for closest player to "+_thePlayer.name);
+				
+				float minDist = float.PositiveInfinity;
+				Player closestPlayer = null;
+				foreach (Player testPlayer in PlayerController.instance.Players)
+				{
+					if (testPlayer == _thePlayer)
+						continue;
+
+					float dist = Vector2.Distance(testPlayer.transform.position, _thePlayer.transform.position);
+					Debug.Log ("Distance "+ dist);
+					if (dist < minDist)
+					{
+						Debug.Log ("Setting closest player to "+ testPlayer.name+" ("+ dist+")");
+						closestPlayer = testPlayer;
+						minDist = dist;
+					}
+				}
+
+				if (minDist <= GameController.instance.knifeRange)
+				{
+					if (_thePlayer.ItemsOwned == ItemType.RealKnife)
+					{
+						UIManager.instance.CreateObjectPickupAnimation (closestPlayer.transform.position,"Stabbed to death!");
+						closestPlayer.KillPlayer();
+
+						_thePlayer.DropItem();
+
+					}
+					if (_thePlayer.ItemsOwned == ItemType.FakeKnife)
+					{
+						UIManager.instance.CreateObjectPickupAnimation (_thePlayer.transform.position,"Fake knife breaks!");
+						_thePlayer.DropItem();
+					}
+				}
+
+			}
 		}
 
 	}

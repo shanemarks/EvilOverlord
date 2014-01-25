@@ -24,10 +24,33 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	}
 
+	void Update ()
+	{
+		UpdateCharacterIcons();
+
+		if (Input.GetKeyDown(KeyCode.F1))
+		{
+			AnswerPhone ();
+		}
+		if (Input.GetKeyDown(KeyCode.F2))
+		{
+			ReplayInstruction();
+		}
+		if (Input.GetKeyDown(KeyCode.F3))
+		{
+			GameController.instance.showDebugOutput = !GameController.instance.showDebugOutput;
+		}
+	}
+	
 	void AnswerPhone ()
 	{
 		Debug.Log ("Answer Phone");
 		GameController.instance.PlayInstructions();
+	}
+
+	void ReplayInstruction()
+	{
+		GameController.instance.SayInstruction();
 	}
 
 	void  StartGame ()
@@ -52,7 +75,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 				return;
 			}
 
-			if (p.IsHoldingItem)
+			if (p.ItemsOwned != ItemType.None)
 			{
 				p.PlayerIcon.spriteName = CRATE_ICON;
 		
@@ -71,8 +94,4 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		go.GetComponent<UILabel>().text = s;
 	}
 
-	void Update ()
-	{
-		UpdateCharacterIcons();
-	}
 }
