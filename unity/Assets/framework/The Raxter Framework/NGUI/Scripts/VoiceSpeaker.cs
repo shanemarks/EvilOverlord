@@ -74,7 +74,7 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 	
 	public int voice_nb = 0;
 
-	
+	public int voiceRate = 1;
 	
 	void Start ()
 		
@@ -118,7 +118,7 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 			
 			Debug.Log ("Voice Rate : "+GetVoiceRate());
 			
-			SetVoiceRate(1);
+			SetVoiceRate(voiceRate);
 			
 			
 			
