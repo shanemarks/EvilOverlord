@@ -1504,6 +1504,7 @@ MonoBehaviour:
   _trans: {fileID: 0}
   ItemsOwned: 0
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  Index: -1
   PlayerSprite: {fileID: 11400062}
   PlayerIcon: {fileID: 0}
   PlayerHeadSprite: {fileID: 11400042}

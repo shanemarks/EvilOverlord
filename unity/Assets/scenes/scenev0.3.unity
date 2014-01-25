@@ -545,7 +545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!1 &159818105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,7 +1097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 7
-  IsVent: 1
+  occupiedPlayer: {fileID: 0}
 --- !u!61 &312467849
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1148,7 +1147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!1 &365197247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,7 +1619,7 @@ Transform:
   m_PrefabInternal: {fileID: 1193461757}
   m_GameObject: {fileID: 516285424}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -146.399994, y: -268.799988, z: 0}
+  m_LocalPosition: {x: -146.399994, y: -458.303589, z: 0}
   m_LocalScale: {x: 1.00012088, y: 1.00012088, z: 1.00007999}
   m_Children: []
   m_Father: {fileID: 1672960317}
@@ -1637,7 +1635,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!61 &516285427
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1848,7 +1845,7 @@ Transform:
   m_PrefabInternal: {fileID: 1193461757}
   m_GameObject: {fileID: 571625154}
   m_LocalRotation: {x: 0, y: 0, z: .707106829, w: .707106829}
-  m_LocalPosition: {x: -760.210754, y: -223, z: 0}
+  m_LocalPosition: {x: -797.577576, y: -223, z: 0}
   m_LocalScale: {x: 1.00008011, y: 1.00008011, z: 1.00007999}
   m_Children: []
   m_Father: {fileID: 1672960317}
@@ -1864,7 +1861,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!61 &571625157
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1958,7 +1954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 5
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!114 &606508746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2894,18 +2890,18 @@ MonoBehaviour:
   - {fileID: 1522297850}
   - {fileID: 2003299692}
   - {fileID: 864002511}
+  ALIVE_ICON: Alive
+  DEAD_ICON: Dead
+  KNIFE_ICON: HoldingKnife
+  MASK_ICON: HoldingMask
+  Transient: {fileID: 844763735}
   PlayerIconBorders:
   - {fileID: 1916735689}
   - {fileID: 1264932565}
   - {fileID: 1520227403}
   - {fileID: 891411967}
-  ALIVE_ICON: Alive
-  DEAD_ICON: Dead
-  HOLDING_KNIFE: HoldingKnife
-  HOLDING_MASK: HoldingMask
-  Transient: {fileID: 844763735}
-  Blood: {fileID: 100000, guid: 2117c9f9c0d55e540bc0576761f3e8c5, type: 2}
   ObjectPickupPrefab: {fileID: 100000, guid: 0fc55464d3bf97648a604eb7f06f1a98, type: 2}
+  Blood: {fileID: 100000, guid: 2117c9f9c0d55e540bc0576761f3e8c5, type: 2}
   GibAnim: {fileID: 100016, guid: 263c38b40dbf2a74aab7bd1c18916e10, type: 2}
 --- !u!4 &918878525
 Transform:
@@ -2942,6 +2938,7 @@ GameObject:
   - 124: {fileID: 957428954}
   - 81: {fileID: 957428953}
   - 82: {fileID: 957428958}
+  - 169: {fileID: 957428959}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3063,6 +3060,26 @@ AudioSource:
     m_Curve:
     - time: 0
       value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!169 &957428959
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 957428952}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_CutoffFrequency: 554.000244
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: .97481817
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3212,7 +3229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 3
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!60 &973914150
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3266,7 +3283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 2
 --- !u!1 &1022766296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3755,7 +3771,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!61 &1174919280
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3840,6 +3855,14 @@ Prefab:
     - target: {fileID: 400020, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400054, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -458.303589
+      objectReference: {fileID: 0}
+    - target: {fileID: 400056, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -797.577576
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 954dcb31cb02a45499f8bbf0a76b39b2, type: 2}
@@ -4030,7 +4053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b754273e241c54d43bc1384ec0061021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knifeRange: .300000012
+  knifeRange: .5
   chanceToRevealPreviousIntent: .300000012
   chanceToNegateInfo: 0
   chanceToGenerliseToSomethingUseful: .200000003
@@ -4127,7 +4150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 2
 --- !u!1 &1264932563
 GameObject:
   m_ObjectHideFlags: 0
@@ -4421,7 +4443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 1
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!114 &1337460001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4434,7 +4456,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!1 &1357115293
 GameObject:
   m_ObjectHideFlags: 0
@@ -4503,7 +4524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 0
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!60 &1357115297
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -4532,7 +4553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!1 &1399610491
 GameObject:
   m_ObjectHideFlags: 0
@@ -5451,7 +5471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 6
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!60 &1631243005
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5480,7 +5500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 2
 --- !u!1 &1672960316
 GameObject:
   m_ObjectHideFlags: 0
@@ -5777,6 +5796,7 @@ MonoBehaviour:
   _trans: {fileID: 0}
   ItemsOwned: 0
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  Index: -1
   PlayerSprite: {fileID: 1960916175}
   PlayerIcon: {fileID: 0}
   PlayerHeadSprite: {fileID: 965423241}
@@ -6302,7 +6322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 2
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!58 &1881731509
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6327,7 +6347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 2
 --- !u!1 &1908668992
 GameObject:
   m_ObjectHideFlags: 0
@@ -6396,7 +6415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 0
-  IsVent: 1
+  occupiedPlayer: {fileID: 0}
 --- !u!61 &1908668996
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6421,7 +6440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 3
 --- !u!1 &1916735687
 GameObject:
   m_ObjectHideFlags: 0
@@ -6543,7 +6561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomObjectType: 4
-  IsVent: 0
+  occupiedPlayer: {fileID: 0}
 --- !u!60 &1939766751
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -6572,7 +6590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cefd690d3b551e4ebae0a579e28acf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreferredSlideDirection: 2
 --- !u!1 &1956194336
 GameObject:
   m_ObjectHideFlags: 0
