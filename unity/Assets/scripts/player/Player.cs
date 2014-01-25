@@ -14,8 +14,10 @@ public class Player: MonoBehaviour {
 
 	public Color  PlayerColor;
 
-	public UISprite PlayerSprite;
+	public UISprite PlayerSprite, PlayerIcon;
 	public  RoomLocation OnRoomLocation;
+
+	public bool  IsHoldingItem;
 
 	void Start ()
 	{
@@ -27,6 +29,7 @@ public class Player: MonoBehaviour {
 	void Update ()
 	{
 		// TODO it items contain boobytrap, asplode the person
+
 	}
 
 	public void KillPlayer ()

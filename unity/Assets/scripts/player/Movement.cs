@@ -30,29 +30,32 @@ public class Movement : MonoBehaviour {
 	
 	void Update () 
 	{
-		if (UseKeyboard)
+		if (_thePlayer.IsAlive)
 		{
-			if (Input.GetKey(Up))
+			if (UseKeyboard)
 			{
-				MoveUp ();
-			}
-			if (Input.GetKey(Down))
-			{
-				MoveDown ();
-			}
-			if (Input.GetKey(Left))
-			{
-				MoveLeft ();
-			}
+				if (Input.GetKey(Up))
+				{
+					MoveUp ();
+				}
+				if (Input.GetKey(Down))
+				{
+					MoveDown ();
+				}
+				if (Input.GetKey(Left))
+				{
+					MoveLeft ();
+				}
 
-			if (Input.GetKey(Right))
-			{
-				MoveRight ();
-			}
+				if (Input.GetKey(Right))
+				{
+					MoveRight ();
+				}
 
-			if (Input.GetKeyUp(Action))
-			{
-				FireAction ();
+				if (Input.GetKeyUp(Action))
+				{
+					FireAction ();
+				}
 			}
 		}
 	}
@@ -178,11 +181,20 @@ public class Movement : MonoBehaviour {
 			if (_thePlayer.OnRoomLocation.IsVent)
 			{
 				//TODO: GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.ventObjectType);
+				
 			}
+
+			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"Object Picked Up");
 			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
 
 
 		}
+
+		else
+		{
+			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"Action Triggered");
+		}
+
 	}
 	
 	void OnCollisionEnter (Collision c)

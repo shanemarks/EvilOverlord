@@ -41,12 +41,17 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i]._movement.Down = Down[i];
 			Players[i]._movement.Left = Left[i];		
 			Players[i]._movement.Right = Right[i];	
+			Players[i]._movement.Action = Action[i];
 			Players[i].StartPos = new Vector3 ((i+2)*200,0,0);
 			Players[i].transform.localPosition = Players[i].StartPos;
 			Players[i].PlayerColor = PlayerColors[i];
 			Players[i].PlayerSprite.color = PlayerColors[i];
 			Players[i]._movement.MovementSpeed = MovementSpeed;
+			Players[i].PlayerIcon = UIManager.instance.PlayerIcons[i];
+			Players[i].IsAlive = true;
 		}
+
+ 		UIManager.instance.UpdateCharacterIcons ();
 	}
 
 
