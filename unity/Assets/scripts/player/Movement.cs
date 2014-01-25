@@ -70,7 +70,7 @@ public class Movement : MonoBehaviour {
 
 		if (hit.collider != null)
 		{
-
+			if (hit.collider.tag =="boundary")
 				return true;
 
 		}
@@ -87,9 +87,11 @@ public class Movement : MonoBehaviour {
 		
 		if (hit.collider != null)
 		{
+			if (hit.collider.tag =="boundary")
+			{
 
-			return hit.collider.gameObject.GetComponent<Boundary> ();
-			
+				return hit.collider.gameObject.GetComponent<Boundary> ();
+			}
 		}
 		return null;
 
