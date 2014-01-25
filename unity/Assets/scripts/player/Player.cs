@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Player: MonoBehaviour {
 		
@@ -10,7 +10,7 @@ public class Player: MonoBehaviour {
 	public Vector3 StartPos;
 	public Transform _trans;
 
-	public ItemType[] ItemsOwned;
+	public List<ItemType> ItemsOwned;
 
 	public Color  PlayerColor;
 
@@ -22,6 +22,11 @@ public class Player: MonoBehaviour {
 	
 		_trans = gameObject.transform;
 		_trans.localPosition = StartPos;
+	}
+
+	void Update ()
+	{
+		// TODO it items contain boobytrap, asplode the person
 	}
 
 	public void KillPlayer ()

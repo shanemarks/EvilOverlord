@@ -5,19 +5,21 @@ using System.Collections;
 public class InstructionInfo 
 {
 	
-	public const string RevealPrevLied = "Last Person wanted me to give you this helpful piece of information, so ...";
-	public const string RevealPrevTruth = "Last Person wanted me to lie to you about this piece of information, it is not true that ...";
+	public const string RevealPrevTruth = "Last person wanted me to give you this piece of information, it is true that ...";
+	public const string RevealPrevLied = "Last person wanted me to lie to you about this piece of information, it is not true that ...";
 	
 	public const string Is = "is";
 	public const string IsNot = "is not";
 	
 	public const string Fake = "fake and will not gas the room";
-	public const string Poisoned = "contains poison gas";
+	public const string Poisoned = "going to release poison gas";
 
-	public const string Pass = "Pass the phone on,";
+	public const string Pass = "Pass the phone on";
 	
-	public const string WhatIsAt = "what is at";
+	public const string What = "what";
 	public const string Where = "where";
+	public const string If = "if";
+	public const string FakeOrPoisoned = "will release a poison or if it is fake";
 
 	public string WillTellNext(bool willLie)
 	{
@@ -31,12 +33,12 @@ public class InstructionInfo
 		case RoomObject.Bed:
 		case RoomObject.BunkBed:
 		case RoomObject.Rug:
-			return "under the";
+			return "under";
 		case RoomObject.Crate:
 		case RoomObject.Sink:
 		case RoomObject.Toilet:
 		case RoomObject.WallLamp:
-			return "behind the";
+			return "behind";
 		}
 
 		return "";
@@ -75,11 +77,11 @@ public class InstructionInfo
 		case ItemType.BoobyTrap:
 			return "a booby trap";
 		case ItemType.FakeKnife:
-			return "a fake knife";
+			return "the fake knife";
 		case ItemType.Knife:
-			return "a real knife";
+			return "the real knife";
 		case ItemType.GasMask:
-			return "a gas mask";
+			return "the gas mask";
 		}
 		return "";
 	}
@@ -88,15 +90,16 @@ public class InstructionInfo
 	{
 		switch (ventObject)
 		{
-		case VentObject.VentA:
-			return "vent a";
-		case VentObject.VentB:
-			return "vent b";
+		case VentObject.Vent:
+			return "the clean vent";
+		case VentObject.RustyVent:
+			return "the rusty vent";
 		}
 		return "";
 	}
 
-	
+
+
 
 	public class RevealInfo
 	{
@@ -153,14 +156,14 @@ public class InstructionInfo
 				mainString += RevealPrevLied;
 			else
 				mainString += RevealPrevTruth;
+			mainString += "\n\n";
 
 		}
 
-		mainString += "\n\n";
 
 		if (mainInfo.infoType == MainInfo.InfoType.ItemLocation)
 		{
-			mainString += GetItemName(mainInfo.itemType) + " " + (mainInfo.negateTruth ? IsNot : Is) + " " +GetRoomObjectName(mainInfo.roomObject);
+			mainString += GetItemName(mainInfo.itemType) + " " + (mainInfo.negateTruth ? IsNot : Is) + " " + GetPrepositionedObject(mainInfo.roomObject) + " " +GetRoomObjectName(mainInfo.roomObject);
 		}
 		if (mainInfo.infoType == MainInfo.InfoType.VentInfo)
 		{
@@ -173,10 +176,16 @@ public class InstructionInfo
 		
 		if (passOnInfo.willTellNextPlayerSomething)
 		{
+			// TODO if it is going to be a vent story , tell them that that will be told instead
+
+			mainString += ", ";
 			mainString += WillTellNext(passOnInfo.willLie) + " ";
 			if (passOnInfo.willRevealWhatIsAtLocation)
 			{
-				mainString += WhatIsAt + " " + (passOnInfo.infoToTell.negateTruth ? IsNot : Is) +" " + GetRoomObjectName(passOnInfo.infoToTell.roomObject);
+				if (passOnInfo.infoToTell.infoType == MainInfo.InfoType.ItemLocation)
+					mainString += What + " " + (passOnInfo.infoToTell.negateTruth ? IsNot : Is) +" " +GetPrepositionedObject (passOnInfo.infoToTell.roomObject) + " "+ GetRoomObjectName(passOnInfo.infoToTell.roomObject);
+				else if (passOnInfo.infoToTell.infoType == MainInfo.InfoType.VentInfo)
+					mainString += If + " " + GetVentName(passOnInfo.infoToTell.vent) + " " +FakeOrPoisoned;
 			}
 			else
 			{
