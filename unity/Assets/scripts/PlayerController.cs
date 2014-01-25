@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using RaxterWorks.GamepadInputManager;
+
+
 public class PlayerController : SingletonBehaviour<PlayerController>
 {
 
 	public GameObject PlayerPrefab;
+	private GameObject[] gos;
 
 
 	//hardcoded controls:
@@ -23,6 +26,37 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 	public int PlayerCount = 4;
 	public int MovementSpeed = 5;
 	public Player[] Players;
+
+	
+	public class yComparerClass : IComparer {
+		int IComparer.Compare(object x, object y) {
+			float depthx, depthy;
+
+			if(((GameObject)x).GetComponent<UIPanel>() != null)
+				depthx = ((GameObject)x).GetComponent<UIPanel>().transform.position.y;
+			else if(((GameObject)x).GetComponent<UISprite>() != null)
+				depthx = ((GameObject)x).GetComponent<UISprite>().transform.position.y;
+			else
+				return 1;
+			
+
+			if(((GameObject)y).GetComponent<UIPanel>() != null)
+				depthy = ((GameObject)y).GetComponent<UIPanel>().transform.position.y;
+			else if(((GameObject)y).GetComponent<UISprite>() != null)
+				depthy = ((GameObject)y).GetComponent<UISprite>().transform.position.y;
+			else
+				return -1;
+
+			if (depthx > depthy)
+				return -1;
+			else if (depthx < depthy)
+				return 1;
+			else
+				return 0;
+
+		}
+	}
+
 	void Start ()
 	{
 
@@ -80,6 +114,8 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			
 		}
 
+		gos = FindObjectsOfType (typeof(GameObject)) as GameObject[];
+
  		UIManager.instance.UpdateCharacterIcons ();
 	}
 
@@ -92,22 +128,30 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 		float adjFactor = Mathf.Sqrt (3);
 		float vertexRatio = 18 / 25;
 
-		lowest.GetComponent<UIPanel> ().depth = 100;
+		//lowest.GetComponent<UIPanel> ().depth = 100;
 		baseWidth = 144;
-	
 
-		for (int i = 1 ; i < PlayerCount; i++)
+		ArrayList SceneObjects = new ArrayList();
+		IComparer yComparer = new yComparerClass();
+
+		foreach(GameObject go in gos) {
+			if ((go.tag == "Player" || go.tag == "Item") && (go.GetComponent<UIPanel>() != null || go.GetComponent<UISprite>() != null)) {
+				//Debug.Log(go.name);
+				SceneObjects.Add(go); }
+		}
+
+		/*for (int i = 0 ; i < PlayerCount; i++)
 		{
-			if(Players[i].transform.position.y < lowest.transform.position.y) 
-			{
-				Players[i].GetComponent<UIPanel>().depth = lowest.GetComponent<UIPanel>().depth - 10;
-				lowest = Players[i];
-			}
-			else if(Players[i].transform.position.y > highest.transform.position.y) 
-			{
-				Players[i].GetComponent<UIPanel>().depth = highest.GetComponent<UIPanel>().depth + 10;
-				highest = Players[i];
-			}
+			SceneObjects.Add(Players[i]);
+		}*/
+
+		SceneObjects.Sort(yComparer);
+
+		for (int i = 0; i < SceneObjects.Count; i++) {
+			if(((GameObject)(SceneObjects[i])).GetComponent<UIPanel>() != null)
+				((GameObject)(SceneObjects[i])).GetComponent<UIPanel>().depth = 100 + i;
+			else
+				((GameObject)(SceneObjects[i])).GetComponent<UISprite>().depth = 100 + i;
 		}
 	}
 
