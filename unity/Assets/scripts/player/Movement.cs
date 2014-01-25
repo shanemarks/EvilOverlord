@@ -184,7 +184,6 @@ public class Movement : MonoBehaviour {
 				
 			}
 
-			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"Object Picked Up");
 			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
 
 
