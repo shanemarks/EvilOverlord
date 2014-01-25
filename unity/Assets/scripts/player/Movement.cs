@@ -178,11 +178,20 @@ public class Movement : MonoBehaviour {
 			if (_thePlayer.OnRoomLocation.IsVent)
 			{
 				//TODO: GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.ventObjectType);
+				
 			}
+
+			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"Object Picked Up");
 			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
 
 
 		}
+
+		else
+		{
+			UIManager.instance.CreateObjectPickupAnimation (gameObject.transform.position,"Action Triggered");
+		}
+
 	}
 	
 	void OnCollisionEnter (Collision c)
