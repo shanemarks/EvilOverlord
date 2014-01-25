@@ -30,29 +30,32 @@ public class Movement : MonoBehaviour {
 	
 	void Update () 
 	{
-		if (UseKeyboard)
+		if (_thePlayer.IsAlive)
 		{
-			if (Input.GetKey(Up))
+			if (UseKeyboard)
 			{
-				MoveUp ();
-			}
-			if (Input.GetKey(Down))
-			{
-				MoveDown ();
-			}
-			if (Input.GetKey(Left))
-			{
-				MoveLeft ();
-			}
+				if (Input.GetKey(Up))
+				{
+					MoveUp ();
+				}
+				if (Input.GetKey(Down))
+				{
+					MoveDown ();
+				}
+				if (Input.GetKey(Left))
+				{
+					MoveLeft ();
+				}
 
-			if (Input.GetKey(Right))
-			{
-				MoveRight ();
-			}
+				if (Input.GetKey(Right))
+				{
+					MoveRight ();
+				}
 
-			if (Input.GetKeyUp(Action))
-			{
-				FireAction ();
+				if (Input.GetKeyUp(Action))
+				{
+					FireAction ();
+				}
 			}
 		}
 	}

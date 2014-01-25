@@ -40,21 +40,28 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	{
 		foreach (Player p in PlayerController.instance.Players)
 		{
-			if (p.IsHoldingItem)
-			{
-				p.PlayerIcon.spriteName = CRATE_ICON;
-				return;
-			}
-			 if (p.IsAlive)
+
+			if (p.IsAlive)
 			{
 				p.PlayerIcon.spriteName= ALIVE_ICON;
 			}
+			
 			else
 			{
 				p.PlayerIcon.spriteName = DEAD_ICON;
+				return;
 			}
+
+			if (p.IsHoldingItem)
+			{
+				p.PlayerIcon.spriteName = CRATE_ICON;
+		
+			}
+	
 			p.PlayerIcon.Update ();
+
 		}
+
 	}
 
 	public void CreateObjectPickupAnimation (Vector3 v, string s)
