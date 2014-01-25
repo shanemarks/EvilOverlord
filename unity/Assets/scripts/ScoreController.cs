@@ -6,7 +6,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 	public class PlayerInfo
 	{
 		public string name = "Unnnamed";
-		public string score = 0;
+		public int score = 0;
 	}
 
 	public int winScore = 10;
@@ -16,10 +16,10 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 	void Start()
 	{
-		playerInfo = new PlayerInfo[4];
+		playerInfos = new PlayerInfo[4];
 		for (int i = 0 ; i < 4 ; i++)
 		{
-			playerInfos[i] = new PlayerInfo() {name = "Player "+(i+1).ToString()}
+			playerInfos[i] = new PlayerInfo() {name = "Player "+(i+1).ToString()};
 		}
 		ResetScores();
 	}
@@ -34,8 +34,8 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 	public void UpdateGameFinished(Player winner1, Player winner2)
 	{
-		scores[winner1.Index] += 1;
-		scores[winner2.Index] += 1;
+		playerInfos[winner1.Index].score += 1;
+		playerInfos[winner2.Index].score += 1;
 
 
 		List<int> winningPlayers = new List<int>();
@@ -43,9 +43,9 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 //		foreach (PlayerInfo info in playerInfos)
 		for (int i = 0 ; i < 4 ; i++)
 		{
-			if (info.score >= winScore)
+			if (playerInfos[i].score >= winScore)
 			{
-				winningPlayers.Add(i)
+				winningPlayers.Add(i);
 			}
 		}
 
