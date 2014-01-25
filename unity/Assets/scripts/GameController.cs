@@ -24,6 +24,8 @@ public class GameController : SingletonBehaviour<GameController>
 	RoomObject ventWithPoison;
 
 	public RoomObject VentWithPoison { get { return ventWithPoison; } }
+
+	public float knifeRange = 1f;
 	
 	bool poisonVentOpen = false;
 	public bool PoisonVentOpen { get { return poisonVentOpen; } }
@@ -331,13 +333,17 @@ public class GameController : SingletonBehaviour<GameController>
 	{
 		Debug.Log ("GameController::Instructing");
 
-
-		string s = instructionList[instructionList.Count-1].CreateString();
-		UIManager.instance.TextInfo.text = s;
-		VoiceSpeaker.instance.Talk (s);
+		SayInstruction();
 		state.ChangeState(GameState.GiveHeadphone);
 	}
 
+
+	public void SayInstruction()
+	{
+		string s = instructionList[instructionList.Count-1].CreateString();
+		UIManager.instance.TextInfo.text = s;
+		VoiceSpeaker.instance.Talk (s);
+	}
 
 	public bool showDebugOutput = false;
 
@@ -361,20 +367,24 @@ public class GameController : SingletonBehaviour<GameController>
 
 		Debug.Log ("GameController::PlayerActivatedLocation "+roomObject);
 
-		if (!unexploredLocations.Contains(roomObject))
-		{
-			Debug.Log (roomObject + " has already been explored");
-			return;
-		}
 
 		if (roomObject == ventWithPoison)
 		{
 			UIManager.instance.CreateObjectPickupAnimation (player.transform.position+Vector3.up*1f, "POISON GAS RELEASED!");
 			poisonVentOpen = true;
+
+			return;
 		}
-		else if (roomObject == RoomObject.CleanVent || roomObject == RoomObject.CleanVent)
+		else if (roomObject == RoomObject.CleanVent || roomObject == RoomObject.RustyVent)
 		{
 			UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "vent did nothing");
+			return;
+		}
+		
+		if (!unexploredLocations.Contains(roomObject))
+		{
+			Debug.Log (roomObject + " has already been explored");
+			return;
 		}
 
 		unexploredLocations.Remove(roomObject);

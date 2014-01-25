@@ -16,9 +16,15 @@ public class Player: MonoBehaviour {
 	public Color  PlayerColor;
 
 	public UISprite PlayerSprite, PlayerIcon;
-	public  RoomLocation OnRoomLocation;
+	public RoomLocation OnRoomLocation;
 
-	public bool  IsHoldingItem;
+
+	bool notifiedAboutGasMask = false;
+
+	public void DropItem ()
+	{
+		ItemsOwned = ItemType.None;
+	}
 
 	void Start ()
 	{
@@ -44,7 +50,11 @@ public class Player: MonoBehaviour {
 			}
 			else
 			{
-				UIManager.instance.CreateObjectPickupAnimation (transform.position, "Gas mask used");
+				if (!notifiedAboutGasMask)
+				{
+					UIManager.instance.CreateObjectPickupAnimation (transform.position, "Gas mask used");
+					notifiedAboutGasMask = true;
+				}
 			}
 		}
 
@@ -57,7 +67,8 @@ public class Player: MonoBehaviour {
 			Debug.Log ("Kill player");
 			IsAlive =  false;
 			_movement.enabled = false;
-
+			notifiedAboutGasMask = false;
+			
 			HOTween.To(GetComponent<UIPanel>(), 1f, "alpha", 0f);
 		}
 	}
