@@ -123,6 +123,11 @@ public class GameController : SingletonBehaviour<GameController>
 
 	void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.F4))
+		{
+			criticalInfoCounter = 0;
+		}
+
 		state.UpdateAll();
 	}
 
@@ -133,6 +138,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 		
 		poisonVentOpen = false;
+		ResetCriticalCounter();
 
 		// do anything else that is needed
 
@@ -148,6 +154,9 @@ public class GameController : SingletonBehaviour<GameController>
 
 
 		// add 1 or 2 pass on instructions
+		
+		AddPassOnInstruction(); // adding an instruction to skip
+
 		AddPassOnInstruction();
 		if (Random.value < 0.5)
 			AddPassOnInstruction();
@@ -362,21 +371,24 @@ public class GameController : SingletonBehaviour<GameController>
 	
 	void AddPassOnInstruction()
 	{
+		Debug.Log("Add PassOnInstruction");
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.PassOn, });
 	}
 	
 	void AddPositiveInstruction()
 	{
+		Debug.Log("Add PositiveInstruction");
 		LocationType roomLocation = PickRandomRoom();
 		PickupType pickupItem = roomItemLocations[roomLocation];
 		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
 		
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive1Location, infoPacket = iPacket, });
-		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive1Location, infoPacket = iPacket, });
+		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive2Item, infoPacket = iPacket, });
 	}
 	
 	void AddNegativeInstruction()
 	{
+		Debug.Log("Add NegativeInstruction");
 		LocationType roomLocation = PickRandomRoom();
 		PickupType pickupItem = roomItemLocations[roomLocation];
 
@@ -385,7 +397,7 @@ public class GameController : SingletonBehaviour<GameController>
 		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = notLocation};
 		
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative1Both, infoPacket = iPacket, });
-		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative1Both, infoPacket = iPacket, });
+		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative2Both, infoPacket = iPacket, });
 //		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.PassOn, });
 	}
 
@@ -401,13 +413,14 @@ public class GameController : SingletonBehaviour<GameController>
 
 		int instructionsBeforeReveal = instructionList.Count - sizeBeforeAdd;
 
-		criticalWarning.foreWarning = instructionsBeforeReveal;
+		criticalWarning.foreWarning = instructionsBeforeReveal + 1;
 
 		LocationType roomLocation = PickRandomRoom();
 		PickupType pickupItem = roomItemLocations[roomLocation];
 		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
 
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.CriticalReveal, infoPacket = iPacket, });
+		criticalWarning.infoPacket = iPacket;
 
 	}
 
@@ -419,10 +432,13 @@ public class GameController : SingletonBehaviour<GameController>
 
 	bool readyForInstruction = false;
 
-	public void PlayInstructions()
+	public void NextInstructions()
 	{
 		if (state.CurrentState == GameState.GiveHeadphone)
+		{
+			IncrementInstruction();
 			state.ChangeState(GameState.Instructing);
+		}
 	}
 	
 	void GiveHeadphones(GameState oldState, GameState newState)
@@ -432,7 +448,6 @@ public class GameController : SingletonBehaviour<GameController>
 //		instructionList.Add (CreateRandomInstructionInfo(instructionList.Count == 0 ? null : instructionList[instructionList.Count - 1]));
 
 
-		IncrementInstruction();
 
 	}
 
@@ -500,7 +515,11 @@ public class GameController : SingletonBehaviour<GameController>
 
 	public void SayCurrentInstruction()
 	{
-		string s = instructionList[0].CreateString();
+		InstructionInfo ii = instructionList[0];
+		Debug.Log ("info type "+ii.instructionType);
+		string s = ii.CreateString();
+		Debug.Log ("SAYING "+s);
+		Debug.Log ("---");
 		UIManager.instance.TextInfo.text = s;
 		VoiceSpeaker.instance.Talk (s);
 	}
@@ -516,7 +535,15 @@ public class GameController : SingletonBehaviour<GameController>
 			{
 				GUILayout.Label(roomObject +"\t <- "+roomItemLocations[roomObject]);
 			}
+
+			foreach (InstructionInfo ii in instructionList)
+			{
+				GUILayout.Label(ii.instructionType.ToString());
+			}
+			GUILayout.Label(criticalInfoCounter.ToString());
 		}
+		
+		UIManager.instance.TextInfo.gameObject.SetActive(showDebugOutput);
 	}
 
 

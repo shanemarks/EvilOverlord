@@ -45,7 +45,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	public void AnswerPhone ()
 	{
 		Debug.Log ("Answer Phone");
-		if (VoiceSpeaker.GetVoiceState() ==0)	GameController.instance.PlayInstructions();
+		if (VoiceSpeaker.GetVoiceState() ==0)	GameController.instance.NextInstructions();
 	}
 
 	public void ReplayInstruction()

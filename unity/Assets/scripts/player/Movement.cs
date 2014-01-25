@@ -192,7 +192,7 @@ public class Movement : MonoBehaviour {
 			if (roomLocation != null)
 			{
 				float dist = Vector2.Distance(transform.position, roomLocation.transform.position);
-				Debug.Log ("RoomLocation hit ("+_thePlayer.Index+")" + roomLocation.roomObjectType +" - "+dist);
+//				Debug.Log ("RoomLocation hit ("+_thePlayer.Index+")" + roomLocation.roomObjectType +" - "+dist);
 
 
 				if (dist < minDist)
@@ -202,7 +202,7 @@ public class Movement : MonoBehaviour {
 				}
 			}
 		}
-		Debug.Log ("RoomLocation hit ---");
+//		Debug.Log ("RoomLocation hit ---");
 
 		if (closestLocation != null) // we are over a location
 		{

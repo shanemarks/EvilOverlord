@@ -121,9 +121,15 @@ public class InstructionInfo
 	public string CreateString()
 	{
 
-		return GetRawString()
+		string raw = GetRawString();
+
+		if (infoPacket == null)
+			return raw + " " + PassHeadphones;
+
+		return raw
 				.Replace("<ITEM>", GetItemName(infoPacket.item))
-				.Replace("<LOCATION>", GetPrepositionedForLocation(infoPacket.location) + " " + GetRoomLocationName(infoPacket.location)) +
+				.Replace("<LOCATION>", GetPrepositionedForLocation(infoPacket.location) + " " + GetRoomLocationName(infoPacket.location))
+				.Replace("<WARNING_TIME>", foreWarning.ToString()) +
 				" " + PassHeadphones;
 	}
 
