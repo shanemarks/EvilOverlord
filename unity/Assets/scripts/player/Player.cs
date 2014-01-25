@@ -15,7 +15,7 @@ public class Player: MonoBehaviour {
 
 	public Color  PlayerColor;
 
-	public UISprite PlayerSprite, PlayerIcon;
+	public UISprite PlayerSprite, PlayerIcon, PlayerHeadSprite, FrontFootSprite, BackFootSprite;
 	public RoomLocation OnRoomLocation;
 
 

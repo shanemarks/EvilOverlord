@@ -71,12 +71,12 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 		for (int i = 1 ; i < PlayerCount; i++)
 		{
-			if(Players[i].transform.y < lowest.transform.y) 
+			if(Players[i].transform.position.y < lowest.transform.position.y) 
 			{
 				Players[i].GetComponent<UIPanel>().depth = lowest.GetComponent<UIPanel>().depth - 10;
 				lowest = Players[i];
 			}
-			else if(Players[i].transform.y > highest.transform.y) 
+			else if(Players[i].transform.position.y > highest.transform.position.y) 
 			{
 				Players[i].GetComponent<UIPanel>().depth = highest.GetComponent<UIPanel>().depth + 10;
 				highest = Players[i];
