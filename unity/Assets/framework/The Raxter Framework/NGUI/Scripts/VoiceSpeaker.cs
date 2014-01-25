@@ -76,6 +76,9 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 
 	public int voiceRate = 1;
 	
+	public float noVoiceVolume = 0.6f;
+	public float voiceVolume = 0.2f;
+	
 	void Start ()
 		
 	{
@@ -153,12 +156,12 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 	{
 		if (GetVoiceState() == 0)
 		{
-			_bgmusic.volume = 1f;
+			_bgmusic.volume = noVoiceVolume;
 		}
 		
 		else if (GetVoiceState() == 1)
 		{
-			_bgmusic.volume = 0.45f;
+			_bgmusic.volume = voiceVolume;
 		}
 		
 

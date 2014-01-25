@@ -44,10 +44,12 @@ public class Movement : MonoBehaviour {
 	void Update () 
 	{
 
-		if (GamepadInput.GetButtonUp(Button.Select,ControllerNumber) || GamepadInput.GetButtonUp(Button.Start,ControllerNumber))
-		{
-			UIManager.instance.AnswerPhone ();
-		}
+//		if ((_controller == ControllerType.XboxLeft && GamepadInput.GetButtonUp(Button.Select, ControllerNumber)) || 
+//		    (_controller == ControllerType.XboxRight && GamepadInput.GetButtonUp(Button.Start, ControllerNumber)))
+//		{
+//			Debug.Log("AnswerPhone - frame "+Time.frameCount);
+//			UIManager.instance.AnswerPhone ();
+//		}
 
 	
 		if (_thePlayer.IsAlive)

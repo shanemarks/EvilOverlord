@@ -385,14 +385,52 @@ public class GameController : SingletonBehaviour<GameController>
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive1Location, infoPacket = iPacket, });
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive2Item, infoPacket = iPacket, });
 	}
-	
+
+	IEnumerable<PickupType> GetSimilarItems(PickupType pickupItem)
+	{
+		switch (pickupItem)
+		{
+		case PickupType.BoobyTrap1:
+		case PickupType.BoobyTrap2:
+		case PickupType.BoobyTrap3:
+			yield return PickupType.BoobyTrap1;
+			yield return PickupType.BoobyTrap2;
+			yield return PickupType.BoobyTrap3;
+			break;
+		case PickupType.FakeKnife:
+			yield return PickupType.FakeKnife;
+			break;
+		case PickupType.RealKnife1:
+		case PickupType.RealKnife2:
+			yield return PickupType.RealKnife1;
+			yield return PickupType.RealKnife2;
+			break;
+		case PickupType.GasMask1:
+		case PickupType.GasMask2:
+			yield return PickupType.GasMask1;
+			yield return PickupType.GasMask2;
+			break;
+		case PickupType.GasTrap:
+			yield return PickupType.GasTrap;
+			break;
+		}
+	}
+
 	void AddNegativeInstruction()
 	{
 		Debug.Log("Add NegativeInstruction");
 		LocationType roomLocation = PickRandomRoom();
 		PickupType pickupItem = roomItemLocations[roomLocation];
 
-		LocationType notLocation = PickRandomInverseRoom(roomLocation);
+		List<PickupType> similarItems = new List<PickupType>(GetSimilarItems(pickupItem));
+
+//		Dictionary<PickupType, RoomLocation> reverseItemLookup = roomItemLocations.CreateReverseLookup(
+
+		Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
+		
+		LocationType notLocation = PickRandomInverseRoom(similarItems.ConvertAll((i) => whereItemsAre[i]).ToArray());
+
+//		LocationType notLocation = PickRandomInverseRoom(roomLocation);
 
 		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = notLocation};
 		
@@ -459,21 +497,21 @@ public class GameController : SingletonBehaviour<GameController>
 	void AddNonCriticalInstruction()
 	{
 		float randomValue = Random.value;
-		if (randomValue < 0.25f)
+		if (randomValue < 0.1f)
+		{
+			// 10% passon
+			
+			AddPassOnInstruction();
+		}
+		else if (randomValue < 0.35f)
 		{
 			// 25% positive
 			
 			AddPositiveInstruction();
 		}
-		else if (randomValue < 0.5f)
-		{
-			// 25% passon
-			
-			AddPassOnInstruction();
-		}
 		else
 		{
-			// 50% negative info
+			// 65% negative info
 			
 			AddNegativeInstruction();
 		}
@@ -481,6 +519,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 	void IncrementInstruction()
 	{
+		Debug.Log("IncrementInstruction");
 		instructionList.RemoveAt(0);
 
 		// append new instructions
