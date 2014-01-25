@@ -5,9 +5,11 @@ using System.Collections.Generic;
 
 
 
-public enum ItemType {None, SomethingUseful, SomeKnife, BoobyTrap, RealKnife, FakeKnife, GasMask}
+//public enum ItemType {None, SomethingUseful, SomeKnife, BoobyTrap, RealKnife, FakeKnife, GasMask}
+//
+public enum LocationType {RedBed, GreenBed, Sink, Toilet, Shelf, Grate, WallLamp, CleanVent, RustyVent}
 
-public enum RoomObject {RedBed, GreenBed, Sink, Toilet, Shelf, Crate, WallLamp, CleanVent, RustyVent}
+public enum PickupType {None = -1, BoobyTrap1, BoobyTrap2, BoobyTrap3, RealKnife1, RealKnife2, FakeKnife, GasMask1, GasMask2, GasTrap}
 
 //public enum VentObject {}
 
@@ -15,77 +17,76 @@ public enum RoomObject {RedBed, GreenBed, Sink, Toilet, Shelf, Crate, WallLamp, 
 public class GameController : SingletonBehaviour<GameController> 
 {
 	
-	Dictionary<RoomObject, ItemType> roomItemLocations;
+	Dictionary<LocationType, PickupType> roomItemLocations;
 
-	List<RoomObject> unexploredLocations;
+	List<LocationType> unexploredLocations;
 
 	List<InstructionInfo> instructionList = new List<InstructionInfo>();
 
-	RoomObject ventWithPoison;
+	LocationType ventWithPoison;
 
-	public RoomObject VentWithPoison { get { return ventWithPoison; } }
+	public LocationType VentWithPoison { get { return ventWithPoison; } }
 
 	public float knifeRange = 1f;
+
+	int criticalInfoCounter = 0;
 	
 	bool poisonVentOpen = false;
 	public bool PoisonVentOpen { get { return poisonVentOpen; } }
 
-	static bool IsGeneralItem(ItemType itemType)
-	{
-		if (itemType == ItemType.None)
-			return true;
-		if (itemType == ItemType.SomethingUseful)
-			return true;
-		if (itemType == ItemType.SomeKnife)
-			return true;
-
-		return false;
-	}
-
-	static bool CanHideInRoomObject(RoomObject roomObject)
-	{
-		if (roomObject == RoomObject.CleanVent)
-			return false;
-		if (roomObject == RoomObject.RustyVent)
-			return false;
-
-		return true;
-	}
+//	static bool IsGeneralItem(ItemType itemType)
+//	{
+//		if (itemType == ItemType.None)
+//			return true;
+//		if (itemType == ItemType.SomethingUseful)
+//			return true;
+//		if (itemType == ItemType.SomeKnife)
+//			return true;
+//
+//		return false;
+//	}
+//
+//	static bool CanHideInRoomObject(LocationType roomObject)
+//	{
+//		if (roomObject == LocationType.CleanVent)
+//			return false;
+//		if (roomObject == LocationType.RustyVent)
+//			return false;
+//
+//		return true;
+//	}
 
 	void SetupRoomObjects()
 	{
-		roomItemLocations = new Dictionary<RoomObject, ItemType>();
+		roomItemLocations = new Dictionary<LocationType, PickupType>();
 
-		List<RoomObject> roomObjects = new List<RoomObject>();
-		foreach(RoomObject roomObject in  System.Enum.GetValues(typeof(RoomObject)))
+		List<LocationType> roomLocations = new List<LocationType>();
+		foreach(LocationType roomLocation in  System.Enum.GetValues(typeof(LocationType)))
 		{
-			if (CanHideInRoomObject(roomObject))
-			{
-				roomObjects.Add(roomObject);
-			}
+			roomLocations.Add(roomLocation);
 		}
 
 
-		List<ItemType> roomItems = new List<ItemType>();
+		List<PickupType> pickupItems = new List<PickupType>();
 
-		foreach (ItemType itemType in System.Enum.GetValues(typeof(ItemType)))
+		foreach (PickupType itemLocation in System.Enum.GetValues(typeof(PickupType)))
 		{
-			if (IsGeneralItem(itemType))
+			if (itemLocation == PickupType.None)
 				continue;
 
-			roomItems.Add (itemType);
+			pickupItems.Add (itemLocation);
 		}
 
-		while (roomItems.Count < roomObjects.Count)
-			roomItems.Add(ItemType.BoobyTrap);
+//		while (roomItems.Count < roomObjects.Count)
+//			roomItems.Add(ItemType.BoobyTrap);
 
 		// add random itoms to objects
-		foreach (RoomObject roomObject in roomObjects)
+		foreach (LocationType roomObject in roomLocations)
 		{
-			int randomIndex = Random.Range(0, roomItems.Count);
-			roomItemLocations[roomObject] = roomItems[randomIndex];
+			int randomIndex = Random.Range(0, roomLocations.Count);
+			roomItemLocations[roomObject] = pickupItems[randomIndex];
 
-			roomItems.RemoveAt(randomIndex);
+			roomLocations.RemoveAt(randomIndex);
 		}
 
 	}
@@ -123,7 +124,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 		// do anything else that is needed
 
-		unexploredLocations = new List<RoomObject>(roomItemLocations.Keys);
+		unexploredLocations = new List<LocationType>(roomItemLocations.Keys);
 
 		instructionList.Clear();
 //		instructionList.Add (CreateRandomInstructionInfo(null));
@@ -131,14 +132,21 @@ public class GameController : SingletonBehaviour<GameController>
 //		foreach (RoomObject roomObject in roomItemLocations.Keys)
 //			unexploredLocations.Add(roomObject);
 
-		ventWithPoison = Random.Range(0,2) == 0 ? RoomObject.CleanVent : RoomObject.RustyVent; 
+//		ventWithPoison = Random.Range(0,2) == 0 ? LocationType.CleanVent : LocationType.RustyVent; 
+
+
+		// add 1 or 2 pass on instructions
+		AddPassOnInstruction();
+		if (Random.value < 0.5)
+			AddPassOnInstruction();
+
 		state.ChangeState(GameState.GiveHeadphone);
 	}
 
 
-	RoomObject GetUnexploredLocation()
+	LocationType GetUnexploredLocation()
 	{
-		RoomObject unexploredLocation = unexploredLocations[Random.Range(0, unexploredLocations.Count)];
+		LocationType unexploredLocation = unexploredLocations[Random.Range(0, unexploredLocations.Count)];
 		return unexploredLocation;
 	}
 
@@ -152,16 +160,16 @@ public class GameController : SingletonBehaviour<GameController>
 
 	public float chanceToGenerliseToSomeKnife = 0.5f;
 	
-	public static ItemType PickRandomItem(params ItemType [] objs)
+	public static PickupType PickRandomItem(params PickupType [] objs)
 	{
 		// range is from 1 snce we do not want to pick None
 		return objs[Random.Range(1, objs.Length)];
 	}
 	
-	public static ItemType PickRandomInverseItem(params ItemType [] notObjs)
+	public static PickupType PickRandomInverseItem(params PickupType [] notObjs)
 	{
-		List<ItemType> availableObjects = new List<ItemType>();
-		foreach (ItemType obj in System.Enum.GetValues(typeof(ItemType)))
+		List<PickupType> availableObjects = new List<PickupType>();
+		foreach (PickupType obj in System.Enum.GetValues(typeof(PickupType)))
 		{
 			if (System.Array.FindIndex(notObjs, (x) => x == obj) == -1)
 				availableObjects.Add(obj);
@@ -170,37 +178,55 @@ public class GameController : SingletonBehaviour<GameController>
 		return PickRandomItem(availableObjects.ToArray());
 	}
 
-
-	public ItemType FindRandomOpposite(ItemType itemType)
+	public static LocationType PickRandomRoom(params LocationType [] objs)
 	{
-		switch(itemType)
+		// range is from 1 snce we do not want to pick None
+		return objs[Random.Range(1, objs.Length)];
+	}
+	
+	public static LocationType PickRandomInverseRoom(params LocationType [] notObjs)
+	{
+		List<LocationType> availableObjects = new List<LocationType>();
+		foreach (LocationType obj in System.Enum.GetValues(typeof(LocationType)))
 		{
-			case ItemType.BoobyTrap:
-			return ItemType.SomethingUseful;
-			break;
-			case ItemType.FakeKnife:
-			return PickRandomInverseItem(ItemType.FakeKnife, ItemType.SomeKnife, ItemType.SomethingUseful);
-			break;
-			case ItemType.RealKnife:
-			return  PickRandomInverseItem(ItemType.RealKnife, ItemType.SomeKnife, ItemType.SomethingUseful);
-			break;
-			case ItemType.GasMask:
-			return  PickRandomInverseItem(ItemType.GasMask, ItemType.SomethingUseful);
-			break;
-			case ItemType.SomeKnife:
-			return  PickRandomInverseItem(ItemType.SomeKnife, ItemType.FakeKnife, ItemType.RealKnife);
-			break;
-			case ItemType.SomethingUseful:
-			return  ItemType.BoobyTrap;
-			break;
-			default:
-			Debug.LogError("Could not find reandom inverse/opposite item of "+itemType);
-			return  ItemType.None;
-			break;
+			if (System.Array.FindIndex(notObjs, (x) => x == obj) == -1)
+				availableObjects.Add(obj);
 		}
+		
+		return PickRandomRoom(availableObjects.ToArray());
 	}
 
-	public InstructionInfo.MainInfo CreateRandomMainInfo(bool nextWillLie, bool nextWillRevealWhatIsAtLocation)
+
+//	public ItemType FindRandomOpposite(ItemType itemType)
+//	{
+//		switch(itemType)
+//		{
+//			case ItemType.BoobyTrap:
+//			return ItemType.SomethingUseful;
+//			break;
+//			case ItemType.FakeKnife:
+//			return PickRandomInverseItem(ItemType.FakeKnife, ItemType.SomeKnife, ItemType.SomethingUseful);
+//			break;
+//			case ItemType.RealKnife:
+//			return  PickRandomInverseItem(ItemType.RealKnife, ItemType.SomeKnife, ItemType.SomethingUseful);
+//			break;
+//			case ItemType.GasMask:
+//			return  PickRandomInverseItem(ItemType.GasMask, ItemType.SomethingUseful);
+//			break;
+//			case ItemType.SomeKnife:
+//			return  PickRandomInverseItem(ItemType.SomeKnife, ItemType.FakeKnife, ItemType.RealKnife);
+//			break;
+//			case ItemType.SomethingUseful:
+//			return  ItemType.BoobyTrap;
+//			break;
+//			default:
+//			Debug.LogError("Could not find reandom inverse/opposite item of "+itemType);
+//			return  ItemType.None;
+//			break;
+//		}
+//	}
+
+	/*public InstructionInfo.MainInfo CreateRandomMainInfo(bool nextWillLie, bool nextWillRevealWhatIsAtLocation)
 	{
 		//		List<InstructionInfo.MainInfo.InfoType> infoTypes = new List<InstructionInfo.MainInfo.InfoType>();
 		//		foreach (InstructionInfo.MainInfo.InfoType infoType in System.Enum.GetValues(typeof(InstructionInfo.MainInfo.InfoType)))
@@ -208,7 +234,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 		bool willLie = nextWillLie;//previousInfo != null ? previousInfo.passOnInfo.willLie : false;
 
-		RoomObject unexploredLocation = GetUnexploredLocation();
+		LocationType unexploredLocation = GetUnexploredLocation();
 		
 //		RoomObject ventToMention = Random.Range(0,2) == 0 ? RoomObject.CleanVent : RoomObject.RustyVent; 
 
@@ -277,41 +303,93 @@ public class GameController : SingletonBehaviour<GameController>
 			
 		};
 	}
+*/
 
-	public InstructionInfo CreateRandomInstructionInfo(InstructionInfo previousInfo)
+//	public InstructionInfo CreateRandomInstructionInfo(InstructionInfo previousInfo)
+//	{
+//		InstructionInfo iInfo = new InstructionInfo();
+//
+//		iInfo.previousInstructionInfo = previousInfo;
+//
+//		iInfo.revealInfo = new InstructionInfo.RevealInfo()
+//		{
+//			revealPreviousIntent = previousInfo != null && Random.value < chanceToRevealPreviousIntent,
+//		};
+//
+//		Debug.Log ("PREVIOUS INFO "+previousInfo);
+//
+//		iInfo.mainInfo = previousInfo != null ? previousInfo.passOnInfo.infoToTell : CreateRandomMainInfo(false, false);
+//		
+//		bool nextWillLie = Random.Range(0,2) == 0;
+//		bool nextWillRevealWhatIsAtLocation = Random.Range(0,2) == 0;
+//
+//		iInfo.passOnInfo = new InstructionInfo.PassOnInfo()
+//		{
+//			willTellNextPlayerSomething = Random.Range(0,2) == 0,
+//			willLie = nextWillLie,
+//			willRevealWhatIsAtLocation = nextWillRevealWhatIsAtLocation,
+//			infoToTell =  CreateRandomMainInfo(nextWillLie, nextWillRevealWhatIsAtLocation),
+//		};
+//
+//		return iInfo;
+//	}
+
+	
+	void AddPassOnInstruction()
 	{
-		InstructionInfo iInfo = new InstructionInfo();
-
-		iInfo.previousInstructionInfo = previousInfo;
-
-		iInfo.revealInfo = new InstructionInfo.RevealInfo()
-		{
-			revealPreviousIntent = previousInfo != null && Random.value < chanceToRevealPreviousIntent,
-		};
-
-		Debug.Log ("PREVIOUS INFO "+previousInfo);
-
-		iInfo.mainInfo = previousInfo != null ? previousInfo.passOnInfo.infoToTell : CreateRandomMainInfo(false, false);
+		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.PassOn, });
+	}
+	
+	void AddPositiveInstruction()
+	{
+		LocationType roomLocation = PickRandomRoom();
+		PickupType pickupItem = roomItemLocations[roomLocation];
+		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
 		
-		bool nextWillLie = Random.Range(0,2) == 0;
-		bool nextWillRevealWhatIsAtLocation = Random.Range(0,2) == 0;
+		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive1Location, infoPacket = iPacket, });
+		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive1Location, infoPacket = iPacket, });
+	}
+	
+	void AddNegativeInstruction()
+	{
+		LocationType roomLocation = PickRandomRoom();
+		PickupType pickupItem = roomItemLocations[roomLocation];
 
-		iInfo.passOnInfo = new InstructionInfo.PassOnInfo()
-		{
-			willTellNextPlayerSomething = Random.Range(0,2) == 0,
-			willLie = nextWillLie,
-			willRevealWhatIsAtLocation = nextWillRevealWhatIsAtLocation,
-			infoToTell =  CreateRandomMainInfo(nextWillLie, nextWillRevealWhatIsAtLocation),
-		};
+		LocationType notLocation = PickRandomInverseRoom(roomLocation);
 
-		return iInfo;
+		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = notLocation};
+		
+		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative1Both, infoPacket = iPacket, });
+		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative1Both, infoPacket = iPacket, });
+//		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.PassOn, });
 	}
 
-
-	public ItemType TakeObjectFrom(RoomObject roomObject)
+	void AddCriticalInstruction()
 	{
 
-		return roomItemLocations[roomObject];
+		InstructionInfo criticalWarning = new InstructionInfo() { instructionType = InstructionType.CriticalWarning, };
+		instructionList.Add(criticalWarning);
+
+		int sizeBeforeAdd = instructionList.Count;
+		
+		AddNonCriticalInstruction();
+
+		int instructionsBeforeReveal = instructionList.Count - sizeBeforeAdd;
+
+		criticalWarning.foreWarning = instructionsBeforeReveal;
+
+		LocationType roomLocation = PickRandomRoom();
+		PickupType pickupItem = roomItemLocations[roomLocation];
+		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
+
+		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.CriticalReveal, infoPacket = iPacket, });
+
+	}
+
+	public PickupType TakeObjectFrom(LocationType location)
+	{
+		unexploredLocations.Remove(location);
+		return roomItemLocations[location];
 	}
 
 	bool readyForInstruction = false;
@@ -325,22 +403,79 @@ public class GameController : SingletonBehaviour<GameController>
 	void GiveHeadphones(GameState oldState, GameState newState)
 	{
 		Debug.Log ("GameController::GiveHeadphones");
-		instructionList.Add (CreateRandomInstructionInfo(instructionList.Count == 0 ? null : instructionList[instructionList.Count - 1]));
 
+//		instructionList.Add (CreateRandomInstructionInfo(instructionList.Count == 0 ? null : instructionList[instructionList.Count - 1]));
+
+
+		IncrementInstruction();
+
+	}
+
+	void ResetCriticalCounter()
+	{
+		criticalInfoCounter = Random.Range(10,16);
+	}
+
+	void AddNonCriticalInstruction()
+	{
+		float randomValue = Random.value;
+		if (randomValue < 0.25f)
+		{
+			// 25% positive
+			
+			AddPositiveInstruction();
+		}
+		else if (randomValue < 0.5f)
+		{
+			// 25% passon
+			
+			AddPassOnInstruction();
+		}
+		else
+		{
+			// 50% negative info
+			
+			AddNegativeInstruction();
+		}
+	}
+
+	void IncrementInstruction()
+	{
+		instructionList.RemoveAt(0);
+
+		// append new instructions
+
+		if (instructionList.Count < 2)
+		{
+			// add new instruction(s)
+
+
+			if (criticalInfoCounter == 0)
+			{
+				ResetCriticalCounter();
+
+				AddCriticalInstruction();
+			}
+			else
+			{
+				criticalInfoCounter -= 1;
+				AddNonCriticalInstruction();
+			}
+		}
 	}
 
 	void Instructing(GameState oldState, GameState newState)
 	{
 		Debug.Log ("GameController::Instructing");
 
-		SayInstruction();
+		SayCurrentInstruction();
 		state.ChangeState(GameState.GiveHeadphone);
 	}
 
 
-	public void SayInstruction()
+	public void SayCurrentInstruction()
 	{
-		string s = instructionList[instructionList.Count-1].CreateString();
+		string s = instructionList[0].CreateString();
 		UIManager.instance.TextInfo.text = s;
 		VoiceSpeaker.instance.Talk (s);
 	}
@@ -352,7 +487,7 @@ public class GameController : SingletonBehaviour<GameController>
 		if (showDebugOutput)
 		{
 			GUILayout.Label("");
-			foreach (RoomObject roomObject in roomItemLocations.Keys)
+			foreach (LocationType roomObject in roomItemLocations.Keys)
 			{
 				GUILayout.Label(roomObject +"\t <- "+roomItemLocations[roomObject]);
 			}
@@ -362,42 +497,51 @@ public class GameController : SingletonBehaviour<GameController>
 
 
 
-	public void PlayerActivatedLocation(Player player, RoomObject roomObject)
+	public void PlayerActivatedLocation(Player player, LocationType roomLocation)
 	{
 
-		Debug.Log ("GameController::PlayerActivatedLocation "+roomObject);
+		Debug.Log ("GameController::PlayerActivatedLocation "+roomLocation);
 
-
-		if (roomObject == ventWithPoison)
+		if (player.ItemsOwned == PickupType.None)
 		{
-			UIManager.instance.CreateObjectPickupAnimation (player.transform.position+Vector3.up*1f, "POISON GAS RELEASED!");
-			poisonVentOpen = true;
-
-			return;
-		}
-		else if (roomObject == RoomObject.CleanVent || roomObject == RoomObject.RustyVent)
-		{
-			UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "vent did nothing");
-			return;
-		}
-		
-		if (!unexploredLocations.Contains(roomObject))
-		{
-			Debug.Log (roomObject + " has already been explored");
-			return;
-		}
-
-		unexploredLocations.Remove(roomObject);
-
-		if (roomItemLocations[roomObject] != ItemType.BoobyTrap)
-		{
-			UIManager.instance.CreateObjectPickupAnimation (player.transform.position,"Object Picked Up");
+			// TODO display item picked up
+			player.ItemsOwned = TakeObjectFrom(roomLocation);
 		}
 		else
 		{
-			UIManager.instance.CreateObjectPickupAnimation (player.transform.position,"BOOBY TRAP!");
+			// TODO display item NOT picked up
 		}
-		player.ItemsOwned = roomItemLocations[roomObject];
+//
+//		if (roomObject == ventWithPoison)
+//		{
+//			UIManager.instance.CreateObjectPickupAnimation (player.transform.position+Vector3.up*1f, "POISON GAS RELEASED!");
+//			poisonVentOpen = true;
+//
+//			return;
+//		}
+//		else if (roomObject == LocationType.CleanVent || roomObject == LocationType.RustyVent)
+//		{
+//			UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "vent did nothing");
+//			return;
+//		}
+//		
+//		if (!unexploredLocations.Contains(roomObject))
+//		{
+//			Debug.Log (roomObject + " has already been explored");
+//			return;
+//		}
+//
+//		unexploredLocations.Remove(roomObject);
+//
+//		if (roomItemLocations[roomObject] != ItemType.BoobyTrap)
+//		{
+//			UIManager.instance.CreateObjectPickupAnimation (player.transform.position,"Object Picked Up");
+//		}
+//		else
+//		{
+//			UIManager.instance.CreateObjectPickupAnimation (player.transform.position,"BOOBY TRAP!");
+//		}
+//		player.ItemsOwned = roomItemLocations[roomObject];
 	}
 
 

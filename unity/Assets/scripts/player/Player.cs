@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using Holoville.HOTween;
 
@@ -11,12 +11,12 @@ public class Player: MonoBehaviour {
 	public Vector3 StartPos;
 	public Transform _trans;
 
-	public ItemType ItemsOwned;
+	public PickupType ItemsOwned;
 
 	public Color  PlayerColor;
 
 	public UISprite PlayerSprite, PlayerIcon;
-	public RoomLocation OnRoomLocation;
+	public LocationType OnRoomLocation;
 
 
 	bool notifiedAboutGasMask = false;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class Movement : MonoBehaviour {
@@ -256,7 +256,7 @@ public class Movement : MonoBehaviour {
 				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
 			}
 
-			RoomLocation r = c.collider.gameObject.GetComponent<RoomLocation>();
+			LocationType r = c.collider.gameObject.GetComponent<LocationType>();
 			bool occupied = false;
 
 			foreach (Player p in PlayerController.instance.Players)

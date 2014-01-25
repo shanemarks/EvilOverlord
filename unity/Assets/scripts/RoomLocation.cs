@@ -4,6 +4,6 @@ using System.Collections;
 public class RoomLocation : MonoBehaviour 
 {
 
-	public RoomObject roomObjectType;
+	public RoomLocation roomObjectType;
 	public bool IsVent;
 }
