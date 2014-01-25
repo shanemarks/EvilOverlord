@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using RaxterWorks.GamepadInputManager;
 public class Movement : MonoBehaviour {
@@ -26,6 +26,9 @@ public class Movement : MonoBehaviour {
 
 	public int ControllerNumber;
 
+	private Collider2D lastCollider;
+	private bool enableLeave;
+
 	Collider _playerCollider;
 	[SerializeField] Player _thePlayer;
 
@@ -43,7 +46,7 @@ public class Movement : MonoBehaviour {
 
 		if (GamepadInput.GetButtonUp(Button.Select,ControllerNumber) || GamepadInput.GetButtonUp(Button.Start,ControllerNumber))
 		{
-		UIManager.instance.AnswerPhone ();
+			UIManager.instance.AnswerPhone ();
 		}
 
 	
@@ -156,9 +159,133 @@ public class Movement : MonoBehaviour {
 			}
 		}
 
+
+
+
+
+
+		BoxCollider2D box = collider2D as BoxCollider2D;
+
+//		Physics2D.OverlapAreaAll(box.center-box.size/2, box.center+box.size/2);
 		
+//		Debug.DrawLine(transform.position, transform.TransformPoint(transform.InverseTransformPoint(transform.position) + (Vector3)(box.center-box.size/2)));
+//		Debug.DrawLine(GetRelativePositionInWorldSpace(box.center+box.size/2), GetRelativePositionInWorldSpace(box.center-box.size/2));
+
+		
+		Vector3 center = GetRelativePositionInWorldSpace (box.center);
+
+		Collider2D [] colliders = Physics2D.OverlapAreaAll(
+									GetRelativePositionInWorldSpace(box.center+box.size/2),
+						        	GetRelativePositionInWorldSpace(box.center-box.size/2));
+
+		
+		Debug.DrawLine(GetRelativePositionInWorldSpace(box.center+box.size/2),
+		               GetRelativePositionInWorldSpace(box.center-box.size/2));
+
+		float minDist = float.PositiveInfinity;
+		RoomLocation closestLocation = null;
+
+		foreach (Collider2D coll in colliders)
+		{
+			RoomLocation roomLocation = coll.gameObject.GetComponent<RoomLocation>();
+
+			if (roomLocation != null)
+			{
+				float dist = Vector2.Distance(transform.position, roomLocation.transform.position);
+				Debug.Log ("RoomLocation hit ("+_thePlayer.Index+")" + roomLocation.roomObjectType +" - "+dist);
+
+
+				if (dist < minDist)
+				{
+					minDist = dist;
+					closestLocation = roomLocation;
+				}
+			}
+		}
+		Debug.Log ("RoomLocation hit ---");
+
+		if (closestLocation != null) // we are over a location
+		{
+			if (closestLocation.occupiedPlayer == null) // it is unoccupied
+			{
+				// occupy it
+
+				// unoccupy the last room
+				if (_thePlayer.OnRoomLocation != null)
+					_thePlayer.OnRoomLocation.occupiedPlayer = null;
+
+				_thePlayer.OnRoomLocation = closestLocation;
+				closestLocation.occupiedPlayer = _thePlayer;
+
+			}
+			else
+			{
+				// it is occupied, do nothing
+			}
+		}
+		else // we are not over a location
+		{
+			// unoccupy the last room
+			if (_thePlayer.OnRoomLocation != null)
+				_thePlayer.OnRoomLocation.occupiedPlayer = null;
+
+			_thePlayer.OnRoomLocation = null;
+
+		}
+
+//		for (int i = 0 ; i < 8 ; i++)
+//		{
+//			Vector3 corner = center;
+//			switch (i)
+//			{
+//			case 0:
+//				corner = GetRelativePositionInWorldSpace(box.center+box.size/2);
+//				break;
+//			case 1:
+//				corner = GetRelativePositionInWorldSpace(box.center+box.size/2-Vector2.right*box.size.x);
+//				break;
+//			case 2:
+//				corner = GetRelativePositionInWorldSpace(box.center-box.size/2);
+//				break;
+//			case 3:
+//				corner = GetRelativePositionInWorldSpace(box.center-box.size/2+Vector2.right*box.size.x);
+//				break;
+//				// sides
+//			case 4:
+//				corner = GetRelativePositionInWorldSpace(box.center+Vector2.up*box.size.y/2);
+//				break;
+//			case 5:
+//				corner = GetRelativePositionInWorldSpace(box.center-Vector2.right*box.size.x/2);
+//				break;
+//			case 6:
+//				corner = GetRelativePositionInWorldSpace(box.center-Vector2.up*box.size.y/2);
+//				break;
+//			case 7:
+//				corner = GetRelativePositionInWorldSpace(box.center+Vector2.right*box.size.x/2);
+//				break;
+//			}
+//
+//
+//
+//
+//		}
+
+
+
+//		Debug.Log(transform.TransformPoint(transform.localPosition)+(Vector3)(box.center-box.size/2));
+//		Debug.DrawLine(transform.TransformPoint(transform.localPosition)+(Vector3)(box.center-box.size/2), transform.TransformPoint(transform.localPosition)+(Vector3)(box.center+box.size/2), Color.green);
+
+//		Debug.DrawRay((Vector3)worldPoint -Vector3.up*0.01f, Vector3.up*0.02f, debugColor);
+//		Debug.DrawRay((Vector3)worldPoint -Vector3.left*0.01f, Vector3.left*0.02f, debugColor);
+
 	
 
+	}
+
+
+	Vector3 GetRelativePositionInWorldSpace (Vector3 relative)
+	{
+		return transform.TransformPoint(transform.InverseTransformPoint(transform.position) + relative);
 	}
 
 
@@ -191,7 +318,7 @@ public class Movement : MonoBehaviour {
 
 	Boundary CheckHitGetBoundary (Vector2 dir)
 	{
-		/*Ray r  = new Ray(transform.position,dir);
+				/*Ray r  = new Ray(transform.position,dir);
 		RaycastHit hit;
 		Physics.Raycast(r, out hit,0.01f);
 		
@@ -204,20 +331,22 @@ public class Movement : MonoBehaviour {
 			}
 		}
 		return null;*/
-		Ray2D r;
-		Vector2 startCast = new Vector2 (transform.position.x, transform.position.y-0.06f);
-		startCast  = startCast + (dir.normalized * 0.05f);
-		Vector2 dest = startCast + (dir.normalized * 0.05f);
+				Ray2D r;
+				Vector2 startCast = new Vector2 (transform.position.x, transform.position.y - 0.06f);
+				startCast = startCast + (dir.normalized * 0.05f);
+				Vector2 dest = startCast + (dir.normalized * 0.05f);
 
-		Debug.DrawLine (new Vector3(startCast.x, startCast.y, 0), new Vector3(dest.x, dest.y, 0), Color.red, 2);
-		RaycastHit2D hit = Physics2D.Linecast (startCast, dest);
+				Debug.DrawLine (new Vector3 (startCast.x, startCast.y, 0), new Vector3 (dest.x, dest.y, 0), Color.red, 2);
+				RaycastHit2D[] hit = Physics2D.LinecastAll (startCast, dest);
 
-		if (hit.collider != null) {
-			//if(hit.collider.tag == "boundary")
-			//{
-				return hit.collider.gameObject.GetComponent<Boundary> ();
-			//}
+		for (int i = 0; i < hit.Length; i++) {
+			if (hit [i].collider != null && hit[i].collider.tag != "Player") {
+								//if(hit.collider.tag == "boundary")
+								//{
+								return hit[i].collider.gameObject.GetComponent<Boundary> ();
+								//}
 
+			}
 		}
 		return null;
 
@@ -252,26 +381,26 @@ public class Movement : MonoBehaviour {
 	}
 
 
-	void CheckSlide (Boundary b)
-	{
-
-		
-		switch (b.PreferredSlideDirection)
-		{
-		case Boundary.Direction.Left:
-			MoveLeft ();
-			break;
-		case Boundary.Direction.Right:
-			MoveRight ();
-			break;
-		case Boundary.Direction.Up:
-			MoveUp ();
-			break;
-		case Boundary.Direction.Down:
-			MoveDown ();
-			break;
-		}
-	}
+//	void CheckSlide (Boundary b)
+//	{
+//
+//		
+//		switch (b.PreferredSlideDirection)
+//		{
+//		case Boundary.Direction.Left:
+//			MoveLeft ();
+//			break;
+//		case Boundary.Direction.Right:
+//			MoveRight ();
+//			break;
+//		case Boundary.Direction.Up:
+//			MoveUp ();
+//			break;
+//		case Boundary.Direction.Down:
+//			MoveDown ();
+//			break;
+//		}
+//	}
 	void MoveDown ()
 	{
 
@@ -311,56 +440,13 @@ public class Movement : MonoBehaviour {
 		if (_thePlayer.OnRoomLocation != null)
 		{
 
-
 			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
-
-
 		}
-
 		else
 		{
 
-			if (_thePlayer.ItemsOwned == ItemType.RealKnife || _thePlayer.ItemsOwned == ItemType.FakeKnife)
-			{
+			GameController.instance.PlayerActivatedItem(_thePlayer);
 
-				// find nearest player
-				Debug.Log ("Looking for closest player to "+_thePlayer.name);
-				
-				float minDist = float.PositiveInfinity;
-				Player closestPlayer = null;
-				foreach (Player testPlayer in PlayerController.instance.Players)
-				{
-					if (testPlayer == _thePlayer)
-						continue;
-
-					float dist = Vector2.Distance(testPlayer.transform.position, _thePlayer.transform.position);
-					Debug.Log ("Distance "+ dist);
-					if (dist < minDist)
-					{
-						Debug.Log ("Setting closest player to "+ testPlayer.name+" ("+ dist+")");
-						closestPlayer = testPlayer;
-						minDist = dist;
-					}
-				}
-
-				if (minDist <= GameController.instance.knifeRange)
-				{
-					if (_thePlayer.ItemsOwned == ItemType.RealKnife)
-					{
-						UIManager.instance.CreateObjectPickupAnimation (closestPlayer.transform.position,"Stabbed to death!");
-						closestPlayer.KillPlayer();
-
-						_thePlayer.DropItem();
-
-					}
-					if (_thePlayer.ItemsOwned == ItemType.FakeKnife)
-					{
-						UIManager.instance.CreateObjectPickupAnimation (_thePlayer.transform.position,"Fake knife breaks!");
-						_thePlayer.DropItem();
-					}
-				}
-
-			}
 		}
 
 	}
@@ -388,95 +474,52 @@ public class Movement : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter2D (Collider2D c)
-	{
-		Debug.Log ("Trigger fired");
-		if (c.tag == "Item") {
-			if (_thePlayer.OnRoomLocation != null)
-			{	
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
-			}
-			
-			RoomLocation r = c.gameObject.GetComponent<RoomLocation>();
-			bool occupied = false;
-			
-			foreach (Player p in PlayerController.instance.Players)
-			{
-				
-				
-				if (p.OnRoomLocation == r)
-				{
-					
-					occupied = true;
-				}
-			}
-			
-			if (!occupied)
-			{
-				
-				_thePlayer.OnRoomLocation = r;
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color = _thePlayer.PlayerColor;
-			}
-		}
-	}
-
-
-	void OnCollisionEnter2D (Collision2D c)
-	{
-		Debug.Log ("Registering collision with " + c.collider.name);
-		if (c.collider.tag == "Item")
-		{
-			if (_thePlayer.OnRoomLocation != null)
-			{	
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
-			}
-
-			RoomLocation r = c.collider.gameObject.GetComponent<RoomLocation>();
-			bool occupied = false;
-
-			foreach (Player p in PlayerController.instance.Players)
-			{
-
 	
-				if (p.OnRoomLocation == r)
-				{
 
-					occupied = true;
-				}
-			}
-
-			if (!occupied)
-			{
-
-				_thePlayer.OnRoomLocation = r;
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color = _thePlayer.PlayerColor;
-			}
-		}
-	}
-
-	void OnCollisionExit (Collision c)
-	{
-		if (c.collider.tag != "Player")
-		{
-			if (_thePlayer.OnRoomLocation != null)
-			{
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
-				_thePlayer.OnRoomLocation = null;
-			}
-		}
-	}
-
-	void OnTriggerExit2D (Collider2D c)
-	{
-		if (c.tag != "Player")
-		{
-			if (_thePlayer.OnRoomLocation != null)
-			{
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
-				_thePlayer.OnRoomLocation = null;
-			}
-		}
-
-	}
+//	void OnTriggerEnter2D (Collider2D c)
+//	{
+//		Debug.Log ("Trigger fired");
+//		if (c.tag == "Item") {
+//			if (_thePlayer.OnRoomLocation != null)
+//			{	
+//				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
+//			}
+//			
+//			RoomLocation r = c.gameObject.GetComponent<RoomLocation>();
+//			bool occupied = false;
+//			
+//			foreach (Player p in PlayerController.instance.Players)
+//			{
+//				
+//				
+//				if (p.OnRoomLocation == r)
+//				{
+//					
+//					occupied = true;
+//				}
+//			}
+//			
+//			if (!occupied)
+//			{
+//				
+//				_thePlayer.OnRoomLocation = r;
+//				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color = _thePlayer.PlayerColor;
+//			}
+//		}
+//	}
+//
+//	
+//	void OnTriggerExit2D (Collider2D c)
+//	{
+//		if (c.tag != "Item")
+//		{
+//			if (_thePlayer.OnRoomLocation != null)
+//			{
+//				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
+//				_thePlayer.OnRoomLocation = null;
+//			}
+//		}
+//
+//	}
 
 }
