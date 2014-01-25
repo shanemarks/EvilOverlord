@@ -49,7 +49,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i]._movement.MovementSpeedBase = MovementSpeed;
 			Players[i].PlayerIcon = UIManager.instance.PlayerIcons[i];
 			Players[i].IsAlive = true;
-			Players[i].ItemsOwned = ItemType.None;
+			Players[i].ItemsOwned = PickupType.None;
 			Players[i].GetComponent<UIPanel>().depth = 100-i;
 			if (Input.GetJoystickNames().Length >1)
 			{

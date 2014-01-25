@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class UIManager : SingletonBehaviour<UIManager> {
@@ -50,7 +50,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public void ReplayInstruction()
 	{
-		GameController.instance.SayInstruction();
+		GameController.instance.SayCurrentInstruction();
 	}
 
 	void  StartGame ()
@@ -75,7 +75,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 				return;
 			}
 
-			if (p.ItemsOwned != ItemType.None)
+			if (p.ItemsOwned != PickupType.None)
 			{
 				p.PlayerIcon.spriteName = CRATE_ICON;
 		
