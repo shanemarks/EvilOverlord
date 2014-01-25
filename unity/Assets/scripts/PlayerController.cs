@@ -58,7 +58,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 	void Update ()
 	{
-		Player lowest = Players[0];
+		/*Player lowest = Players[0];
 
 		for (int i = 0 ; i < PlayerCount; i++)
 		{
@@ -69,7 +69,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 				Players[i].GetComponent<UIPanel>().depth = temp;
 				lowest = Players[i];
 			}
-		}
+		}*/
 	}
 
 }
