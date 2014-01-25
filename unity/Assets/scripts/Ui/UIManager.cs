@@ -11,9 +11,9 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public UISprite [] PlayerIcons;
 
-	public string ALIVE_ICON = "smile",
-				  DEAD_ICON = "Skull",
-				  CRATE_ICON = "Crate";
+	public string ALIVE_ICON = "Alive",
+				  DEAD_ICON = "Dead",
+				  CRATE_ICON = "Holding";
 	public UIPanel  Transient; // holds aniamtion effects;
 
 

@@ -148,7 +148,7 @@ public class Movement : MonoBehaviour {
 
 		
 		if (!CheckHit(Vector3.down)) _trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
-		else 
+	/*	else 
 		{
 			if (b != null)
 			{
@@ -157,7 +157,7 @@ public class Movement : MonoBehaviour {
 			}
 
 			else  if (!CheckHit(Vector3.right))   _trans.localPosition += new Vector3 (MovementSpeed,0, 0);
-		}
+		}*/
 	}
 
 	void MoveLeft ()
