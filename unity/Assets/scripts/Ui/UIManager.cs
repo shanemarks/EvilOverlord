@@ -10,14 +10,16 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	public UILabel TextInfo;
 
 	public UISprite [] PlayerIcons;
-
+	public UISprite [] PlayerIconBorders;
 	public string ALIVE_ICON = "Alive",
 				  DEAD_ICON = "Dead",
-				  CRATE_ICON = "Holding";
+				 HOLDING_KNIFE = "HoldingKnife",
+				  HOLDING_MASK = "HoldingMask";  
 	public UIPanel  Transient; // holds aniamtion effects;
+	
+	public GameObject Blood;
 
-
-	public GameObject ObjectPickupPrefab;
+	public GameObject ObjectPickupPrefab, GibAnim;
 
 	void Start ()
 	{
@@ -63,23 +65,35 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	{
 		foreach (Player p in PlayerController.instance.Players)
 		{
+			if (!p.IsAlive)
+			{
+				p.PlayerIcon.spriteName= DEAD_ICON;
+			}
 
-			if (p.IsAlive)
+			else if (p.IsAlive && p.ItemsOwned == ItemType.None)
 			{
 				p.PlayerIcon.spriteName= ALIVE_ICON;
 			}
-			
-			else
+		
+
+			else if (p.ItemsOwned != ItemType.None)
 			{
-				p.PlayerIcon.spriteName = DEAD_ICON;
-				return;
+				if (p.ItemsOwned == ItemType.FakeKnife )
+				{
+					p.PlayerIcon.spriteName = HOLDING_KNIFE;
+				}
+				else if (p.ItemsOwned == ItemType.RealKnife )
+				{
+					p.PlayerIcon.spriteName = HOLDING_KNIFE;
+				}
+
+				else if (p.ItemsOwned == ItemType.GasMask)
+				{
+					p.PlayerIcon.spriteName = HOLDING_MASK;
+				}
 			}
 
-			if (p.ItemsOwned != ItemType.None)
-			{
-				p.PlayerIcon.spriteName = CRATE_ICON;
 		
-			}
 	
 			p.PlayerIcon.Update ();
 
@@ -96,6 +110,16 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		go.GetComponent<UILabel>().text = s;
 
 	}
+
+	
+	public void Gib (Vector3 v)
+	{
+
+			GameObject go = 	NGUITools.AddChild(Transient.gameObject,GibAnim);
+			go.transform.position = v;
+	}
+
+
 	public void CreateObjectPickupAnimation (Vector3 v, string s, Color c)
 	{
 		GameObject go = 	NGUITools.AddChild(Transient.gameObject,ObjectPickupPrefab);
@@ -105,7 +129,11 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		go.GetComponent<UILabel>().text = s;
 		
 	}
-
+	public void PutBlood (Vector3 v)
+	{
+		GameObject go = 	NGUITools.AddChild(Transient.gameObject,Blood);
+		go.transform.position = v;
+	}
 
 	void ResetGame ()
 	{

@@ -75,6 +75,8 @@ public class Player: MonoBehaviour {
 				OnRoomLocation =null;
 
 			}
+			UIManager.instance.Gib(transform.position);
+			UIManager.instance.PutBlood(transform.position);
 			HOTween.To(GetComponent<UIPanel>(), 1f, "alpha", 0f);
 		}
 	}
