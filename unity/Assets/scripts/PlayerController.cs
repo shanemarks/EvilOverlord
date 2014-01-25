@@ -46,7 +46,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i].transform.localPosition = Players[i].StartPos;
 			Players[i].PlayerColor = PlayerColors[i];
 			Players[i].PlayerSprite.color = PlayerColors[i];
-			Players[i]._movement.MovementSpeed = MovementSpeed;
+			Players[i]._movement.MovementSpeedBase = MovementSpeed;
 			Players[i].PlayerIcon = UIManager.instance.PlayerIcons[i];
 			Players[i].IsAlive = true;
 			Players[i].IsHoldingItem = false;
