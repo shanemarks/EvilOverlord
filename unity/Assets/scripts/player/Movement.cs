@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour {
 
 		if (GamepadInput.GetButtonUp(Button.Select,ControllerNumber) || GamepadInput.GetButtonUp(Button.Start,ControllerNumber))
 		{
-		UIManager.instance.AnswerPhone ();
+			UIManager.instance.AnswerPhone ();
 		}
 
 	
@@ -159,9 +159,133 @@ public class Movement : MonoBehaviour {
 			}
 		}
 
+
+
+
+
+
+		BoxCollider2D box = collider2D as BoxCollider2D;
+
+//		Physics2D.OverlapAreaAll(box.center-box.size/2, box.center+box.size/2);
 		
+//		Debug.DrawLine(transform.position, transform.TransformPoint(transform.InverseTransformPoint(transform.position) + (Vector3)(box.center-box.size/2)));
+//		Debug.DrawLine(GetRelativePositionInWorldSpace(box.center+box.size/2), GetRelativePositionInWorldSpace(box.center-box.size/2));
+
+		
+		Vector3 center = GetRelativePositionInWorldSpace (box.center);
+
+		Collider2D [] colliders = Physics2D.OverlapAreaAll(
+									GetRelativePositionInWorldSpace(box.center+box.size/2),
+						        	GetRelativePositionInWorldSpace(box.center-box.size/2));
+
+		
+		Debug.DrawLine(GetRelativePositionInWorldSpace(box.center+box.size/2),
+		               GetRelativePositionInWorldSpace(box.center-box.size/2));
+
+		float minDist = float.PositiveInfinity;
+		RoomLocation closestLocation = null;
+
+		foreach (Collider2D coll in colliders)
+		{
+			RoomLocation roomLocation = coll.gameObject.GetComponent<RoomLocation>();
+
+			if (roomLocation != null)
+			{
+				float dist = Vector2.Distance(transform.position, roomLocation.transform.position);
+				Debug.Log ("RoomLocation hit ("+_thePlayer.Index+")" + roomLocation.roomObjectType +" - "+dist);
+
+
+				if (dist < minDist)
+				{
+					minDist = dist;
+					closestLocation = roomLocation;
+				}
+			}
+		}
+		Debug.Log ("RoomLocation hit ---");
+
+		if (closestLocation != null) // we are over a location
+		{
+			if (closestLocation.occupiedPlayer == null) // it is unoccupied
+			{
+				// occupy it
+
+				// unoccupy the last room
+				if (_thePlayer.OnRoomLocation != null)
+					_thePlayer.OnRoomLocation.occupiedPlayer = null;
+
+				_thePlayer.OnRoomLocation = closestLocation;
+				closestLocation.occupiedPlayer = _thePlayer;
+
+			}
+			else
+			{
+				// it is occupied, do nothing
+			}
+		}
+		else // we are not over a location
+		{
+			// unoccupy the last room
+			if (_thePlayer.OnRoomLocation != null)
+				_thePlayer.OnRoomLocation.occupiedPlayer = null;
+
+			_thePlayer.OnRoomLocation = null;
+
+		}
+
+//		for (int i = 0 ; i < 8 ; i++)
+//		{
+//			Vector3 corner = center;
+//			switch (i)
+//			{
+//			case 0:
+//				corner = GetRelativePositionInWorldSpace(box.center+box.size/2);
+//				break;
+//			case 1:
+//				corner = GetRelativePositionInWorldSpace(box.center+box.size/2-Vector2.right*box.size.x);
+//				break;
+//			case 2:
+//				corner = GetRelativePositionInWorldSpace(box.center-box.size/2);
+//				break;
+//			case 3:
+//				corner = GetRelativePositionInWorldSpace(box.center-box.size/2+Vector2.right*box.size.x);
+//				break;
+//				// sides
+//			case 4:
+//				corner = GetRelativePositionInWorldSpace(box.center+Vector2.up*box.size.y/2);
+//				break;
+//			case 5:
+//				corner = GetRelativePositionInWorldSpace(box.center-Vector2.right*box.size.x/2);
+//				break;
+//			case 6:
+//				corner = GetRelativePositionInWorldSpace(box.center-Vector2.up*box.size.y/2);
+//				break;
+//			case 7:
+//				corner = GetRelativePositionInWorldSpace(box.center+Vector2.right*box.size.x/2);
+//				break;
+//			}
+//
+//
+//
+//
+//		}
+
+
+
+//		Debug.Log(transform.TransformPoint(transform.localPosition)+(Vector3)(box.center-box.size/2));
+//		Debug.DrawLine(transform.TransformPoint(transform.localPosition)+(Vector3)(box.center-box.size/2), transform.TransformPoint(transform.localPosition)+(Vector3)(box.center+box.size/2), Color.green);
+
+//		Debug.DrawRay((Vector3)worldPoint -Vector3.up*0.01f, Vector3.up*0.02f, debugColor);
+//		Debug.DrawRay((Vector3)worldPoint -Vector3.left*0.01f, Vector3.left*0.02f, debugColor);
+
 	
 
+	}
+
+
+	Vector3 GetRelativePositionInWorldSpace (Vector3 relative)
+	{
+		return transform.TransformPoint(transform.InverseTransformPoint(transform.position) + relative);
 	}
 
 
@@ -257,26 +381,26 @@ public class Movement : MonoBehaviour {
 	}
 
 
-	void CheckSlide (Boundary b)
-	{
-
-		
-		switch (b.PreferredSlideDirection)
-		{
-		case Boundary.Direction.Left:
-			MoveLeft ();
-			break;
-		case Boundary.Direction.Right:
-			MoveRight ();
-			break;
-		case Boundary.Direction.Up:
-			MoveUp ();
-			break;
-		case Boundary.Direction.Down:
-			MoveDown ();
-			break;
-		}
-	}
+//	void CheckSlide (Boundary b)
+//	{
+//
+//		
+//		switch (b.PreferredSlideDirection)
+//		{
+//		case Boundary.Direction.Left:
+//			MoveLeft ();
+//			break;
+//		case Boundary.Direction.Right:
+//			MoveRight ();
+//			break;
+//		case Boundary.Direction.Up:
+//			MoveUp ();
+//			break;
+//		case Boundary.Direction.Down:
+//			MoveDown ();
+//			break;
+//		}
+//	}
 	void MoveDown ()
 	{
 
@@ -350,50 +474,52 @@ public class Movement : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter2D (Collider2D c)
-	{
-		Debug.Log ("Trigger fired");
-		if (c.tag == "Item") {
-			if (_thePlayer.OnRoomLocation != null)
-			{	
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
-			}
-			
-			RoomLocation r = c.gameObject.GetComponent<RoomLocation>();
-			bool occupied = false;
-			
-			foreach (Player p in PlayerController.instance.Players)
-			{
-				
-				
-				if (p.OnRoomLocation == r)
-				{
-					
-					occupied = true;
-				}
-			}
-			
-			if (!occupied)
-			{
-				
-				_thePlayer.OnRoomLocation = r;
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color = _thePlayer.PlayerColor;
-			}
-		}
-	}
-
 	
-	void OnTriggerExit2D (Collider2D c)
-	{
-		if (c.tag != "Player")
-		{
-			if (_thePlayer.OnRoomLocation != null)
-			{
-				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
-				_thePlayer.OnRoomLocation = null;
-			}
-		}
 
-	}
+//	void OnTriggerEnter2D (Collider2D c)
+//	{
+//		Debug.Log ("Trigger fired");
+//		if (c.tag == "Item") {
+//			if (_thePlayer.OnRoomLocation != null)
+//			{	
+//				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
+//			}
+//			
+//			RoomLocation r = c.gameObject.GetComponent<RoomLocation>();
+//			bool occupied = false;
+//			
+//			foreach (Player p in PlayerController.instance.Players)
+//			{
+//				
+//				
+//				if (p.OnRoomLocation == r)
+//				{
+//					
+//					occupied = true;
+//				}
+//			}
+//			
+//			if (!occupied)
+//			{
+//				
+//				_thePlayer.OnRoomLocation = r;
+//				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color = _thePlayer.PlayerColor;
+//			}
+//		}
+//	}
+//
+//	
+//	void OnTriggerExit2D (Collider2D c)
+//	{
+//		if (c.tag != "Item")
+//		{
+//			if (_thePlayer.OnRoomLocation != null)
+//			{
+//				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
+//				_thePlayer.OnRoomLocation = null;
+//			}
+//		}
+//
+//	}
 
 }
