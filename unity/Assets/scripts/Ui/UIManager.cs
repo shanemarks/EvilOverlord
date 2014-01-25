@@ -13,17 +13,25 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public string ALIVE_ICON = "Alive",
 				  DEAD_ICON = "Dead",
-				  CRATE_ICON = "Holding";
+					KNIFE_ICON ="HoldingKnife",
+	MASK_ICON ="HoldingMask";
 	public UIPanel  Transient; // holds aniamtion effects;
 
+	public UISprite[] PlayerIconBorders;
 
 	public GameObject ObjectPickupPrefab;
-
+	public GameObject Blood;
+	public GameObject GibAnim;
 	void Start ()
 	{
 
 	}
 
+	public void PutBlood (Vector3 v)
+	{
+		GameObject go = NGUITools.AddChild(Transient.gameObject,Blood);
+		go.transform.position = v;
+	}
 	void Update ()
 	{
 		UpdateCharacterIcons();
@@ -63,24 +71,27 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	{
 		foreach (Player p in PlayerController.instance.Players)
 		{
-
 			if (p.IsAlive)
 			{
-				p.PlayerIcon.spriteName= ALIVE_ICON;
+				p.PlayerIcon.spriteName = ALIVE_ICON;
+			}
+			 if (!p.IsAlive)
+			{
+				p.PlayerIcon.spriteName= DEAD_ICON;
 			}
 			
-			else
+			 if (p.ItemsOwned == PickupType.FakeKnife || p.ItemsOwned == PickupType.RealKnife2 ||p.ItemsOwned == PickupType.RealKnife1)
 			{
-				p.PlayerIcon.spriteName = DEAD_ICON;
+				p.PlayerIcon.spriteName = KNIFE_ICON;
 				return;
 			}
 
-			if (p.ItemsOwned != PickupType.None)
+		 if (p.ItemsOwned == PickupType.GasMask1 || p.ItemsOwned == PickupType.GasMask2)
 			{
-				p.PlayerIcon.spriteName = CRATE_ICON;
+				p.PlayerIcon.spriteName = MASK_ICON;
 		
 			}
-	
+
 			p.PlayerIcon.Update ();
 
 		}
@@ -96,7 +107,15 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		go.GetComponent<UILabel>().text = s;
 
 	}
-	public void CreateObjectPickupAnimation (Vector3 v, string s, Color c)
+	
+	public void Gib (Vector3 v)
+	{
+
+			GameObject go = 	NGUITools.AddChild(Transient.gameObject,GibAnim);
+			go.transform.position = v;
+	}
+	
+ void CreateObjectPickupAnimation (Vector3 v, string s, Color c)
 	{
 		GameObject go = 	NGUITools.AddChild(Transient.gameObject,ObjectPickupPrefab);
 		go.transform.position = v;
