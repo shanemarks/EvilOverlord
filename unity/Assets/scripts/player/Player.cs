@@ -21,6 +21,7 @@ public class Player: MonoBehaviour {
 	public RoomLocation OnRoomLocation;
 
 
+
 	bool notifiedAboutGasMask = false;
 
 	public void DropItem ()

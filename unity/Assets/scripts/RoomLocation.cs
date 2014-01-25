@@ -5,5 +5,13 @@ public class RoomLocation : MonoBehaviour
 {
 
 	public LocationType roomObjectType;
-	public bool IsVent;
+
+
+	public Player occupiedPlayer = null;
+
+
+	void Update ()
+	{
+		GetComponent<UISprite>().color = occupiedPlayer == null ? Color.white : occupiedPlayer.PlayerColor;
+	}
 }
