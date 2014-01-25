@@ -56,5 +56,20 @@ public class PlayerController : SingletonBehaviour<PlayerController>
  		UIManager.instance.UpdateCharacterIcons ();
 	}
 
+	void Update ()
+	{
+		/*Player lowest = Players[0];
+
+		for (int i = 0 ; i < PlayerCount; i++)
+		{
+			if (lowest.transform.position.y < Players[i].transform.position.y)
+			{
+				int temp = lowest.GetComponent<UIPanel>().depth;
+				lowest.GetComponent<UIPanel>().depth = Players[i].GetComponent<UIPanel>().depth;
+				Players[i].GetComponent<UIPanel>().depth = temp;
+				lowest = Players[i];
+			}
+		}*/
+	}
 
 }
