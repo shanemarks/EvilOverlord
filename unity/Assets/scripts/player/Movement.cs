@@ -162,10 +162,10 @@ public class Movement : MonoBehaviour {
 	}
 
 
-	 bool CheckHit (Vector3 dir)
+	 /*bool CheckHit (Vector2 dir)
 	{
 
-		Ray r  = new Ray(transform.position,dir);
+		/*Ray r  = new Ray(transform.position,dir);
 		RaycastHit hit;
 		Physics.Raycast(r, out hit,0.01f);
 
@@ -176,13 +176,22 @@ public class Movement : MonoBehaviour {
 
 		}
 		return false;
+		Ray2D r;
+		Vector2 startCast = new Vector2 (transform.position.x, transform.position.y - 100);
+		RaycastHit2D hit = Physics2D.Linecast (startCast, startCast + dir);
+		
+		if (hit.collider != null) {
+			if(hit.collider.tag == "boundary")
+				return true;
+			
+		}
 
-	}
+	}*/
 
 
-	Boundary CheckHitGetBoundary (Vector3 dir)
+	Boundary CheckHitGetBoundary (Vector2 dir)
 	{
-		Ray r  = new Ray(transform.position,dir);
+		/*Ray r  = new Ray(transform.position,dir);
 		RaycastHit hit;
 		Physics.Raycast(r, out hit,0.01f);
 		
@@ -194,6 +203,22 @@ public class Movement : MonoBehaviour {
 				return hit.collider.gameObject.GetComponent<Boundary> ();
 			}
 		}
+		return null;*/
+		Ray2D r;
+		Vector2 startCast = new Vector2 (transform.position.x, transform.position.y-0.06f);
+		startCast  = startCast + (dir.normalized * 0.05f);
+		Vector2 dest = startCast + (dir.normalized * 0.05f);
+
+		Debug.DrawLine (new Vector3(startCast.x, startCast.y, 0), new Vector3(dest.x, dest.y, 0), Color.red, 2);
+		RaycastHit2D hit = Physics2D.Linecast (startCast, dest);
+
+		if (hit.collider != null) {
+			//if(hit.collider.tag == "boundary")
+			//{
+				return hit.collider.gameObject.GetComponent<Boundary> ();
+			//}
+
+		}
 		return null;
 
 	}
@@ -201,24 +226,27 @@ public class Movement : MonoBehaviour {
 	void MoveUp()
 	{
 
-		Boundary b = CheckHitGetBoundary(Vector3.up + 2*Vector3.left); 
+		Boundary b = CheckHitGetBoundary(Vector2.up - 2*Vector2.right); 
+
+		FaceDirection (Boundary.Direction.Up);
 	
-		if (!CheckHit(Vector3.up + 2*Vector3.left )) _trans.localPosition += new Vector3 (-2,1, 0).normalized * MovementSpeed ;
+		if (b == null) {
+						_trans.localPosition += new Vector3 (-2, 1, 0).normalized * MovementSpeed;
+				}
 
-
-		else
+		/*else
 		{
 			if (b != null)
 			{
 
 				CheckSlide(b);
 			}
-
+ 
 			else
 			{
 				MoveLeft ();
 			}
-		}
+		}*/
 
 	
 	}
@@ -247,10 +275,11 @@ public class Movement : MonoBehaviour {
 	void MoveDown ()
 	{
 
-		Boundary b = CheckHitGetBoundary(Vector3.down + 2*Vector3.right);
-		
-		if (!CheckHit(Vector3.down + 2*Vector3.right )) _trans.localPosition -=  new Vector3 (-2,1, 0).normalized * MovementSpeed ;
-		else 
+		Boundary b = CheckHitGetBoundary(-Vector2.up + 2*Vector2.right);
+
+		FaceDirection (Boundary.Direction.Down);
+		if (b==null) _trans.localPosition -=  new Vector3 (-2,1, 0).normalized * MovementSpeed ;
+		/*else 
 		{
 			if (b != null)
 			{
@@ -258,20 +287,22 @@ public class Movement : MonoBehaviour {
 				CheckSlide(b);
 			}
 
-			else  if (!CheckHit(Vector3.right))   _trans.localPosition += new Vector3 (MovementSpeed,0, 0);
-		}
+			else  if (CheckHitGetBoundary(Vector2.right)!=null)   _trans.localPosition += new Vector3 (MovementSpeed,0, 0);
+		}*/
 	}
 
 	void MoveLeft ()
 	{
-		if (!CheckHit(Vector3.down + 2*Vector3.left))	_trans.localPosition +=  new Vector3 (-2,-1, 0).normalized * MovementSpeed;
-		else if (!CheckHit(Vector3.down)) _trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
+		FaceDirection (Boundary.Direction.Left);
+		if (CheckHitGetBoundary(-Vector2.up - 2*Vector2.right)==null)	_trans.localPosition +=  new Vector3 (-2,-1, 0).normalized * MovementSpeed;
+		//else if (CheckHitGetBoundary(-Vector2.up)!=null) _trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
 	}
 
 	void MoveRight ()
 	{
-		if (!CheckHit(Vector3.up + 2*Vector3.right))_trans.localPosition -= new Vector3 (-2,-1, 0).normalized * MovementSpeed;
-		else if (!CheckHit(Vector3.up)) _trans.localPosition += new Vector3 (0,MovementSpeed, 0);
+		FaceDirection (Boundary.Direction.Right);
+		if (CheckHitGetBoundary(Vector2.up + 2*Vector2.right)==null)_trans.localPosition -= new Vector3 (-2,-1, 0).normalized * MovementSpeed;
+		//else if (CheckHitGetBoundary(Vector2.up)!=null) _trans.localPosition += new Vector3 (0,MovementSpeed, 0);
 	}
 
 	void FireAction ()
@@ -333,11 +364,34 @@ public class Movement : MonoBehaviour {
 		}
 
 	}
+
+	void FaceDirection (Boundary.Direction dir) 
+	{
+		if (dir == Boundary.Direction.Left || dir == Boundary.Direction.Right) {
+						_thePlayer.PlayerSprite.spriteName = "NE&SWBody";
+			_thePlayer.FrontFootSprite.transform.localPosition = new Vector3 (22.2f, -59.32f, 0);
+			_thePlayer.BackFootSprite.transform.localPosition = new Vector3 (-22.2f, -36.6f, 0);
+				} else {
+			_thePlayer.PlayerSprite.spriteName = "NW&SEBody";
+			_thePlayer.FrontFootSprite.transform.localPosition = new Vector3 (-22.2f, -59.32f, 0);
+			_thePlayer.BackFootSprite.transform.localPosition = new Vector3 (22.2f, -36.6f, 0);
+				}
+
+		if (dir == Boundary.Direction.Up)
+			_thePlayer.PlayerHeadSprite.spriteName = "NWHead";
+		else if (dir == Boundary.Direction.Right )
+			_thePlayer.PlayerHeadSprite.spriteName = "NEHead";
+		else if (dir == Boundary.Direction.Down )
+			_thePlayer.PlayerHeadSprite.spriteName = "SEHead";
+		else if (dir == Boundary.Direction.Left )
+			_thePlayer.PlayerHeadSprite.spriteName = "SWHead";
+
+	}
+
 	
 	void OnCollisionEnter (Collision c)
 	{
-
-
+		Debug.Log ("Registering collision with " + c.collider.name);
 		if (c.collider.tag == "Item")
 		{
 			if (_thePlayer.OnRoomLocation != null)
