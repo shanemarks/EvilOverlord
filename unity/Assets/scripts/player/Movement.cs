@@ -1,24 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
+using RaxterWorks.GamepadInputManager;
 public class Movement : MonoBehaviour {
+	public enum  ControllerType 
+	{
+		Keyboard,
+		XboxLeft,
+		XboxRight
+	}
 
+	public ControllerType _controller = ControllerType.Keyboard;
 	public bool UseKeyboard;
+
 
 	public KeyCode Up = KeyCode.W;
 	public KeyCode Down = KeyCode.S;
 	public KeyCode Left = KeyCode.A;
 	public KeyCode Right = KeyCode.D;
 	public KeyCode Action = KeyCode.Space;
+
 	Transform _trans;
 	
 	public float MovementSpeedBase = 1;
 	private float MovementSpeed;
 
+	public int ControllerNumber;
+
 	Collider _playerCollider;
 	[SerializeField] Player _thePlayer;
-
-
 
 
 	void Start () 
@@ -31,16 +40,22 @@ public class Movement : MonoBehaviour {
 	
 	void Update () 
 	{
+		if (GamepadInput.GetButtonUp(Button.Select,ControllerNumber) || GamepadInput.GetButtonUp(Button.Start,ControllerNumber))
+		{
+			UIManager.instance.AnswerPhone ();
+		}
+
 		if (_thePlayer.IsAlive)
 		{
-			if (UseKeyboard)
+
+			if (_controller == ControllerType.Keyboard)
 			{
 				if ((Input.GetKey(Up) && Input.GetKey(Left)) || (Input.GetKey(Down) && Input.GetKey(Right)))
 					MovementSpeed = MovementSpeedBase * Mathf.Sqrt (3) / 2;
 				else
 					MovementSpeed = MovementSpeedBase;
 
-				if (Input.GetKey(Up))
+				if (Input.GetKey (Up))
 				{
 					MoveUp ();
 				}
@@ -63,7 +78,85 @@ public class Movement : MonoBehaviour {
 					FireAction ();
 				}
 			}
+
+			else if (_controller == ControllerType.XboxRight)
+			{
+
+
+				if ((GamepadInput.GetButton(XBOXButton.Y,ControllerNumber) && GamepadInput.GetButton(XBOXButton.X,ControllerNumber)) || (GamepadInput.GetButton(XBOXButton.A,ControllerNumber) && GamepadInput.GetButton(XBOXButton.B,ControllerNumber)))
+					MovementSpeed = MovementSpeedBase * Mathf.Sqrt (3) / 2;
+				else
+					MovementSpeed = MovementSpeedBase;
+
+
+				if (GamepadInput.GetButton(XBOXButton.Y,ControllerNumber))
+				{
+					MoveUp ();
+				}
+				if (GamepadInput.GetButton(XBOXButton.A,ControllerNumber))
+				{
+					MoveDown ();
+				}
+				
+				if (GamepadInput.GetButton(XBOXButton.X,ControllerNumber))
+				{
+					MoveLeft ();
+				}
+				
+				if (GamepadInput.GetButton(XBOXButton.B,ControllerNumber))
+				{
+					MoveRight ();
+				}
+				
+				if (GamepadInput.GetButton(Button.RightTrigger,ControllerNumber))
+				{
+					FireAction ();
+				}
+				
+			}
+
+
+			
+			else if (_controller == ControllerType.XboxLeft)
+			{
+
+				
+				if ((GamepadInput.GetButton(Button.DPadUp,ControllerNumber) && GamepadInput.GetButton(Button.DPadLeft,ControllerNumber)) || (GamepadInput.GetButton(Button.DPadDown,ControllerNumber) && GamepadInput.GetButton(Button.DPadRight,ControllerNumber)))
+					MovementSpeed = MovementSpeedBase * Mathf.Sqrt (3) / 2;
+				else
+					MovementSpeed = MovementSpeedBase;
+				
+				
+				if (GamepadInput.GetButton(Button.DPadUp,ControllerNumber))
+				{
+					MoveUp ();
+				}
+				if (GamepadInput.GetButton(Button.DPadDown,ControllerNumber))
+				{
+					MoveDown ();
+				}
+				
+				if (GamepadInput.GetButton(Button.DPadLeft,ControllerNumber))
+				{
+					MoveLeft ();
+				}
+				
+				if (GamepadInput.GetButton(Button.DPadRight,ControllerNumber))
+				{
+					MoveRight ();
+				}
+				
+				if (GamepadInput.GetButton(Button.LeftTrigger,ControllerNumber))
+				{
+					FireAction ();
+				}
+				
+			}
 		}
+
+		
+	
+
 	}
 
 
@@ -184,14 +277,8 @@ public class Movement : MonoBehaviour {
 
 		if (_thePlayer.OnRoomLocation != null)
 		{
-			Debug.Log ("Action Fired");
-			if (_thePlayer.OnRoomLocation.IsVent)
-			{
-				//TODO: GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.ventObjectType);
-				
-			}
 
-//			UIManager.instance.CreateObjectPickupAnimation (_thePlayer.transform.position,"Object Picked Up");
+
 			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
 
 
