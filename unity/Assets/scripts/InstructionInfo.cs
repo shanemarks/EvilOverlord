@@ -110,6 +110,7 @@ public class InstructionInfo
 		case PickupType.RealKnife2:
 			return "real knife";
 		case PickupType.GasMask1:
+		case PickupType.GasMask2:
 			return "gas mask";
 		case PickupType.GasTrap:
 			return "gas trap";

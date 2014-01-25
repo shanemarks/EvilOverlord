@@ -15,15 +15,17 @@ public class Player: MonoBehaviour {
 
 	public Color  PlayerColor;
 
+	public int Index = -1;
+
 	public UISprite PlayerSprite, PlayerIcon;
-	public LocationType OnRoomLocation;
+	public RoomLocation OnRoomLocation;
 
 
 	bool notifiedAboutGasMask = false;
 
 	public void DropItem ()
 	{
-		ItemsOwned = ItemType.None;
+		ItemsOwned = PickupType.None;
 	}
 
 	void Start ()
@@ -36,15 +38,16 @@ public class Player: MonoBehaviour {
 	void Update ()
 	{
 
-		if (ItemsOwned == ItemType.BoobyTrap)
+		if (ItemsOwned == PickupType.BoobyTrap1 ||
+		    ItemsOwned == PickupType.BoobyTrap2 ||
+		    ItemsOwned == PickupType.BoobyTrap3)
 		{
 			KillPlayer ();
 		}
 
-
-		if (GameController.instance.PoisonVentOpen)
+		if (GameController.instance.GasTrapTriggered)
 		{
-			if (ItemsOwned != ItemType.GasMask)
+			if (ItemsOwned != PickupType.GasMask1 && ItemsOwned != PickupType.GasMask2)
 			{
 				KillPlayer();
 			}

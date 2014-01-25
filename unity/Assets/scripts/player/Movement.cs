@@ -278,56 +278,13 @@ public class Movement : MonoBehaviour {
 		if (_thePlayer.OnRoomLocation != null)
 		{
 
-
 			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
-
-
 		}
-
 		else
 		{
 
-			if (_thePlayer.ItemsOwned == ItemType.RealKnife || _thePlayer.ItemsOwned == ItemType.FakeKnife)
-			{
+			GameController.instance.PlayerActivatedItem(_thePlayer);
 
-				// find nearest player
-				Debug.Log ("Looking for closest player to "+_thePlayer.name);
-				
-				float minDist = float.PositiveInfinity;
-				Player closestPlayer = null;
-				foreach (Player testPlayer in PlayerController.instance.Players)
-				{
-					if (testPlayer == _thePlayer)
-						continue;
-
-					float dist = Vector2.Distance(testPlayer.transform.position, _thePlayer.transform.position);
-					Debug.Log ("Distance "+ dist);
-					if (dist < minDist)
-					{
-						Debug.Log ("Setting closest player to "+ testPlayer.name+" ("+ dist+")");
-						closestPlayer = testPlayer;
-						minDist = dist;
-					}
-				}
-
-				if (minDist <= GameController.instance.knifeRange)
-				{
-					if (_thePlayer.ItemsOwned == ItemType.RealKnife)
-					{
-						UIManager.instance.CreateObjectPickupAnimation (closestPlayer.transform.position,"Stabbed to death!");
-						closestPlayer.KillPlayer();
-
-						_thePlayer.DropItem();
-
-					}
-					if (_thePlayer.ItemsOwned == ItemType.FakeKnife)
-					{
-						UIManager.instance.CreateObjectPickupAnimation (_thePlayer.transform.position,"Fake knife breaks!");
-						_thePlayer.DropItem();
-					}
-				}
-
-			}
 		}
 
 	}
@@ -343,7 +300,7 @@ public class Movement : MonoBehaviour {
 				_thePlayer.OnRoomLocation.GetComponent<UISprite>().color =  Color.white;
 			}
 
-			LocationType r = c.collider.gameObject.GetComponent<LocationType>();
+			RoomLocation r = c.collider.gameObject.GetComponent<RoomLocation>();
 			bool occupied = false;
 
 			foreach (Player p in PlayerController.instance.Players)

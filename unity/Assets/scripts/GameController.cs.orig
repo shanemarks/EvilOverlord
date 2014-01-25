@@ -30,14 +30,9 @@ public class GameController : SingletonBehaviour<GameController>
 	public float knifeRange = 1f;
 
 	int criticalInfoCounter = 0;
-
-	public void TriggerGasTrap ()
-	{
-		poisonVentOpen = true;
-	}
 	
 	bool poisonVentOpen = false;
-	public bool GasTrapTriggered { get { return poisonVentOpen; } }
+	public bool PoisonVentOpen { get { return poisonVentOpen; } }
 
 //	static bool IsGeneralItem(ItemType itemType)
 //	{
@@ -86,19 +81,12 @@ public class GameController : SingletonBehaviour<GameController>
 //			roomItems.Add(ItemType.BoobyTrap);
 
 		// add random itoms to objects
-//		foreach (LocationType roomObject in roomLocations)
-		while(roomLocations.Count > 0)
+		foreach (LocationType roomObject in roomLocations)
 		{
-			int randomRoomIndex = Random.Range(0, roomLocations.Count);
-			int randomItemIndex = Random.Range(0, pickupItems.Count);
-			roomItemLocations[roomLocations[randomRoomIndex]] = pickupItems[randomItemIndex];
-			
-			pickupItems.RemoveAt(randomItemIndex);
-			roomLocations.RemoveAt(randomRoomIndex);
+			int randomIndex = Random.Range(0, roomLocations.Count);
+			roomItemLocations[roomObject] = pickupItems[randomIndex];
 
-			bool debugBreak = false;
-			if (debugBreak)
-				break;
+			roomLocations.RemoveAt(randomIndex);
 		}
 
 	}
@@ -190,35 +178,22 @@ public class GameController : SingletonBehaviour<GameController>
 		return PickRandomItem(availableObjects.ToArray());
 	}
 
-	public static LocationType PickRandomRoom()
+	public static LocationType PickRandomRoom(params LocationType [] objs)
 	{
-		List<LocationType> roomLocations = new List<LocationType>();
-		foreach(LocationType roomLocation in  System.Enum.GetValues(typeof(LocationType)))
-		{
-			roomLocations.Add(roomLocation);
-		}
-
-		return PickRandomRoomFromList(roomLocations.ToArray());
-	}
-
-	public static LocationType PickRandomRoomFromList(params LocationType [] objs)
-	{
-		Debug.Log ("PickRandomRoom.Length "+objs.Length);
 		// range is from 1 snce we do not want to pick None
-		return objs[Random.Range(0, objs.Length)];
+		return objs[Random.Range(1, objs.Length)];
 	}
 	
 	public static LocationType PickRandomInverseRoom(params LocationType [] notObjs)
 	{
-		Debug.Log ("PickRandomInverseRoom.Length "+notObjs.Length);
 		List<LocationType> availableObjects = new List<LocationType>();
 		foreach (LocationType obj in System.Enum.GetValues(typeof(LocationType)))
 		{
-			if (System.Array.FindIndex(notObjs, (x) => x == obj) == -1) // can't find the Room in the notList
+			if (System.Array.FindIndex(notObjs, (x) => x == obj) == -1)
 				availableObjects.Add(obj);
 		}
 		
-		return PickRandomRoomFromList(availableObjects.ToArray());
+		return PickRandomRoom(availableObjects.ToArray());
 	}
 
 
@@ -521,9 +496,26 @@ public class GameController : SingletonBehaviour<GameController>
 
 
 	
-	public static string GetGenericItemName(PickupType pickupType)
+	public static string GetItemName(PickupType pickupType)
 	{
+<<<<<<< HEAD
 		switch (pickupType)
+=======
+
+		Debug.Log ("GameController::PlayerActivatedLocation "+roomObject);
+
+		//TODO:
+		// After the poison check. if (player.ItemsOwned) != null {Pickup object}
+
+		if (roomObject == ventWithPoison)
+		{
+			UIManager.instance.CreateObjectPickupAnimation (player.transform.position+Vector3.up*1f, "POISON GAS RELEASED!");
+			poisonVentOpen = true;
+
+			return;
+		}
+		else if (roomObject == RoomObject.CleanVent || roomObject == RoomObject.RustyVent )
+>>>>>>> 2c2d34896f9322db92410673a205361dffd5a80e
 		{
 		case PickupType.BoobyTrap1:
 		case PickupType.BoobyTrap2:
@@ -534,127 +526,30 @@ public class GameController : SingletonBehaviour<GameController>
 		case PickupType.RealKnife2:
 			return "knife";
 		case PickupType.GasMask1:
-		case PickupType.GasMask2:
 			return "gas mask";
 		case PickupType.GasTrap:
 			return "gas trap";
 		}
 		return "a non item";
 	}
-	
-	public void PlayerActivatedItem(Player player)
-	{
-		Debug.Log ("GameController::PlayerActivatedItem "+player.name);
-	
-		if (
-			player.ItemsOwned == PickupType.RealKnife1 || 
-			player.ItemsOwned == PickupType.RealKnife2 || 
-			player.ItemsOwned == PickupType.FakeKnife)
-		{
-
-			// find nearest player
-			Debug.Log ("Looking for closest player to "+player.name);
-			
-			float minDist = float.PositiveInfinity;
-			Player closestPlayer = null;
-			foreach (Player otherPlayer in PlayerController.instance.Players)
-			{
-				if (otherPlayer == player)
-					continue;
-
-				float dist = Vector2.Distance(otherPlayer.transform.position, player.transform.position);
-				Debug.Log ("Distance "+ dist);
-				if (dist < minDist)
-				{
-					Debug.Log ("Setting closest player to "+ otherPlayer.name+" ("+ dist+")");
-					closestPlayer = otherPlayer;
-					minDist = dist;
-				}
-			}
-
-			if (minDist <= GameController.instance.knifeRange)
-			{
-				if (player.ItemsOwned == PickupType.RealKnife1 || 
-					player.ItemsOwned == PickupType.RealKnife2)
-				{
-					UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "Stab!");
-					UIManager.instance.CreateObjectPickupAnimation (closestPlayer.transform.position, "Death");
-					closestPlayer.KillPlayer();
-
-					player.DropItem();
-
-				}
-				if (player.ItemsOwned == PickupType.FakeKnife)
-				{
-					UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "Fake knife breaks!");
-					UIManager.instance.CreateObjectPickupAnimation (closestPlayer.transform.position, "Survives!");
-					player.DropItem();
-				}
-			}
-
-		}
-	
-	
-	}
 
 	public void PlayerActivatedLocation(Player player, LocationType roomLocation)
 	{
 
-		Debug.Log ("GameController::PlayerActivatedLocation "+player.name + " at " + roomLocation);
+		Debug.Log ("GameController::PlayerActivatedLocation "+roomLocation);
 
-
-		
-		if (roomItemLocations[roomLocation] == PickupType.GasTrap)
+		if (player.ItemsOwned == PickupType.None)
 		{
+			// TODO display item picked up
+			player.ItemsOwned = TakeObjectFrom(roomLocation);
 
-			GameController.instance.TriggerGasTrap();
-			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Gas trap!");
-
-
+			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, GetItemName(player.ItemsOwned)+"!");
 		}
-		else if (player.ItemsOwned == PickupType.None)
+		else
 		{
-			if  (unexploredLocations.Contains(roomLocation))
-			{
-				// TODO display item picked up
-				player.ItemsOwned = TakeObjectFrom(roomLocation);
-
-				UIManager.instance.CreateObjectPickupAnimation(player.transform.position, GetGenericItemName(player.ItemsOwned)+"!");
-			}
-			else
-			{
-				UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Nothing here");
-			}
+			// TODO display item NOT picked up
+			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "nothing");
 		}
-		else 
-		{
-			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Can't carry more");
-		}
-
-
-//		else if (roomObject == RoomObject.CleanVent || roomObject == RoomObject.RustyVent )
-//		{
-//			UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "vent did nothing");
-//			return;
-//		}
-//		
-//		if (!unexploredLocations.Contains(roomObject))
-//		{
-//			Debug.Log (roomObject + " has already been explored");
-//			return;
-//		}
-//
-//		unexploredLocations.Remove(roomObject);
-//
-//		if (roomItemLocations[roomObject] != ItemType.BoobyTrap)
-//		{
-//			UIManager.instance.CreateObjectPickupAnimation (player.transform.position,"Object Picked Up");
-//		}
-//		else
-//		{
-//			// TODO display item NOT picked up
-//			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "nothing");
-//		}
 //
 //		if (roomObject == ventWithPoison)
 //		{
