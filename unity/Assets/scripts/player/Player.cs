@@ -71,13 +71,16 @@ public class Player: MonoBehaviour {
 
 		if (knife)
 		{
+			knifeIcon.spriteName = KNIFE_ICON;
+
 			if (PlayerSprite.spriteName == "NW&SEBody")
 			{
-				knifeIcon.spriteName = KNIFE_ICON;
+				knifeIcon.transform.localPosition = KnifePostionCache;
 			}
 			else
 			{
-				knifeIcon.spriteName = "";
+				knifeIcon.transform.localPosition = KnifePostionCache + new Vector3 (100,0,0);
+		
 			}
 		}
 		
