@@ -5,6 +5,12 @@ public class initScores : MonoBehaviour {
 
 void Start ()
 	{
+		InitScores();
+	}
+
+
+	public static void InitScores()
+	{
 		PlayerPrefs.SetInt ("Player1",0);
 		PlayerPrefs.SetInt ("Player2",0);
 		PlayerPrefs.SetInt ("Player3",0);

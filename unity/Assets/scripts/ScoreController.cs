@@ -17,6 +17,8 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 	void Start()
 	{
+
+
 		playerInfos = new PlayerInfo[4];
 		for (int i = 0 ; i < 4 ; i++)
 		{

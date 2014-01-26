@@ -155,7 +155,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 		// add 1 or 2 pass on instructions
 		
-		AddPassOnInstruction(); // adding an instruction to skip
+//		AddPassOnInstruction(); // adding an instruction to skip
 
 		AddPassOnInstruction();
 		if (Random.value < 0.5)
@@ -378,8 +378,15 @@ public class GameController : SingletonBehaviour<GameController>
 	void AddPositiveInstruction()
 	{
 		Debug.Log("Add PositiveInstruction");
-		LocationType roomLocation = PickRandomRoom();
-		PickupType pickupItem = roomItemLocations[roomLocation];
+
+		PickupType pickupItem = PickRandomInverseItem(PickupType.BoobyTrap1, PickupType.BoobyTrap2, PickupType.BoobyTrap3);
+
+		
+		Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
+
+		LocationType roomLocation = whereItemsAre[pickupItem];
+//		PickupType pickupItem = roomItemLocations[roomLocation];
+
 		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
 		
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive1Location, infoPacket = iPacket, });
