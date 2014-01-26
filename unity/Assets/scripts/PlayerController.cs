@@ -12,12 +12,12 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 	//hardcoded controls:
 
-
+	string[] PlayerNames = {"red","green","blue","orange"};
 
      private KeyCode[] Up = {KeyCode.W, KeyCode.I, 	KeyCode.Keypad8, KeyCode.UpArrow};
 	 private KeyCode[] Down = {KeyCode.S, KeyCode.K, KeyCode.Keypad2, KeyCode.DownArrow};
-	private KeyCode[] Left = {KeyCode.A, KeyCode.J,KeyCode.Keypad4, KeyCode.LeftArrow};
-	private KeyCode[] Right = {KeyCode.D, KeyCode.L, KeyCode.Keypad6, KeyCode.RightArrow};
+	 private KeyCode[] Left = {KeyCode.A, KeyCode.J,KeyCode.Keypad4, KeyCode.LeftArrow};
+	 private KeyCode[] Right = {KeyCode.D, KeyCode.L, KeyCode.Keypad6, KeyCode.RightArrow};
 	 private KeyCode[] Action = {KeyCode.LeftControl,KeyCode.Space, KeyCode.Keypad5, KeyCode.RightControl};
 
 	[SerializeField] private Color[] PlayerColors;
@@ -85,7 +85,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i].PlayerSprite.color = PlayerColors[i];
 			Players[i]._movement.MovementSpeedBase = MovementSpeed;
 			Players[i].PlayerIcon = UIManager.instance.PlayerIcons[i];
-
+			Players[i].name = PlayerNames[i];
 			Players[i].IsAlive = true;
 			Players[i].ItemsOwned = PickupType.None;
 			Players[i].GetComponent<UIPanel>().depth = 100-i;

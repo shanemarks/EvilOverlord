@@ -82,8 +82,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		{
 			Debug.LogWarning ("Have winners!");
 
-			// TODO display scores
-			ResetScores();
+
 
 			Application.LoadLevel(0);
 		}

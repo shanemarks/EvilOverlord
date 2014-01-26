@@ -102,7 +102,6 @@ Transform:
   m_Children:
   - {fileID: 274577309}
   - {fileID: 577888684}
-  - {fileID: 1998131098}
   m_Father: {fileID: 1842863614}
 --- !u!114 &92635760
 MonoBehaviour:
@@ -123,11 +122,11 @@ MonoBehaviour:
     e00: 540
     e01: 0
     e02: 0
-    e03: .846560836
+    e03: 1.39534891
     e10: 0
     e11: 540
     e12: 0
-    e13: -.846394956
+    e13: -2.79069781
     e20: 0
     e21: 0
     e22: 540
@@ -467,7 +466,6 @@ GameObject:
   - 124: {fileID: 971162686}
   - 81: {fileID: 971162685}
   - 114: {fileID: 971162690}
-  - 114: {fileID: 971162691}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -547,17 +545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c8c8a0bc8ba2342909dbfe803c5f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &971162691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 971162684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85c8c8a0bc8ba2342909dbfe803c5f62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1376613858
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,7 +611,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1842863613}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.846560836, y: .846394956, z: 0}
+  m_LocalPosition: {x: -1.39534891, y: 2.79069781, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 92635759}
@@ -648,57 +635,6 @@ MonoBehaviour:
   relativeOffset: {x: 0, y: 0}
   pixelOffset: {x: 0, y: 0}
   widgetContainer: {fileID: 0}
---- !u!1 &1998131097
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1998131098}
-  - 114: {fileID: 1998131099}
-  m_Layer: 5
-  m_Name: Sprite
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1998131098
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1998131097}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 92635759}
---- !u!114 &1998131099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1998131097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mColor: {r: .492647052, g: 0, b: 0, a: 1}
-  mPivot: 4
-  mWidth: 1920
-  mHeight: 1080
-  mDepth: 0
-  autoResizeBoxCollider: 0
-  mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
-  mSpriteName: FloorGrate
-  mFillCenter: 1
-  mType: 2
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
 --- !u!1 &2058189536
 GameObject:
   m_ObjectHideFlags: 0
