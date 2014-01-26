@@ -433,10 +433,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11400000, guid: 4c3c64c2af5cfa44983e45679fc6ab1d, type: 2}
-      propertyPath: isLiving.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4c3c64c2af5cfa44983e45679fc6ab1d, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -465,23 +461,8 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 4c3c64c2af5cfa44983e45679fc6ab1d, type: 2}
-      propertyPath: isLiving.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 4c3c64c2af5cfa44983e45679fc6ab1d, type: 2}
-      propertyPath: isLiving.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 4c3c64c2af5cfa44983e45679fc6ab1d, type: 2}
-      propertyPath: isLiving.Array.data[2]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 4c3c64c2af5cfa44983e45679fc6ab1d, type: 2}
-      propertyPath: isLiving.Array.data[3]
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400002, guid: 4c3c64c2af5cfa44983e45679fc6ab1d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 4c3c64c2af5cfa44983e45679fc6ab1d, type: 2}
   m_RootGameObject: {fileID: 1865603634}
   m_IsPrefabParent: 0
@@ -4419,7 +4400,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1865603637}
   - 114: {fileID: 1865603636}
-  - 114: {fileID: 1865603635}
   m_Layer: 0
   m_Name: _ScoreController
   m_TagString: Untagged
@@ -4427,18 +4407,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1865603635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: 4c3c64c2af5cfa44983e45679fc6ab1d,
-    type: 2}
-  m_PrefabInternal: {fileID: 274455852}
-  m_GameObject: {fileID: 1865603634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f4443ecf5d91b64588d906f6dcaf95a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1865603636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4452,7 +4420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winScore: 10
-  isLiving: 01010101
+  isLiving: 
   timer: 0
 --- !u!4 &1865603637
 Transform:
