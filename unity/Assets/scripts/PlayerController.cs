@@ -179,9 +179,10 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 		IComparer yComparer = new yComparerClass();
 
 		foreach(GameObject go in gos) {
+			try {
 			if ((go.tag == "Player" || go.tag == "Item") && (go.GetComponent<UIPanel>() != null || go.GetComponent<UISprite>() != null)) {
 				//Debug.Log(go.name);
-				SceneObjects.Add(go); }
+					SceneObjects.Add(go); } } catch (System.NullReferenceException e) {}
 		}
 
 		/*for (int i = 0 ; i < PlayerCount; i++)
