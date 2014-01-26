@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: _UIManager
   m_TagString: Untagged
@@ -41,12 +42,42 @@ MonoBehaviour:
   PlayerPanel: {fileID: 0}
   UICamera: {fileID: 0}
   TextInfo: {fileID: 0}
-  PlayerIcons: []
+  PlayerIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ALIVE_ICON: Alive
   DEAD_ICON: Dead
-  CRATE_ICON: Holding
+  KNIFE_ICON: HoldingKnife
+  MASK_ICON: HoldingMask
+  BOTH_ICON: HoldingBoth
   Transient: {fileID: 0}
-  ObjectPickupPrefab: {fileID: 0}
+  PlayerIconBorders:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ScoreIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ObjectPickupPrefab: {fileID: 100000, guid: 0fc55464d3bf97648a604eb7f06f1a98, type: 2}
+  Blood: {fileID: 100000, guid: 2117c9f9c0d55e540bc0576761f3e8c5, type: 2}
+  GibAnim: {fileID: 100016, guid: 263c38b40dbf2a74aab7bd1c18916e10, type: 2}
+  ScreenMessage: {fileID: 0}
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eb748ddd0434464a84411718dcf4bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -13,6 +13,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 
 	public PlayerInfo [] playerInfos;
+	[SerializeField] bool[] isLiving = {true,true,true,true};
 
 	void Start()
 	{
@@ -34,8 +35,29 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 	public void UpdateGameFinished(Player winner1, Player winner2)
 	{
-		playerInfos[winner1.Index].score += 1;
-		playerInfos[winner2.Index].score += 1;
+		Debug.Log (winner1);
+		Debug.Log (winner2);
+		PlayerController.instance.RoundWon = true;
+		if (winner1 !=  null)
+		{
+			playerInfos[winner1.Index].score += 1;
+			Debug.Log (	playerInfos[winner1.Index].score);
+		}
+		if (winner2 != null)
+		{
+			playerInfos[winner2.Index].score += 1;
+		}
+		if (winner1 == null && winner2==null)
+		{
+			Debug.Log ("None Wins");
+
+			UIManager.instance.ScreenMessage.text = "No one wins this round";
+		}
+		else
+		{	
+			UIManager.instance.ScreenMessage.text = "Round Winners: \n" + winner1.name  + ((winner2 != null) ?  " - " + winner2.name : "") ;
+
+		}
 
 
 		List<int> winningPlayers = new List<int>();
@@ -55,9 +77,87 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 			// TODO display scores
 			ResetScores();
+
+			Application.LoadLevel(0);
 		}
 	}
+	float CheckTimer = 1f;
+	public float timer =0;
+	public 	void LateUpdate ()
+	{	
+	
+	
 
+		int n = 0;
+		int count = 0;
+		if (PlayerController.instance != null)
+		{
+			if (timer < CheckTimer)
+			{
+				timer +=Time.deltaTime;	
+				return;
+			}
+		
+			
+			for (int i = 0 ; i < 4 ; i++)
+			{
+				
+				UIManager.instance.ScoreIcons[i].text =  playerInfos[i].score.ToString() ;
+				
+			}
+
+
+
+			if (!PlayerController.instance.RoundWon)
+			{
+				isLiving[n] = true;
+				foreach (Player pl in PlayerController.instance.Players)
+				{
+					isLiving[n] = true;
+					if (!pl.IsAlive)
+					{
+						Debug.Log ("PlayerDEAD");
+						isLiving[n] = false;
+						n++;
+						count++;
+					}
+
+
+
+				}
+				if (count >= 2)
+				{
+				
+					bool firstFound = false;
+					Player p = null, p1 = null;
+					for (int i=0; i<PlayerController.instance.PlayerCount; i++)
+					{
+						if(!firstFound)
+						{
+							 if (PlayerController.instance.Players[i].IsAlive)
+							{
+								p = PlayerController.instance.Players[i];
+								firstFound = true;
+							}
+						}
+
+						else
+						{
+							if (PlayerController.instance.Players[i].IsAlive)
+							{
+								p1 = PlayerController.instance.Players[i];
+							}
+						}
+
+					}
+					UpdateGameFinished (p,p1);
+				
+				}
+			}
+		}
+
+		timer = 0;
+	}
 
 
 
