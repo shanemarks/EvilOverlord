@@ -11,7 +11,7 @@ namespace RaxterWorks
 namespace GamepadInputManager
 {
 
-public class GamepadInputConfigurations : ScriptableObject
+public class GamepadInputConfigurations : AutoSingletonBehaviour<GamepadInputConfigurations>
 {
 	[SerializeField]
 	bool _createBackgroundProcessOnCall = true;
@@ -191,46 +191,55 @@ public class GamepadInputConfigurations : ScriptableObject
 	
 	
 	
-	#region ScriptableObjectSingleton code
-	
-	static GamepadInputConfigurations _instance = null;
-	
-	static GamepadInputConfigurations instance
-	{
-		get
-		{
-			if(_instance != null)
-			{
-				return _instance;
-			}
-			
-			Debug.Log("Loading " + typeof(GamepadInputConfigurations).Name + " from resource folder");
-			_instance = Resources.Load(typeof(GamepadInputConfigurations).Name, typeof(GamepadInputConfigurations)) as GamepadInputConfigurations;
-			
-			if(_instance == null)
-			{
-#if UNITY_EDITOR
-				Debug.LogWarning(typeof(GamepadInputConfigurations).Name + " resource does not exist. Creating in Assets/Resources");
-				_instance = ScriptableObject.CreateInstance<GamepadInputConfigurations>();
-				
-				System.IO.DirectoryInfo directory = new System.IO.DirectoryInfo("Assets/Resources");
-				if(!directory.Exists)
-				{
-					directory.Create();
-				}
-				
-				AssetDatabase.CreateAsset(_instance, "Assets/Resources/" + typeof(GamepadInputConfigurations).Name + ".asset");
-				AssetDatabase.SaveAssets();
-#else		
-				Debug.LogError("Error getting the " + typeof(GamepadInputConfigurations).Name + " resource");
-#endif
-			}
-			
-			return _instance;
-		}
-	}
-	
-	#endregion
+//	#region ScriptableObjectSingleton code
+//	
+//	static GamepadInputConfigurations _instance = null;
+//	
+//	static GamepadInputConfigurations instance
+//	{
+//		get
+//		{
+//			if(_instance != null)
+//			{
+//				return _instance;
+//			}
+//			
+//			Debug.Log("Loading " + typeof(GamepadInputConfigurations).Name + " from resource folder");
+//
+//			_instance = Resources.Load("GamepadPlugin/"+typeof(GamepadInputConfigurations).Name, typeof(GamepadInputConfigurations)) as GamepadInputConfigurations;
+//
+//
+//			if(_instance == null)
+//			{
+//#if UNITY_EDITOR
+//				Debug.LogWarning(typeof(GamepadInputConfigurations).Name + " resource does not exist. Creating in Assets/Resources");
+//				_instance = ScriptableObject.CreateInstance<GamepadInputConfigurations>();
+////				
+//				
+//				System.IO.DirectoryInfo directory = new System.IO.DirectoryInfo("Assets/Resources/GamepadPlugin/");
+//				if(!directory.Exists)
+//				{
+//					directory.Create();
+//				}
+//				
+//
+//				AssetDatabase.CreateAsset(_instance, "Assets/Resources/GamepadPlugin/" + typeof(GamepadInputConfigurations).Name + ".asset");
+//				AssetDatabase.SaveAssets();
+//						
+//				
+//				EditorUtility.SetDirty(_instance);
+//
+//				
+//#else		
+//				Debug.LogError("Error getting the " + typeof(GamepadInputConfigurations).Name + " resource");
+//#endif
+//			}
+//
+//			return _instance;
+//		}
+//	}
+//	
+//	#endregion
 }
 		
 }

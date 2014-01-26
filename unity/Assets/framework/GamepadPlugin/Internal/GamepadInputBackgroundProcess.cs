@@ -59,6 +59,11 @@ public class GamepadInputBackgroundProcess : MonoBehaviour
 	{
 		for (int i = 0 ; i < 4 ; i++)
 		{
+			if (states[i] == null)
+				states[i] = new ButtonStates();
+			if (previousStates[i] == null)
+				previousStates[i] = new ButtonStates();
+
 			previousStates[i].CopyFrom(states[i]);
 			
 			GamepadInput.GetSimulatedDPadButtons(out states[i].dpadUp, out states[i].dpadDown, out states[i].dpadLeft, out states[i].dpadRight, i);
@@ -66,13 +71,21 @@ public class GamepadInputBackgroundProcess : MonoBehaviour
 			states[i].triggerRight = GamepadInput.GetSimulatedRightTriggerButton(i);
 		}
 	}
-	
-	public bool GetButtonUp (Button button, int controllerIndex)
-	{
-		return !previousStates[controllerIndex].GetButton(button) && states[controllerIndex].GetButton(button);
-	}
+
 	public bool GetButtonDown (Button button, int controllerIndex)
 	{
+		if (previousStates == null || states == null || previousStates[controllerIndex] == null || states[controllerIndex] == null)
+		{
+			return false;
+		}
+		return !previousStates[controllerIndex].GetButton(button) && states[controllerIndex].GetButton(button);
+	}
+	public bool GetButtonUp (Button button, int controllerIndex)
+	{
+		if (previousStates == null || states == null || previousStates[controllerIndex] == null || states[controllerIndex] == null)
+		{
+			return false;
+		}
 		return previousStates[controllerIndex].GetButton(button) && !states[controllerIndex].GetButton(button);
 	}
 	

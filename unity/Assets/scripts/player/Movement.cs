@@ -38,6 +38,7 @@ public class Movement : MonoBehaviour {
 		_playerCollider = GetComponent<Collider> ();
 		Debug.Log ("Starting Movement");
 		_trans = gameObject.transform;
+
 	
 	}
 	
@@ -115,7 +116,7 @@ public class Movement : MonoBehaviour {
 					MoveRight ();
 				}
 				
-				if (GamepadInput.GetButton(Button.RightTrigger,ControllerNumber))
+				if (GamepadInput.GetButtonDown(Button.RightTrigger,ControllerNumber))
 				{
 					FireAction ();
 				}
@@ -153,7 +154,7 @@ public class Movement : MonoBehaviour {
 					MoveRight ();
 				}
 				
-				if (GamepadInput.GetButton(Button.LeftTrigger,ControllerNumber))
+				if (GamepadInput.GetButtonDown(Button.LeftTrigger,ControllerNumber))
 				{
 					FireAction ();
 				}
