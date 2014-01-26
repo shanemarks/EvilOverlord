@@ -20,9 +20,11 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		playerInfos = new PlayerInfo[4];
 		for (int i = 0 ; i < 4 ; i++)
 		{
-			playerInfos[i] = new PlayerInfo() {name = "Player "+(i+1).ToString()};
+		
+			playerInfos[i] = new PlayerInfo() {name = "Player"+(i+1).ToString()};
+			playerInfos[i].score = PlayerPrefs.GetInt( "Player"+(i+1).ToString());
 		}
-		ResetScores();
+
 	}
 
 	void ResetScores()
@@ -41,11 +43,16 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		if (winner1 !=  null)
 		{
 			playerInfos[winner1.Index].score += 1;
-			Debug.Log (	playerInfos[winner1.Index].score);
+			PlayerPrefs.SetInt("Player" + (winner1.Index+1).ToString(),playerInfos[winner1.Index].score);
+			PlayerPrefs.Save();
+
+
 		}
 		if (winner2 != null)
 		{
 			playerInfos[winner2.Index].score += 1;
+			PlayerPrefs.SetInt("Player" + (winner1.Index+1).ToString(),playerInfos[winner1.Index].score);
+			PlayerPrefs.Save();
 		}
 		if (winner1 == null && winner2==null)
 		{
@@ -92,19 +99,22 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		int count = 0;
 		if (PlayerController.instance != null)
 		{
-			if (timer < CheckTimer)
-			{
-				timer +=Time.deltaTime;	
-				return;
-			}
-		
-			
+
 			for (int i = 0 ; i < 4 ; i++)
 			{
 				
 				UIManager.instance.ScoreIcons[i].text =  playerInfos[i].score.ToString() ;
 				
 			}
+			if (timer < CheckTimer)
+			{
+				timer +=Time.deltaTime;	
+
+				return;
+			}
+		
+			
+		
 
 
 

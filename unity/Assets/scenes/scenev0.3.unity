@@ -4460,7 +4460,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winScore: 10
-  isLiving: 
   timer: 0
 --- !u!4 &1865603637
 Transform:
