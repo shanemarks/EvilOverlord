@@ -24,6 +24,9 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	public GameObject Blood;
 	public GameObject GibAnim;
 	public UILabel ScreenMessage;
+
+	int bloodDepthCounter = 0;
+
 	void Start ()
 	{
 
@@ -33,6 +36,10 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	{
 		GameObject go = NGUITools.AddChild(Transient.gameObject,Blood);
 		go.transform.position = v;
+
+		go.GetComponent<UISprite>().depth = bloodDepthCounter;
+
+		bloodDepthCounter += 1;
 	}
 	void Update ()
 	{

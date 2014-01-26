@@ -90,6 +90,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i].ItemsOwned = PickupType.None;
 			Players[i].GetComponent<UIPanel>().depth = 100-i;
 			UIManager.instance.PlayerIconBorders[i].color = PlayerColors[i];
+
 //			if (Input.GetJoystickNames().Length > 1)
 //			{
 //				if (i == 0)
@@ -116,30 +117,42 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 //					Players[i]._movement.ControllerNumber = 1;
 //				}
 //			}
-			if (Input.GetJoystickNames().Length > 1)
+
+			Debug.Log ("Setting up controllers ("+Input.GetJoystickNames().Length+")");
+			if (Input.GetJoystickNames().Length == 0)
 			{
-				if (i == 0)
-				{
-					Players[i]._movement._controller = Movement.ControllerType.Keyboard;
-					Players[i]._movement.ControllerNumber = 0;
-				}
+				Players[i]._movement._controller = Movement.ControllerType.Keyboard;
+			}
+			if (Input.GetJoystickNames().Length >= 1)
+			{
 				if (i == 1)
 				{
 					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
 					Players[i]._movement.ControllerNumber = 0;
 				}
 			}
-			if (Input.GetJoystickNames().Length >=2)
+			if (Input.GetJoystickNames().Length >= 2)
 			{
 				if (i == 2)
 				{
 					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
 					Players[i]._movement.ControllerNumber = 1;
 				}
+			}
+			if (Input.GetJoystickNames().Length >= 3)
+			{
 				if (i == 3)
 				{
-					Players[i]._movement._controller = Movement.ControllerType.Keyboard;
-					Players[i]._movement.ControllerNumber = 1;
+					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
+					Players[i]._movement.ControllerNumber = 2;
+				}
+			}
+			if (Input.GetJoystickNames().Length >= 4)
+			{
+				if (i == 0)
+				{
+					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
+					Players[i]._movement.ControllerNumber = 3;
 				}
 			}
 			
