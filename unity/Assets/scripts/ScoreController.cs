@@ -13,7 +13,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 
 	public PlayerInfo [] playerInfos;
-	[SerializeField] bool[] isLiving = {true,true,true,true};
+	 bool[] isLiving = {true,true,true,true};
 
 	void Start()
 	{
