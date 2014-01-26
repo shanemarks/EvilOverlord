@@ -49,7 +49,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		{
 			AnswerPhone ();
 		}
-		if (Input.GetKeyDown(KeyCode.F2))
+		if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.F2))
 		{
 			ReplayInstruction();
 		}
