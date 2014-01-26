@@ -615,7 +615,7 @@ public class GameController : SingletonBehaviour<GameController>
 		return "a non item";
 	}
 	
-	public void PlayerActivatedItem(Player player)
+	public bool PlayerActivatedItem(Player player)
 	{
 		Debug.Log ("GameController::PlayerActivatedItem "+player.name);
 	
@@ -655,6 +655,7 @@ public class GameController : SingletonBehaviour<GameController>
 					closestPlayer.KillPlayer();
 
 					player.DropItem();
+					return true;
 
 				}
 				if (player.ItemsOwned == PickupType.FakeKnife)
@@ -662,11 +663,12 @@ public class GameController : SingletonBehaviour<GameController>
 					UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "Fake knife breaks!");
 					UIManager.instance.CreateObjectPickupAnimation (closestPlayer.transform.position, "Survives!");
 					player.DropItem();
+					return true;
 				}
 			}
 
 		}
-	
+		return true;
 	
 	}
 
@@ -723,7 +725,7 @@ public class GameController : SingletonBehaviour<GameController>
 				}
 				else
 				{
-					UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Already have a "+GetGenericItemName(player.ItemsOwned)+"!");
+					UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Already have a gas mask!");
 				}
 			}
 

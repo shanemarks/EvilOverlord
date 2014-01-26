@@ -444,17 +444,13 @@ public class Movement : MonoBehaviour {
 
 	void FireAction ()
 	{
-
-		if (_thePlayer.OnRoomLocation != null)
+		
+		if (_thePlayer.ItemsOwned == PickupType.None || !GameController.instance.PlayerActivatedItem(_thePlayer))
 		{
-
-			GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
-		}
-		else
-		{
-
-			GameController.instance.PlayerActivatedItem(_thePlayer);
-
+			if (_thePlayer.OnRoomLocation != null)
+			{
+				GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
+			}
 		}
 
 	}

@@ -9,7 +9,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		public int score = 0;
 	}
 
-	public int winScore = 10;
+	public int winScore = 3;
 
 
 	public PlayerInfo [] playerInfos;
@@ -54,7 +54,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		if (winner2 != null)
 		{
 			playerInfos[winner2.Index].score += 1;
-			PlayerPrefs.SetInt("Player" + (winner1.Index+1).ToString(),playerInfos[winner1.Index].score);
+			PlayerPrefs.SetInt("Player" + (winner2.Index+1).ToString(),playerInfos[winner2.Index].score);
 			PlayerPrefs.Save();
 		}
 		if (winner1 == null && winner2==null)
@@ -65,7 +65,11 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		}
 		else
 		{	
-			UIManager.instance.ScreenMessage.text = "Round Winners: \n" + winner1.name  + ((winner2 != null) ?  " - " + winner2.name : "") ;
+			
+			CheckWinners();
+			UIManager.instance.ScreenMessage.text = winningPlayers.Count.ToString()+ " Round Winners: \n" + winner1.name  + ((winner2 != null) ?  " - " + winner2.name : "") ;
+
+
 			if (HaveWinners)
 			{
 				string [] names = winningPlayers.ConvertAll((i) => PlayerController.instance.Players[i].name).ToArray();
@@ -75,6 +79,31 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		}
 
 
+	}
+
+
+	void CheckWinners()
+	{
+		
+		winningPlayers.Clear();
+		
+		//		foreach (PlayerInfo info in playerInfos)
+		for (int i = 0 ; i < 4 ; i++)
+		{
+			if (playerInfos[i].score >= winScore)
+			{
+				winningPlayers.Add(i);
+			}
+		}
+	}
+
+	void OnGUI()
+	{
+		GUILayout.Label(winningPlayers.Count.ToString());
+		for (int i = 0 ; i < 4 ; i++)
+		{
+			GUILayout.Label(playerInfos[i].score.ToString());
+		}
 	}
 
 	public bool HaveWinners { get { return winningPlayers.Count > 0; } }
@@ -93,18 +122,10 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		}
 
 #endif
-		
-		winningPlayers.Clear();
-		
-		//		foreach (PlayerInfo info in playerInfos)
-		for (int i = 0 ; i < 4 ; i++)
-		{
-			if (playerInfos[i].score >= winScore)
-			{
-				winningPlayers.Add(i);
-			}
-		}
-		
+
+		CheckWinners();
+
+
 //		if (winningPlayers.Count > 0)
 //		{
 //			Debug.LogWarning ("Have winners!");

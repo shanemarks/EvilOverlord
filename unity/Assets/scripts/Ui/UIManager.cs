@@ -63,7 +63,10 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		}
 #endif
 
-		resetGame.text = "New game";
+		if (ScoreController.instance.HaveWinners)
+		{
+			resetGame.text = "New game";
+		}
 	}
 	
 	public void AnswerPhone ()
