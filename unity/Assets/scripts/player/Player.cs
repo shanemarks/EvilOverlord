@@ -12,8 +12,10 @@ public class Player: MonoBehaviour {
 	public Transform _trans;
 
 	public PickupType ItemsOwned;
+	public bool hasGasMask = false;
 
-	public Color  PlayerColor;
+
+	public Color PlayerColor;
 
 	public int Index = -1;
 
@@ -39,16 +41,9 @@ public class Player: MonoBehaviour {
 	void Update ()
 	{
 
-		if (ItemsOwned == PickupType.BoobyTrap1 ||
-		    ItemsOwned == PickupType.BoobyTrap2 ||
-		    ItemsOwned == PickupType.BoobyTrap3)
-		{
-			KillPlayer ();
-		}
-
 		if (GameController.instance.GasTrapTriggered)
 		{
-			if (ItemsOwned != PickupType.GasMask1 && ItemsOwned != PickupType.GasMask2)
+			if (!hasGasMask /* && ItemsOwned != PickupType.GasMask1 && ItemsOwned != PickupType.GasMask2*/)
 			{
 				KillPlayer();
 			}
@@ -74,19 +69,23 @@ public class Player: MonoBehaviour {
 			notifiedAboutGasMask = false;
 			if (OnRoomLocation != null)
 			{
-				OnRoomLocation.gameObject.GetComponent<UISprite>().color = Color.white;
+//				OnRoomLocation.gameObject.GetComponent<UISprite>().color = Color.white;
 
-				OnRoomLocation =null;
+				OnRoomLocation.occupiedPlayer = null;
+				OnRoomLocation = null;
 
 			}
 			UIManager.instance.Gib(transform.position);
 			UIManager.instance.PutBlood(transform.position);
 			HOTween.To(GetComponent<UIPanel>(), 1f, "alpha", 0f);
+
+
 		}
 	}
 	
 	void ResetPlayer ()
 	{
+		hasGasMask = false;
 		_movement.enabled = true;
 		GetComponent<UIPanel>().alpha = 1;
 	}

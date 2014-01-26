@@ -669,32 +669,62 @@ public class GameController : SingletonBehaviour<GameController>
 		Debug.Log ("GameController::PlayerActivatedLocation "+player.name + " at " + roomLocation);
 
 
-		
+		 
 		if (roomItemLocations[roomLocation] == PickupType.GasTrap)
 		{
 
 			GameController.instance.TriggerGasTrap();
 			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Gas trap!");
 
-
+			
+			return;
 		}
-		else if (player.ItemsOwned == PickupType.None)
+		if (roomItemLocations[roomLocation] == PickupType.BoobyTrap1 || 
+		    roomItemLocations[roomLocation] == PickupType.BoobyTrap2 || 
+		    roomItemLocations[roomLocation] == PickupType.BoobyTrap3)
 		{
-			if  (unexploredLocations.Contains(roomLocation))
-			{
-				// TODO display item picked up
-				player.ItemsOwned = TakeObjectFrom(roomLocation);
-
-				UIManager.instance.CreateObjectPickupAnimation(player.transform.position, GetGenericItemName(player.ItemsOwned)+"!");
-			}
-			else
-			{
-				UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Nothing here");
-			}
+			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Booby trap!");
+			player.KillPlayer();
+			
+			return;
 		}
-		else 
+
+		if  (unexploredLocations.Contains(roomLocation))
 		{
-			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Can't carry more");
+			// TODO display item picked up
+			if (roomItemLocations[roomLocation] == PickupType.FakeKnife  || 
+			    roomItemLocations[roomLocation] == PickupType.RealKnife1 || 
+			    roomItemLocations[roomLocation] == PickupType.RealKnife2)
+			{
+				if (player.ItemsOwned == PickupType.None)
+				{
+					player.ItemsOwned = TakeObjectFrom(roomLocation);
+					UIManager.instance.CreateObjectPickupAnimation(player.transform.position, GetGenericItemName(player.ItemsOwned)+"!");
+				}
+				else
+				{
+					UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Already have a "+GetGenericItemName(player.ItemsOwned)+"!");
+				}
+			}
+			else // ... gas mask
+			{
+				if (player.hasGasMask == false)
+				{
+					TakeObjectFrom(roomLocation);
+					player.hasGasMask = true;
+					UIManager.instance.CreateObjectPickupAnimation(player.transform.position, GetGenericItemName(PickupType.GasMask1)+"!");
+				}
+				else
+				{
+					UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Already have a "+GetGenericItemName(player.ItemsOwned)+"!");
+				}
+			}
+
+//				UIManager.instance.CreateObjectPickupAnimation(player.transform.position, GetGenericItemName(player.ItemsOwned)+"!");
+		}
+		else
+		{
+			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Nothing here");
 		}
 
 

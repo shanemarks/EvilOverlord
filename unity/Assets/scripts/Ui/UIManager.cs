@@ -12,9 +12,10 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	public UISprite [] PlayerIcons;
 
 	public string ALIVE_ICON = "Alive",
-				  DEAD_ICON = "Dead",
-					KNIFE_ICON ="HoldingKnife",
-	MASK_ICON ="HoldingMask";
+	DEAD_ICON = "Dead",
+	KNIFE_ICON ="HoldingKnife",
+	MASK_ICON ="HoldingMask",
+	BOTH_ICON ="HoldingBoth";
 	public UIPanel  Transient; // holds aniamtion effects;
 
 	public UISprite[] PlayerIconBorders;
@@ -80,18 +81,27 @@ public class UIManager : SingletonBehaviour<UIManager> {
 			}
 			 if (!p.IsAlive)
 			{
-				p.PlayerIcon.spriteName= DEAD_ICON;
-			}
-			
-			 if (p.ItemsOwned == PickupType.FakeKnife || p.ItemsOwned == PickupType.RealKnife2 ||p.ItemsOwned == PickupType.RealKnife1)
-			{
-				p.PlayerIcon.spriteName = KNIFE_ICON;
-				return;
+				p.PlayerIcon.spriteName = DEAD_ICON;
+				continue;
 			}
 
-		 if (p.ItemsOwned == PickupType.GasMask1 || p.ItemsOwned == PickupType.GasMask2)
+			bool knife = p.ItemsOwned == PickupType.FakeKnife || p.ItemsOwned == PickupType.RealKnife2 ||p.ItemsOwned == PickupType.RealKnife1;
+			bool mask = p.hasGasMask;
+			if (knife && mask)
+			{
+				p.PlayerIcon.spriteName = BOTH_ICON;
+				continue;
+			}
+			if (knife)
+			{
+				p.PlayerIcon.spriteName = KNIFE_ICON;
+				continue;
+			}
+
+			if (mask)
 			{
 				p.PlayerIcon.spriteName = MASK_ICON;
+				continue;
 		
 			}
 

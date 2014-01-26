@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour {
 //			Debug.Log("AnswerPhone - frame "+Time.frameCount);
 //			UIManager.instance.AnswerPhone ();
 //		}
-
+//		UIManager.instance.AnswerPhone ();
 	
 		if (_thePlayer.IsAlive)
 		{
@@ -205,6 +205,11 @@ public class Movement : MonoBehaviour {
 			}
 		}
 //		Debug.Log ("RoomLocation hit ---");
+
+		if (_thePlayer.IsAlive == false)
+		{
+			closestLocation = null;
+		}
 
 		if (closestLocation != null) // we are over a location
 		{
