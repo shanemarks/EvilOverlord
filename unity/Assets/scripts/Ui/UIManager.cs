@@ -45,7 +45,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	{
 		UpdateCharacterIcons();
 
-		if (Input.GetKeyDown(KeyCode.F1))
+		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.F1))
 		{
 			AnswerPhone ();
 		}
@@ -53,10 +53,13 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		{
 			ReplayInstruction();
 		}
+
+#if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.F3))
 		{
 			GameController.instance.showDebugOutput = !GameController.instance.showDebugOutput;
 		}
+#endif
 	}
 	
 	public void AnswerPhone ()
