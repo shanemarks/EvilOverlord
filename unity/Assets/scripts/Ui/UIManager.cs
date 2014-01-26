@@ -19,10 +19,11 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	public UIPanel  Transient; // holds aniamtion effects;
 
 	public UISprite[] PlayerIconBorders;
-
+	public UILabel[] ScoreIcons;
 	public GameObject ObjectPickupPrefab;
 	public GameObject Blood;
 	public GameObject GibAnim;
+	public UILabel ScreenMessage;
 	void Start ()
 	{
 
@@ -142,6 +143,6 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	void ResetGame ()
 	{
 		Debug.Log ("Reset Game");
-		Application.LoadLevel(Application.loadedLevel);
+		Application.LoadLevel(0);
 	}
 }

@@ -89,7 +89,7 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 			
 			InitVoice(); // init the engine
 			
-			
+			SetVoiceVolume (100);
 			
 			if (voice_nb > GetVoiceCount()) voice_nb = 0;
 			

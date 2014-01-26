@@ -465,6 +465,8 @@ public class Movement : MonoBehaviour {
 						_thePlayer.PlayerSprite.spriteName = "NE&SWBody";
 			_thePlayer.FrontFootSprite.transform.localPosition = new Vector3 (22.2f, -59.32f, 0);
 			_thePlayer.BackFootSprite.transform.localPosition = new Vector3 (-22.2f, -36.6f, 0);
+	
+
 				} else {
 			_thePlayer.PlayerSprite.spriteName = "NW&SEBody";
 			_thePlayer.FrontFootSprite.transform.localPosition = new Vector3 (-22.2f, -59.32f, 0);
@@ -472,13 +474,30 @@ public class Movement : MonoBehaviour {
 				}
 
 		if (dir == Boundary.Direction.Up)
+		{
 			_thePlayer.PlayerHeadSprite.spriteName = "NWHead";
+
+		
+		}
 		else if (dir == Boundary.Direction.Right )
+		{
 			_thePlayer.PlayerHeadSprite.spriteName = "NEHead";
+
+	
+		
+
+		}
 		else if (dir == Boundary.Direction.Down )
+		{
 			_thePlayer.PlayerHeadSprite.spriteName = "SEHead";
+
+			
+		}
 		else if (dir == Boundary.Direction.Left )
+		{
 			_thePlayer.PlayerHeadSprite.spriteName = "SWHead";
+					
+		}
 
 	}
 

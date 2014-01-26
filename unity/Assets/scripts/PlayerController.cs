@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using RaxterWorks.GamepadInputManager;
-
+using System.Collections.Generic;
 
 public class PlayerController : SingletonBehaviour<PlayerController>
 {
@@ -27,7 +27,9 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 	public int MovementSpeed = 5;
 	public Player[] Players;
 
-	
+
+	public bool RoundWon;
+	public List<Player> _livingPlayers;
 	public class yComparerClass : IComparer {
 		int IComparer.Compare(object x, object y) {
 			float depthx, depthy;
@@ -70,7 +72,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			GameObject go = NGUITools.AddChild(UIManager.instance.PlayerPanel.gameObject, PlayerPrefab);
 
 			Players[i] = go.GetComponent<Player>();
-			Players[i].name = "player" + i;
+			Players[i].name = "player" + (i+1);
 			Players[i]._movement.Up = Up[i];
 			Players[i]._movement.Down = Down[i];
 			Players[i]._movement.Left = Left[i];		

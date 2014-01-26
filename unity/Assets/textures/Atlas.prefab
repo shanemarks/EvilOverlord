@@ -158,8 +158,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Dead
-    x: 1674
-    y: 1940
+    x: 1586
+    y: 1877
     width: 32
     height: 32
     borderLeft: 0
@@ -301,8 +301,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: HoldingBoth
-    x: 1586
-    y: 1877
+    x: 1674
+    y: 1940
     width: 32
     height: 32
     borderLeft: 0
@@ -339,6 +339,19 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 0
     paddingBottom: 1
+  - name: Knife
+    x: 1286
+    y: 1384
+    width: 11
+    height: 31
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: LeftWall
     x: 1197
     y: 1385
@@ -354,7 +367,7 @@ MonoBehaviour:
     paddingBottom: 4
   - name: NE&SWBody
     x: 1752
-    y: 2021
+    y: 1993
     width: 35
     height: 27
     borderLeft: 0
@@ -366,8 +379,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: NEHead
-    x: 1635
-    y: 1918
+    x: 1374
+    y: 1426
     width: 35
     height: 40
     borderLeft: 0
@@ -380,7 +393,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: NW&SEBody
     x: 1752
-    y: 1993
+    y: 2021
     width: 35
     height: 27
     borderLeft: 0
@@ -392,8 +405,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: NWHead
-    x: 1374
-    y: 1426
+    x: 1635
+    y: 1918
     width: 35
     height: 40
     borderLeft: 0
@@ -469,9 +482,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: SEMask
+    x: 1752
+    y: 1890
+    width: 35
+    height: 20
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 17
+    paddingBottom: 1
   - name: Shelf
     x: 1788
-    y: 2027
+    y: 1981
     width: 26
     height: 21
     borderLeft: 0
@@ -496,8 +522,8 @@ MonoBehaviour:
     paddingTop: 20
     paddingBottom: 19
   - name: smile
-    x: 1752
-    y: 1886
+    x: 1788
+    y: 2003
     width: 24
     height: 24
     borderLeft: 0
@@ -534,6 +560,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: SWMask
+    x: 1788
+    y: 2028
+    width: 35
+    height: 20
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 17
+    paddingBottom: 1
   - name: Toilet
     x: 1674
     y: 1903
