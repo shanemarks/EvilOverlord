@@ -143,6 +143,6 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	void ResetGame ()
 	{
 		Debug.Log ("Reset Game");
-		Application.LoadLevel(0);
+		Application.LoadLevel(1);
 	}
 }
