@@ -27,6 +27,8 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	int bloodDepthCounter = 0;
 
+	public UILabel resetGame;
+
 	void Start ()
 	{
 
@@ -60,6 +62,8 @@ public class UIManager : SingletonBehaviour<UIManager> {
 			GameController.instance.showDebugOutput = !GameController.instance.showDebugOutput;
 		}
 #endif
+
+		resetGame.text = "New game";
 	}
 	
 	public void AnswerPhone ()
@@ -153,6 +157,13 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	void ResetGame ()
 	{
 		Debug.Log ("Reset Game");
-		Application.LoadLevel(1);
+		if (ScoreController.instance.HaveWinners)
+		{
+			Application.LoadLevel(0);
+		}
+		else
+		{
+			Application.LoadLevel(1);
+		}
 	}
 }

@@ -37,6 +37,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		}
 	}
 
+
 	public void UpdateGameFinished(Player winner1, Player winner2)
 	{
 		Debug.Log (winner1);
@@ -65,13 +66,37 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		else
 		{	
 			UIManager.instance.ScreenMessage.text = "Round Winners: \n" + winner1.name  + ((winner2 != null) ?  " - " + winner2.name : "") ;
-
+			if (HaveWinners)
+			{
+				string [] names = winningPlayers.ConvertAll((i) => PlayerController.instance.Players[i].name).ToArray();
+				
+				UIManager.instance.ScreenMessage.text += "\nGame Winners: "+ string.Join(", ", names);
+			}
 		}
 
 
-		List<int> winningPlayers = new List<int>();
+	}
+
+	public bool HaveWinners { get { return winningPlayers.Count > 0; } }
+	
+	List<int> winningPlayers = new List<int>();
+
+	float CheckTimer = 1f;
+	public float timer =0;
+	public 	void LateUpdate ()
+	{	
+	
+#if UNITY_EDITOR
+		if (Input.GetKeyDown(KeyCode.F5))
+		{
+			playerInfos[2].score = winScore;
+		}
+
+#endif
 		
-//		foreach (PlayerInfo info in playerInfos)
+		winningPlayers.Clear();
+		
+		//		foreach (PlayerInfo info in playerInfos)
 		for (int i = 0 ; i < 4 ; i++)
 		{
 			if (playerInfos[i].score >= winScore)
@@ -79,21 +104,15 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 				winningPlayers.Add(i);
 			}
 		}
-
-		if (winningPlayers.Count > 0)
-		{
-			Debug.LogWarning ("Have winners!");
-
-
-
-			Application.LoadLevel(0);
-		}
-	}
-	float CheckTimer = 1f;
-	public float timer =0;
-	public 	void LateUpdate ()
-	{	
-	
+		
+//		if (winningPlayers.Count > 0)
+//		{
+//			Debug.LogWarning ("Have winners!");
+//			
+//			
+//			
+//			Application.LoadLevel(0);
+//		}
 	
 
 		int n = 0;
