@@ -127,6 +127,10 @@ public class GameController : SingletonBehaviour<GameController>
 		{
 			criticalInfoCounter = 0;
 		}
+		if (Input.GetKey(KeyCode.F6))
+		{
+			GameController.instance.NextInstructions();
+		}
 
 		state.UpdateAll();
 	}
@@ -136,9 +140,10 @@ public class GameController : SingletonBehaviour<GameController>
 		Debug.Log ("Restarting Game");
 		SetupRoomObjects();
 
-		
 		poisonVentOpen = false;
 		ResetCriticalCounter();
+
+		CheckInfoPackets();
 
 		// do anything else that is needed
 
@@ -187,7 +192,7 @@ public class GameController : SingletonBehaviour<GameController>
 		return objs[Random.Range(1, objs.Length)];
 	}
 	
-	public static PickupType PickRandomInverseItem(params PickupType [] notObjs)
+	public static List<PickupType> InverseItemList(params PickupType [] notObjs)
 	{
 		List<PickupType> availableObjects = new List<PickupType>();
 		foreach (PickupType obj in System.Enum.GetValues(typeof(PickupType)))
@@ -195,8 +200,14 @@ public class GameController : SingletonBehaviour<GameController>
 			if (System.Array.FindIndex(notObjs, (x) => x == obj) == -1)
 				availableObjects.Add(obj);
 		}
+
+		return availableObjects;
+	}
+
+	public static PickupType PickRandomInverseItem(params PickupType [] notObjs)
+	{
 		
-		return PickRandomItem(availableObjects.ToArray());
+		return PickRandomItem(InverseItemList(notObjs).ToArray());
 	}
 
 	public static LocationType PickRandomRoom()
@@ -216,8 +227,9 @@ public class GameController : SingletonBehaviour<GameController>
 		// range is from 1 snce we do not want to pick None
 		return objs[Random.Range(0, objs.Length)];
 	}
-	
-	public static LocationType PickRandomInverseRoom(params LocationType [] notObjs)
+
+
+	public static List<LocationType> InverseRoomList(params LocationType [] notObjs)
 	{
 		Debug.Log ("PickRandomInverseRoom.Length "+notObjs.Length);
 		List<LocationType> availableObjects = new List<LocationType>();
@@ -226,8 +238,12 @@ public class GameController : SingletonBehaviour<GameController>
 			if (System.Array.FindIndex(notObjs, (x) => x == obj) == -1) // can't find the Room in the notList
 				availableObjects.Add(obj);
 		}
-		
-		return PickRandomRoomFromList(availableObjects.ToArray());
+		return availableObjects;
+	}
+	
+	public static LocationType PickRandomInverseRoom(params LocationType [] notObjs)
+	{
+		return PickRandomRoomFromList(InverseRoomList(notObjs).ToArray());
 	}
 
 
@@ -368,7 +384,116 @@ public class GameController : SingletonBehaviour<GameController>
 //		return iInfo;
 //	}
 
+
+
 	
+	List<InstructionInfo.InfoPacket> positiveInfos = new List<InstructionInfo.InfoPacket>();
+	List<InstructionInfo.InfoPacket> positiveCriticalInfos = new List<InstructionInfo.InfoPacket>();
+	List<InstructionInfo.InfoPacket> negativeInfos = new List<InstructionInfo.InfoPacket>();
+
+	void CheckInfoPackets()
+	{
+		if (positiveInfos.Count == 0)
+			positiveInfos.AddRange(GetPositiveInfoPackets());
+
+		if (positiveCriticalInfos.Count == 0)
+			positiveCriticalInfos.AddRange(GetCriticalInfoPackets());
+
+		if (negativeInfos.Count == 0)
+			negativeInfos.AddRange(GetNegativeInfoPackets());
+	}
+	
+	List<InstructionInfo.InfoPacket> GetPositiveInfoPackets()
+	{
+		List<PickupType> nonBoobyTrapItems = InverseItemList(PickupType.BoobyTrap1, PickupType.BoobyTrap2, PickupType.BoobyTrap3, PickupType.None);
+
+		
+		Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
+		
+
+		List<InstructionInfo.InfoPacket> infoPackets = new List<InstructionInfo.InfoPacket>();
+
+		foreach (PickupType pickupItem in nonBoobyTrapItems)
+		{
+			Debug.Log ("Creating Positive Info from "+pickupItem);
+			LocationType roomLocation = whereItemsAre[pickupItem];
+
+			InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
+			infoPackets.Add (iPacket);
+		}
+
+		return infoPackets;
+	}
+	
+	
+	List<InstructionInfo.InfoPacket> GetNegativeInfoPackets()
+	{
+		Debug.Log("Add NegativeInstruction");
+//		LocationType roomLocation = PickRandomRoom();
+		
+		List<InstructionInfo.InfoPacket> infoPackets = new List<InstructionInfo.InfoPacket>();
+		foreach (LocationType roomLocation in System.Enum.GetValues(typeof(LocationType)))
+		{
+			PickupType pickupItem = roomItemLocations[roomLocation];
+
+			List<PickupType> similarItems = new List<PickupType>(GetSimilarItems(pickupItem));
+
+	//		Dictionary<PickupType, RoomLocation> reverseItemLookup = roomItemLocations.CreateReverseLookup(
+
+			Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
+
+			foreach (LocationType notLocation in InverseRoomList(similarItems.ConvertAll((i) => whereItemsAre[i]).ToArray()))
+			{
+				InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = notLocation};
+				infoPackets.Add(iPacket);
+			}
+//			LocationType notLocation = PickRandomInverseRoom();
+
+	//		LocationType notLocation = PickRandomInverseRoom(roomLocation);
+
+		}
+		return infoPackets;
+	}
+	
+	List<InstructionInfo.InfoPacket> GetCriticalInfoPackets()
+	{
+		List<PickupType> criticalItems = new List<PickupType>() {PickupType.RealKnife1, PickupType.RealKnife2, PickupType.GasTrap};
+		
+		Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
+		
+		List<InstructionInfo.InfoPacket> infoPackets = new List<InstructionInfo.InfoPacket>();
+		
+		foreach (PickupType pickupItem in criticalItems)
+		{
+			LocationType roomLocation = whereItemsAre[pickupItem];
+			
+			InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
+			infoPackets.Add (iPacket);
+		}
+		
+		return infoPackets;
+	}
+
+	InstructionInfo.InfoPacket TakeInfoPacket(ref List<InstructionInfo.InfoPacket> infoPacketList)
+	{
+
+		CheckInfoPackets();
+
+		int randomIndex = Random.Range(0, infoPacketList.Count);
+
+
+		if (randomIndex >= infoPacketList.Count)
+		{
+			Debug.Log ("Problem "+randomIndex +" >= "+ infoPacketList.Count);
+		}
+		InstructionInfo.InfoPacket infoPacket = infoPacketList[randomIndex];
+
+		infoPacketList.RemoveAt(randomIndex);
+
+		return infoPacket;
+	}
+
+
 	void AddPassOnInstruction()
 	{
 		Debug.Log("Add PassOnInstruction");
@@ -377,21 +502,29 @@ public class GameController : SingletonBehaviour<GameController>
 	
 	void AddPositiveInstruction()
 	{
-		Debug.Log("Add PositiveInstruction");
-
-		PickupType pickupItem = PickRandomInverseItem(PickupType.BoobyTrap1, PickupType.BoobyTrap2, PickupType.BoobyTrap3);
-
 		
-		Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
-
-		LocationType roomLocation = whereItemsAre[pickupItem];
-//		PickupType pickupItem = roomItemLocations[roomLocation];
-
-		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
+		InstructionInfo.InfoPacket iPacket = TakeInfoPacket(ref positiveInfos);
 		
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive1Location, infoPacket = iPacket, });
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive2Item, infoPacket = iPacket, });
 	}
+//	void AddPositiveInstruction()
+//	{
+//		Debug.Log("Add PositiveInstruction");
+//
+//		PickupType pickupItem = PickRandomInverseItem(PickupType.BoobyTrap1, PickupType.BoobyTrap2, PickupType.BoobyTrap3);
+//
+//		
+//		Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
+//
+//		LocationType roomLocation = whereItemsAre[pickupItem];
+////		PickupType pickupItem = roomItemLocations[roomLocation];
+//
+//		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
+//		
+//		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive1Location, infoPacket = iPacket, });
+//		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Positive2Item, infoPacket = iPacket, });
+//	}
 
 	IEnumerable<PickupType> GetSimilarItems(PickupType pickupItem)
 	{
@@ -423,51 +556,67 @@ public class GameController : SingletonBehaviour<GameController>
 		}
 	}
 
+	
 	void AddNegativeInstruction()
 	{
-		Debug.Log("Add NegativeInstruction");
-		LocationType roomLocation = PickRandomRoom();
-		PickupType pickupItem = roomItemLocations[roomLocation];
-
-		List<PickupType> similarItems = new List<PickupType>(GetSimilarItems(pickupItem));
-
-//		Dictionary<PickupType, RoomLocation> reverseItemLookup = roomItemLocations.CreateReverseLookup(
-
-		Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
 		
-		LocationType notLocation = PickRandomInverseRoom(similarItems.ConvertAll((i) => whereItemsAre[i]).ToArray());
-
-//		LocationType notLocation = PickRandomInverseRoom(roomLocation);
-
-		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = notLocation};
+		InstructionInfo.InfoPacket iPacket = TakeInfoPacket(ref negativeInfos);
 		
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative1Both, infoPacket = iPacket, });
 		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative2Both, infoPacket = iPacket, });
-//		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.PassOn, });
 	}
-
+//	void AddNegativeInstruction()
+//	{
+//		Debug.Log("Add NegativeInstruction");
+//		LocationType roomLocation = PickRandomRoom();
+//		PickupType pickupItem = roomItemLocations[roomLocation];
+//
+//		List<PickupType> similarItems = new List<PickupType>(GetSimilarItems(pickupItem));
+//
+////		Dictionary<PickupType, RoomLocation> reverseItemLookup = roomItemLocations.CreateReverseLookup(
+//
+//		Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
+//		
+//		LocationType notLocation = PickRandomInverseRoom(similarItems.ConvertAll((i) => whereItemsAre[i]).ToArray());
+//
+////		LocationType notLocation = PickRandomInverseRoom(roomLocation);
+//
+//		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = notLocation};
+//		
+//		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative1Both, infoPacket = iPacket, });
+//		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative2Both, infoPacket = iPacket, });
+////		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.PassOn, });
+//	}
+	
 	void AddCriticalInstruction()
 	{
-
-		InstructionInfo criticalWarning = new InstructionInfo() { instructionType = InstructionType.CriticalWarning, };
-		instructionList.Add(criticalWarning);
-
-		int sizeBeforeAdd = instructionList.Count;
+		InstructionInfo.InfoPacket iPacket = TakeInfoPacket(ref positiveCriticalInfos);
 		
-		AddNonCriticalInstruction();
-
-		int instructionsBeforeReveal = instructionList.Count - sizeBeforeAdd;
-
-		criticalWarning.foreWarning = instructionsBeforeReveal + 1;
-
-		LocationType roomLocation = PickRandomRoom();
-		PickupType pickupItem = roomItemLocations[roomLocation];
-		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
-
-		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.CriticalReveal, infoPacket = iPacket, });
-		criticalWarning.infoPacket = iPacket;
-
+		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative1Both, infoPacket = iPacket, });
+		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.Negative2Both, infoPacket = iPacket, });
 	}
+//	void AddCriticalInstruction()
+//	{
+//
+//		InstructionInfo criticalWarning = new InstructionInfo() { instructionType = InstructionType.CriticalWarning, };
+//		instructionList.Add(criticalWarning);
+//
+//		int sizeBeforeAdd = instructionList.Count;
+//		
+//		AddNonCriticalInstruction();
+//
+//		int instructionsBeforeReveal = instructionList.Count - sizeBeforeAdd;
+//
+//		criticalWarning.foreWarning = instructionsBeforeReveal + 1;
+//
+//		LocationType roomLocation = PickRandomRoom();
+//		PickupType pickupItem = roomItemLocations[roomLocation];
+//		InstructionInfo.InfoPacket iPacket = new InstructionInfo.InfoPacket() {item = pickupItem, location = roomLocation};
+//
+//		instructionList.Add(new InstructionInfo() { instructionType = InstructionType.CriticalReveal, infoPacket = iPacket, });
+//		criticalWarning.infoPacket = iPacket;
+//
+//	}
 
 	public PickupType TakeObjectFrom(LocationType location)
 	{
@@ -498,7 +647,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 	void ResetCriticalCounter()
 	{
-		criticalInfoCounter = Random.Range(10,16);
+		criticalInfoCounter = Random.Range(7,10);
 	}
 
 	void AddNonCriticalInstruction()
@@ -528,6 +677,8 @@ public class GameController : SingletonBehaviour<GameController>
 	{
 		Debug.Log("IncrementInstruction");
 		instructionList.RemoveAt(0);
+
+//		CheckInfoPackets();
 
 		// append new instructions
 
@@ -567,7 +718,14 @@ public class GameController : SingletonBehaviour<GameController>
 		Debug.Log ("SAYING "+s);
 		Debug.Log ("---");
 		UIManager.instance.TextInfo.text = s;
+#if UNITY_EDITOR
+		if (!Input.GetKey(KeyCode.F6))
+	    {
+		    VoiceSpeaker.instance.Talk (s);
+		}
+#else
 		VoiceSpeaker.instance.Talk (s);
+#endif
 	}
 
 	public bool showDebugOutput = false;
@@ -587,6 +745,9 @@ public class GameController : SingletonBehaviour<GameController>
 				GUILayout.Label(ii.instructionType.ToString());
 			}
 			GUILayout.Label(criticalInfoCounter.ToString());
+			GUILayout.Label("Positive "+positiveInfos.Count);
+			GUILayout.Label("Negative "+negativeInfos.Count);
+			GUILayout.Label("Critical "+positiveCriticalInfos.Count);
 		}
 		
 		UIManager.instance.TextInfo.gameObject.SetActive(showDebugOutput);

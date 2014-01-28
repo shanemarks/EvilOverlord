@@ -3,6 +3,7 @@ using System.Collections;
 
 
 
+public enum InstructionTypeGeneral {Positive, Negative, Critical}
 public enum InstructionType {Positive1Location, Positive2Item, Negative1Both, Negative2Both, CriticalWarning, CriticalReveal, PassOn}
 
 public class InstructionInfo 

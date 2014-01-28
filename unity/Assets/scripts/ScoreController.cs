@@ -99,10 +99,13 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 	void OnGUI()
 	{
-		GUILayout.Label(winningPlayers.Count.ToString());
-		for (int i = 0 ; i < 4 ; i++)
+		if (GameController.instance.showDebugOutput)
 		{
-			GUILayout.Label(playerInfos[i].score.ToString());
+			GUILayout.Label(winningPlayers.Count.ToString());
+			for (int i = 0 ; i < 4 ; i++)
+			{
+				GUILayout.Label(playerInfos[i].score.ToString());
+			}
 		}
 	}
 

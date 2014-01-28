@@ -609,7 +609,7 @@ MonoBehaviour:
 
     headphones
 
-    Keyboard (or keyboard and up to 2 controllers)'
+    Keyboard (or keyboard and up to 4 controllers)'
   mFontSize: 41
   mFontStyle: 0
   mEncoding: 1
@@ -671,7 +671,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 896bf0ace3dc1ea43ba3a7e889cc61ff, type: 3}
   mFont: {fileID: 0}
-  mText: 'UNDER THE GLASS BELL
+  mText: 'UNDER A GLASS BELL
 
 '
   mFontSize: 144
