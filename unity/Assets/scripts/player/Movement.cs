@@ -63,6 +63,7 @@ public class Movement : MonoBehaviour {
 				else
 					MovementSpeed = MovementSpeedBase;
 
+				MovementSpeed *= (Time.deltaTime*100);
 				if (Input.GetKey (Up))
 				{
 					MoveUp ();
@@ -96,6 +97,7 @@ public class Movement : MonoBehaviour {
 				else
 					MovementSpeed = MovementSpeedBase;
 
+				MovementSpeed *= (Time.deltaTime*100);
 
 				if (GamepadInput.GetButton(XBOXButton.Y,ControllerNumber))
 				{
@@ -133,7 +135,7 @@ public class Movement : MonoBehaviour {
 					MovementSpeed = MovementSpeedBase * Mathf.Sqrt (3) / 2;
 				else
 					MovementSpeed = MovementSpeedBase;
-				
+				MovementSpeed *= (Time.deltaTime*100);
 				
 				if (GamepadInput.GetButton(Button.DPadUp,ControllerNumber))
 				{
