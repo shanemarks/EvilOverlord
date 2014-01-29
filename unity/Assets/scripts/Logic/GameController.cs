@@ -717,7 +717,6 @@ public class GameController : SingletonBehaviour<GameController>
 		string s = ii.CreateString();
 		Debug.Log ("SAYING "+s);
 		Debug.Log ("---");
-		UIManager.instance.TextInfo.text = s;
 #if UNITY_EDITOR
 		if (!Input.GetKey(KeyCode.F6))
 	    {
@@ -750,7 +749,7 @@ public class GameController : SingletonBehaviour<GameController>
 			GUILayout.Label("Critical "+positiveCriticalInfos.Count);
 		}
 		
-		UIManager.instance.TextInfo.gameObject.SetActive(showDebugOutput);
+
 	}
 
 

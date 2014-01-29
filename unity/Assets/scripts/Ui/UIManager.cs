@@ -7,7 +7,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public Camera UICamera;
 
-	public UILabel TextInfo;
+
 
 	public UISprite [] PlayerIcons;
 
