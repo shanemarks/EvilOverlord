@@ -144,12 +144,13 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		if (PlayerController.instance != null)
 		{
 
-			for (int i = 0 ; i < 4 ; i++)
+			foreach (PlayerIcon p in PlayerIcon.First (typeof (PlayerIcon)))
 			{
-				
-				UIManager.instance.ScoreIcons[i].text =  playerInfos[i].score.ToString() ;
-				
+				p.Points.text =  playerInfos[n].score.ToString() ;
+				n++;		
 			}
+	
+			n = 0;
 			if (timer < CheckTimer)
 			{
 				timer +=Time.deltaTime;	

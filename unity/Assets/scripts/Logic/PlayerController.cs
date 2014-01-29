@@ -84,12 +84,12 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i].PlayerColor = PlayerColors[i];
 			Players[i].PlayerSprite.color = PlayerColors[i];
 			Players[i]._movement.MovementSpeedBase = MovementSpeed;
-			Players[i].PlayerIcon = UIManager.instance.PlayerIcons[i];
+
 			Players[i].name = PlayerNames[i];
 			Players[i].IsAlive = true;
 			Players[i].ItemsOwned = PickupType.None;
 			Players[i].GetComponent<UIPanel>().depth = 100-i;
-			UIManager.instance.PlayerIconBorders[i].color = PlayerColors[i];
+	
 
 //			if (Input.GetJoystickNames().Length > 1)
 //			{
@@ -118,6 +118,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 //				}
 //			}
 
+		
 			Debug.Log ("Setting up controllers ("+Input.GetJoystickNames().Length+")");
 			if (Input.GetJoystickNames().Length == 0)
 			{
@@ -157,9 +158,17 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			}
 			
 		}
+		int n = 0;
+		foreach (PlayerIcon p in PlayerIcon.First(typeof ( PlayerIcon)))
+		{
+			p.Border.color = PlayerColors[n];
+			Players[n].PlayerIcon = p.Icon;
+			n++;
+		}	
 
 		gos = FindObjectsOfType (typeof(GameObject)) as GameObject[];
 
+	
  		UIManager.instance.UpdateCharacterIcons ();
 	}
 

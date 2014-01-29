@@ -9,8 +9,6 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 
 
-	public UISprite [] PlayerIcons;
-
 	public string ALIVE_ICON = "Alive",
 	DEAD_ICON = "Dead",
 	KNIFE_ICON ="HoldingKnife",
@@ -18,8 +16,8 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	BOTH_ICON ="HoldingBoth";
 	public UIPanel  Transient; // holds aniamtion effects;
 
-	public UISprite[] PlayerIconBorders;
-	public UILabel[] ScoreIcons;
+
+
 	public GameObject ObjectPickupPrefab;
 	public GameObject Blood;
 	public GameObject GibAnim;
