@@ -32,6 +32,7 @@ public class Movement : MonoBehaviour {
 	Collider _playerCollider;
 	[SerializeField] Player _thePlayer;
 
+	public bool IsMoving;
 
 	void Start () 
 	{
@@ -44,7 +45,7 @@ public class Movement : MonoBehaviour {
 	
 	void Update () 
 	{
-
+		IsMoving = false;
 //		if ((_controller == ControllerType.XboxLeft && GamepadInput.GetButtonUp(Button.Select, ControllerNumber)) || 
 //		    (_controller == ControllerType.XboxRight && GamepadInput.GetButtonUp(Button.Start, ControllerNumber)))
 //		{
@@ -364,7 +365,7 @@ public class Movement : MonoBehaviour {
 
 	void MoveUp()
 	{
-
+		IsMoving = true;
 		Boundary b = CheckHitGetBoundary(Vector2.up - 2*Vector2.right); 
 
 		FaceDirection (Boundary.Direction.Up);
@@ -413,7 +414,7 @@ public class Movement : MonoBehaviour {
 //	}
 	void MoveDown ()
 	{
-
+		IsMoving = true;
 		Boundary b = CheckHitGetBoundary(-Vector2.up + 2*Vector2.right);
 
 		FaceDirection (Boundary.Direction.Down);
@@ -432,6 +433,7 @@ public class Movement : MonoBehaviour {
 
 	void MoveLeft ()
 	{
+		IsMoving = true;
 		FaceDirection (Boundary.Direction.Left);
 		if (CheckHitGetBoundary(-Vector2.up - 2*Vector2.right)==null)	_trans.localPosition +=  new Vector3 (-2,-1, 0).normalized * MovementSpeed;
 		//else if (CheckHitGetBoundary(-Vector2.up)!=null) _trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
@@ -439,6 +441,7 @@ public class Movement : MonoBehaviour {
 
 	void MoveRight ()
 	{
+		IsMoving = true;
 		FaceDirection (Boundary.Direction.Right);
 		if (CheckHitGetBoundary(Vector2.up + 2*Vector2.right)==null)_trans.localPosition -= new Vector3 (-2,-1, 0).normalized * MovementSpeed;
 		//else if (CheckHitGetBoundary(Vector2.up)!=null) _trans.localPosition += new Vector3 (0,MovementSpeed, 0);

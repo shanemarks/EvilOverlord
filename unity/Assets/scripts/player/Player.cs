@@ -42,7 +42,7 @@ public class Player: MonoBehaviour {
 	MASK_ICONSE ="SEMask",
 	MASK_ICONSW ="SWMask";
 
-
+	public bool IsMoving;
 
 	public void DropItem ()
 	{
