@@ -79,8 +79,9 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i]._movement.Right = Right[i];	
 			Players[i]._movement.Action = Action[i];
 			Players[i].Index = i;
-			Players[i].StartPos = new Vector3 ((i+4)*125,-50,0);
+			Players[i].StartPos = new Vector3 ((96 + i*350), -441.97f, 0);
 			Players[i].transform.localPosition = Players[i].StartPos;
+		
 			Players[i].PlayerColor = PlayerColors[i];
 			Players[i].PlayerSprite.color = PlayerColors[i];
 			Players[i]._movement.MovementSpeedBase = MovementSpeed;
@@ -162,7 +163,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 		foreach (PlayerIcon p in PlayerIcon.First(typeof ( PlayerIcon)))
 		{
 			p.Border.color = PlayerColors[n];
-			Players[n].PlayerIcon = p.Icon;
+		
 			n++;
 		}	
 
@@ -171,6 +172,8 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 	
  		UIManager.instance.UpdateCharacterIcons ();
 	}
+
+
 
 	void Update ()
 	{

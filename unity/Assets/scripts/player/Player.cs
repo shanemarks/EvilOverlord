@@ -4,10 +4,20 @@ using Holoville.HOTween;
 
 public class Player: MonoBehaviour {
 		
+	public enum ItemHoldingState
+		{
+		None,
+		Knife,
+		Mask,
+		Both
+		}
+
+	public ItemHoldingState HoldingState;
 	public bool IsAlive;
 	public string PlayerName;
 
 	public Movement _movement;
+
 	public Vector3 StartPos;
 	public Transform _trans;
 
@@ -19,7 +29,7 @@ public class Player: MonoBehaviour {
 
 	public int Index = -1;
 
-	public UISprite PlayerSprite, PlayerIcon, PlayerHeadSprite, FrontFootSprite, BackFootSprite;
+	public UISprite PlayerSprite, PlayerHeadSprite, FrontFootSprite, BackFootSprite;
 	public RoomLocation OnRoomLocation;
 
 	public UISprite knifeIcon,maskIcon;
@@ -31,6 +41,8 @@ public class Player: MonoBehaviour {
 	string KNIFE_ICON ="Knife",
 	MASK_ICONSE ="SEMask",
 	MASK_ICONSW ="SWMask";
+
+
 
 	public void DropItem ()
 	{
@@ -49,6 +61,7 @@ public class Player: MonoBehaviour {
 
 	void Update ()
 	{
+	
 
 		if (GameController.instance.GasTrapTriggered)
 		{
@@ -69,6 +82,27 @@ public class Player: MonoBehaviour {
 		bool knife = ItemsOwned == PickupType.FakeKnife || ItemsOwned == PickupType.RealKnife2 || ItemsOwned == PickupType.RealKnife1;
 		bool mask = hasGasMask;
 
+
+		if (mask && knife)
+		{
+			HoldingState = ItemHoldingState.Both;
+		}
+		
+		else if (!mask && !knife)
+		{
+			HoldingState = ItemHoldingState.None;
+		}
+
+		else if (mask)
+		{
+			HoldingState = ItemHoldingState.Mask;
+		}
+
+		else if (knife)
+		{
+			HoldingState = ItemHoldingState.Knife;
+		}
+
 		if (knife)
 		{
 			knifeIcon.spriteName = KNIFE_ICON;
@@ -82,14 +116,17 @@ public class Player: MonoBehaviour {
 				knifeIcon.transform.localPosition = KnifePostionCache + new Vector3 (100,0,0);
 		
 			}
+			HoldingState = ItemHoldingState.Knife;
 		}
 		
 		else
 		{
 			knifeIcon.spriteName = "";
+		
 		}
 		if (mask)
 		{
+			HoldingState = ItemHoldingState.Mask;
 			if (PlayerHeadSprite.spriteName == "SWHead")
 			{
 				maskIcon.spriteName = MASK_ICONSW;
@@ -107,8 +144,11 @@ public class Player: MonoBehaviour {
 
 		else
 		{
+
 			maskIcon.spriteName = "";
 		}
+
+	
 		knifeIcon.Update();
 		maskIcon.Update();
 

@@ -89,39 +89,38 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public void UpdateCharacterIcons ()
 	{
+		PlayerIcon playerIcon = (PlayerIcon) PlayerIcon.First(typeof(PlayerIcon));
+
 		foreach (Player p in PlayerController.instance.Players)
 		{
-			if (p.IsAlive)
+			switch (p.HoldingState)
 			{
-				p.PlayerIcon.spriteName = ALIVE_ICON;
-			}
-			 if (!p.IsAlive)
-			{
-				p.PlayerIcon.spriteName = DEAD_ICON;
-				continue;
+				case Player.ItemHoldingState.Both:
+					playerIcon.Icon.spriteName  = BOTH_ICON;
+					break;
+				case Player.ItemHoldingState.Knife:
+					playerIcon.Icon.spriteName  = KNIFE_ICON;
+					break;
+
+				case Player.ItemHoldingState.Mask:
+					playerIcon.Icon.spriteName  = MASK_ICON;
+					break;
+
+				case Player.ItemHoldingState.None:
+					if (p.IsAlive)
+					{
+						playerIcon.Icon.spriteName = ALIVE_ICON;
+					}
+					if (!p.IsAlive)
+					{
+						playerIcon.Icon.spriteName = DEAD_ICON;
+						continue;
+					}
+					break;
+				
 			}
 
-			bool knife = p.ItemsOwned == PickupType.FakeKnife || p.ItemsOwned == PickupType.RealKnife2 ||p.ItemsOwned == PickupType.RealKnife1;
-			bool mask = p.hasGasMask;
-			if (knife && mask)
-			{
-				p.PlayerIcon.spriteName = BOTH_ICON;
-				continue;
-			}
-			if (knife)
-			{
-				p.PlayerIcon.spriteName = KNIFE_ICON;
-				continue;
-			}
-
-			if (mask)
-			{
-				p.PlayerIcon.spriteName = MASK_ICON;
-				continue;
-		
-			}
-
-			p.PlayerIcon.Update ();
+			playerIcon = (PlayerIcon) playerIcon.Next;
 
 		}
 
@@ -131,8 +130,6 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	{
 		GameObject go = 	NGUITools.AddChild(Transient.gameObject,ObjectPickupPrefab);
 		go.transform.position = v;
-
-
 		go.GetComponent<UILabel>().text = s;
 
 	}
@@ -140,7 +137,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	public void Gib (Vector3 v)
 	{
 
-			GameObject go = 	NGUITools.AddChild(Transient.gameObject,GibAnim);
+			GameObject go = NGUITools.AddChild(Transient.gameObject,GibAnim);
 			go.transform.position = v;
 	}
 	
