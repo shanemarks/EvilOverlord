@@ -12,6 +12,10 @@ public class Movement : MonoBehaviour {
 	public ControllerType _controller = ControllerType.Keyboard;
 	public bool UseKeyboard;
 
+	private bool movedThisUpdate; //check if we have moved this update;
+
+	public event System.Action OnMoveEvent,OnStopEvent;
+
 
 	public KeyCode Up = KeyCode.W;
 	public KeyCode Down = KeyCode.S;
@@ -45,7 +49,8 @@ public class Movement : MonoBehaviour {
 	
 	void Update () 
 	{
-		IsMoving = false;
+	
+		movedThisUpdate = false;
 //		if ((_controller == ControllerType.XboxLeft && GamepadInput.GetButtonUp(Button.Select, ControllerNumber)) || 
 //		    (_controller == ControllerType.XboxRight && GamepadInput.GetButtonUp(Button.Start, ControllerNumber)))
 //		{
@@ -244,51 +249,17 @@ public class Movement : MonoBehaviour {
 
 		}
 
-//		for (int i = 0 ; i < 8 ; i++)
-//		{
-//			Vector3 corner = center;
-//			switch (i)
-//			{
-//			case 0:
-//				corner = GetRelativePositionInWorldSpace(box.center+box.size/2);
-//				break;
-//			case 1:
-//				corner = GetRelativePositionInWorldSpace(box.center+box.size/2-Vector2.right*box.size.x);
-//				break;
-//			case 2:
-//				corner = GetRelativePositionInWorldSpace(box.center-box.size/2);
-//				break;
-//			case 3:
-//				corner = GetRelativePositionInWorldSpace(box.center-box.size/2+Vector2.right*box.size.x);
-//				break;
-//				// sides
-//			case 4:
-//				corner = GetRelativePositionInWorldSpace(box.center+Vector2.up*box.size.y/2);
-//				break;
-//			case 5:
-//				corner = GetRelativePositionInWorldSpace(box.center-Vector2.right*box.size.x/2);
-//				break;
-//			case 6:
-//				corner = GetRelativePositionInWorldSpace(box.center-Vector2.up*box.size.y/2);
-//				break;
-//			case 7:
-//				corner = GetRelativePositionInWorldSpace(box.center+Vector2.right*box.size.x/2);
-//				break;
-//			}
-//
-//
-//
-//
-//		}
 
+		if (!movedThisUpdate && IsMoving)
+		{
+			IsMoving = false;
+			Debug.Log  ("Firing Movement Stop Event");
 
-
-//		Debug.Log(transform.TransformPoint(transform.localPosition)+(Vector3)(box.center-box.size/2));
-//		Debug.DrawLine(transform.TransformPoint(transform.localPosition)+(Vector3)(box.center-box.size/2), transform.TransformPoint(transform.localPosition)+(Vector3)(box.center+box.size/2), Color.green);
-
-//		Debug.DrawRay((Vector3)worldPoint -Vector3.up*0.01f, Vector3.up*0.02f, debugColor);
-//		Debug.DrawRay((Vector3)worldPoint -Vector3.left*0.01f, Vector3.left*0.02f, debugColor);
-
+			if (OnStopEvent !=null)
+			{
+				OnStopEvent ();
+			}
+		}
 	
 
 	}
@@ -300,48 +271,11 @@ public class Movement : MonoBehaviour {
 	}
 
 
-	 /*bool CheckHit (Vector2 dir)
-	{
-
-		/*Ray r  = new Ray(transform.position,dir);
-		RaycastHit hit;
-		Physics.Raycast(r, out hit,0.01f);
-
-		if (hit.collider != null)
-		{
-			if (hit.collider.tag =="boundary")
-				return true;
-
-		}
-		return false;
-		Ray2D r;
-		Vector2 startCast = new Vector2 (transform.position.x, transform.position.y - 100);
-		RaycastHit2D hit = Physics2D.Linecast (startCast, startCast + dir);
-		
-		if (hit.collider != null) {
-			if(hit.collider.tag == "boundary")
-				return true;
-			
-		}
-
-	}*/
 
 
 	Boundary CheckHitGetBoundary (Vector2 dir)
 	{
-				/*Ray r  = new Ray(transform.position,dir);
-		RaycastHit hit;
-		Physics.Raycast(r, out hit,0.01f);
-		
-		if (hit.collider != null)
-		{
-			if (hit.collider.tag =="boundary")
-			{
-
-				return hit.collider.gameObject.GetComponent<Boundary> ();
-			}
-		}
-		return null;*/
+	
 				Ray2D r;
 				Vector2 startCast = new Vector2 (transform.position.x, transform.position.y - 0.06f);
 				startCast = startCast + (dir.normalized * 0.05f);
@@ -365,7 +299,7 @@ public class Movement : MonoBehaviour {
 
 	void MoveUp()
 	{
-		IsMoving = true;
+		CheckMoveEvent ();	
 		Boundary b = CheckHitGetBoundary(Vector2.up - 2*Vector2.right); 
 
 		FaceDirection (Boundary.Direction.Up);
@@ -373,78 +307,45 @@ public class Movement : MonoBehaviour {
 		if (b == null) {
 						_trans.localPosition += new Vector3 (-2, 1, 0).normalized * MovementSpeed;
 				}
+	}
 
-		/*else
+	void CheckMoveEvent ()
+	{
+		movedThisUpdate = true;
+		if (!IsMoving)
 		{
-			if (b != null)
+			Debug.Log ("Firing Move Event");
+			IsMoving = true;
+			if (OnMoveEvent != null)
 			{
-
-				CheckSlide(b);
+				OnMoveEvent ();
 			}
- 
-			else
-			{
-				MoveLeft ();
-			}
-		}*/
-
-	
+		}
 	}
 
 
-//	void CheckSlide (Boundary b)
-//	{
-//
-//		
-//		switch (b.PreferredSlideDirection)
-//		{
-//		case Boundary.Direction.Left:
-//			MoveLeft ();
-//			break;
-//		case Boundary.Direction.Right:
-//			MoveRight ();
-//			break;
-//		case Boundary.Direction.Up:
-//			MoveUp ();
-//			break;
-//		case Boundary.Direction.Down:
-//			MoveDown ();
-//			break;
-//		}
-//	}
 	void MoveDown ()
 	{
-		IsMoving = true;
+	 	CheckMoveEvent ();
+
 		Boundary b = CheckHitGetBoundary(-Vector2.up + 2*Vector2.right);
 
 		FaceDirection (Boundary.Direction.Down);
 		if (b==null) _trans.localPosition -=  new Vector3 (-2,1, 0).normalized * MovementSpeed ;
-		/*else 
-		{
-			if (b != null)
-			{
-				Debug.Log ("checking down slide");
-				CheckSlide(b);
-			}
-
-			else  if (CheckHitGetBoundary(Vector2.right)!=null)   _trans.localPosition += new Vector3 (MovementSpeed,0, 0);
-		}*/
-	}
+		}
 
 	void MoveLeft ()
 	{
-		IsMoving = true;
+		CheckMoveEvent ();
 		FaceDirection (Boundary.Direction.Left);
 		if (CheckHitGetBoundary(-Vector2.up - 2*Vector2.right)==null)	_trans.localPosition +=  new Vector3 (-2,-1, 0).normalized * MovementSpeed;
-		//else if (CheckHitGetBoundary(-Vector2.up)!=null) _trans.localPosition += new Vector3 (0,-MovementSpeed, 0);
 	}
 
 	void MoveRight ()
 	{
-		IsMoving = true;
+		CheckMoveEvent ();
 		FaceDirection (Boundary.Direction.Right);
 		if (CheckHitGetBoundary(Vector2.up + 2*Vector2.right)==null)_trans.localPosition -= new Vector3 (-2,-1, 0).normalized * MovementSpeed;
-		//else if (CheckHitGetBoundary(Vector2.up)!=null) _trans.localPosition += new Vector3 (0,MovementSpeed, 0);
 	}
 
 	void FireAction ()

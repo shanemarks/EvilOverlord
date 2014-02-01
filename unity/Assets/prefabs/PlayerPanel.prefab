@@ -77,13 +77,14 @@ GameObject:
   - 114: {fileID: 11400008}
   - 50: {fileID: 5000000}
   - 61: {fileID: 6100000}
+  - 114: {fileID: 11400020}
   m_Layer: 8
   m_Name: player1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100010
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,11 +369,11 @@ MonoBehaviour:
     e00: 540
     e01: 0
     e02: 0
-    e03: 847.825073
+    e03: 846.700073
     e10: 0
     e11: 540
     e12: 0
-    e13: -1.125
+    e13: 1.5249474
     e20: 0
     e21: 0
     e22: 540
@@ -397,6 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ea1388147e3ec498f45b3923e21a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HoldingState: 0
   IsAlive: 0
   PlayerName: 
   _movement: {fileID: 11400012}
@@ -407,7 +409,6 @@ MonoBehaviour:
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
   Index: -1
   PlayerSprite: {fileID: 11400004}
-  PlayerIcon: {fileID: 0}
   PlayerHeadSprite: {fileID: 11400016}
   FrontFootSprite: {fileID: 11400002}
   BackFootSprite: {fileID: 11400000}
@@ -416,6 +417,7 @@ MonoBehaviour:
   maskIcon: {fileID: 11400006}
   MaskPositionCache: {x: 0, y: 0, z: 0}
   KnifePostionCache: {x: 0, y: 0, z: 0}
+  IsMoving: 0
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,6 +439,7 @@ MonoBehaviour:
   MovementSpeedBase: 1
   ControllerNumber: 0
   _thePlayer: {fileID: 11400010}
+  IsMoving: 0
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -456,11 +459,11 @@ MonoBehaviour:
     e00: 540
     e01: 0
     e02: 0
-    e03: 847.825073
+    e03: 846.700073
     e10: 0
     e11: 540
     e12: 0
-    e13: -1.125
+    e13: -1.98895025
     e20: 0
     e21: 0
     e22: 540
@@ -522,6 +525,19 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+--- !u!114 &11400020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07087c66c42cc254c9690faafffcfcf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontFootCache: {x: 0, y: 0, z: 0}
+  BackFootCache: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
