@@ -378,13 +378,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 100000, guid: fd9e74bd25f43264aa46dbd2e4627809, type: 2}
   PlayerColors:
-  - {r: 1, g: 0, b: .3931036, a: 1}
-  - {r: 0, g: 1, b: .379310369, a: 1}
-  - {r: 0, g: .5448277, b: 1, a: 1}
-  - {r: 1, g: .393103421, b: 0, a: 1}
+  - {r: 0, g: 1, b: .131034613, a: 1}
+  - {r: 1, g: 0, b: .310344696, a: 1}
+  - {r: .0758619308, g: 0, b: 1, a: 1}
+  - {r: .944827557, g: 1, b: 0, a: 1}
   PlayerCount: 4
   MovementSpeed: 5
   Players: []
+  PlayerWithPhone: {fileID: 0}
   RoundWon: 0
   _livingPlayers: []
 --- !u!4 &144993271
@@ -1126,11 +1127,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
       propertyPath: PlayerColors.Array.data[3].r
-      value: 1
+      value: .944827557
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
       propertyPath: PlayerColors.Array.data[3].g
-      value: .393103421
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
       propertyPath: PlayerColors.Array.data[3].b
@@ -1138,7 +1139,39 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
       propertyPath: PlayerColors.Array.data[0].b
-      value: .3931036
+      value: .131034613
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
+      propertyPath: PlayerColors.Array.data[0].r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
+      propertyPath: PlayerColors.Array.data[0].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
+      propertyPath: PlayerColors.Array.data[1].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
+      propertyPath: PlayerColors.Array.data[1].g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
+      propertyPath: PlayerColors.Array.data[1].b
+      value: .310344696
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
+      propertyPath: PlayerColors.Array.data[2].r
+      value: .0758619308
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
+      propertyPath: PlayerColors.Array.data[2].g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
+      propertyPath: PlayerColors.Array.data[2].b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aab6e979a75ed734c88b69ab75c670fa, type: 2}
@@ -2318,6 +2351,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 3fb9c6dcdcbbea34f9a01c4233c2210c, type: 2}
+      propertyPath: PassPhonePanel
+      value: 
+      objectReference: {fileID: 1445048234}
     m_RemovedComponents:
     - {fileID: 11400002, guid: 3fb9c6dcdcbbea34f9a01c4233c2210c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3fb9c6dcdcbbea34f9a01c4233c2210c, type: 2}
@@ -2588,6 +2625,7 @@ MonoBehaviour:
   GibAnim: {fileID: 100016, guid: 263c38b40dbf2a74aab7bd1c18916e10, type: 2}
   ScreenMessage: {fileID: 2003618438}
   resetGame: {fileID: 496655232}
+  PassPhonePanel: {fileID: 1445048234}
 --- !u!4 &918878525
 Transform:
   m_ObjectHideFlags: 0
@@ -3388,7 +3426,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: d25d22382d8de7f4c9e6d4a6071489be, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d25d22382d8de7f4c9e6d4a6071489be, type: 2}
@@ -4493,7 +4531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1445048234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4514,7 +4552,7 @@ MonoBehaviour:
     e00: 540
     e01: 0
     e02: 0
-    e03: 1.03004289
+    e03: 2.06106853
     e10: 0
     e11: 540
     e12: 0
@@ -5358,6 +5396,10 @@ Prefab:
       value: 'Pass Phone
 
         (Enter/F1)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400064, guid: c7f874a5b97e99c498bac51e1b1300e3, type: 2}
+      propertyPath: functionName
+      value: PassPhone
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400066, guid: c7f874a5b97e99c498bac51e1b1300e3, type: 2}
@@ -6420,7 +6462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 918878523}
-  functionName: AnswerPhone
+  functionName: PassPhone
   trigger: 0
   includeChildren: 0
 --- !u!65 &2107281619

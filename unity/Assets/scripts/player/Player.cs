@@ -21,6 +21,8 @@ public class Player: MonoBehaviour {
 	public Vector3 StartPos;
 	public Transform _trans;
 
+	public bool hasPhone = false;
+
 	public PickupType ItemsOwned;
 	public bool hasGasMask = false;
 
@@ -33,6 +35,8 @@ public class Player: MonoBehaviour {
 	public RoomLocation OnRoomLocation;
 
 	public UISprite knifeIcon,maskIcon;
+
+	public event System.Action OnDeath;
 
 	bool notifiedAboutGasMask = false;
 
@@ -59,6 +63,13 @@ public class Player: MonoBehaviour {
 		_trans.localPosition = StartPos;
 	}
 
+
+	public void PassPhone (Player p)
+	{
+		hasPhone = false;
+		p.hasPhone = true;
+		PlayerController.instance.PlayerWithPhone = p;
+	}
 	void Update ()
 	{
 	
@@ -116,7 +127,7 @@ public class Player: MonoBehaviour {
 				knifeIcon.transform.localPosition = KnifePostionCache + new Vector3 (100,0,0);
 		
 			}
-			HoldingState = ItemHoldingState.Knife;
+		
 		}
 		
 		else
@@ -126,7 +137,7 @@ public class Player: MonoBehaviour {
 		}
 		if (mask)
 		{
-			HoldingState = ItemHoldingState.Mask;
+		
 			if (PlayerHeadSprite.spriteName == "SWHead")
 			{
 				maskIcon.spriteName = MASK_ICONSW;
@@ -161,6 +172,7 @@ public class Player: MonoBehaviour {
 		{
 			Debug.Log ("Kill player");
 			IsAlive =  false;
+			DropItem();
 			_movement.enabled = false;
 			notifiedAboutGasMask = false;
 			if (OnRoomLocation != null)
@@ -176,6 +188,10 @@ public class Player: MonoBehaviour {
 			HOTween.To(GetComponent<UIPanel>(), 1f, "alpha", 0f);
 
 			ScoreController.instance.timer = 0;
+			if (OnDeath != null)
+			{
+				OnDeath ();
+			}
 		}
 	}
 	

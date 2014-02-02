@@ -12,7 +12,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 	//hardcoded controls:
 
-	string[] PlayerNames = {"red","green","blue","orange"};
+	string[] PlayerNames = {"green","red","blue","yellow"};
 
      private KeyCode[] Up = {KeyCode.W, KeyCode.I, 	KeyCode.Keypad8, KeyCode.UpArrow};
 	 private KeyCode[] Down = {KeyCode.S, KeyCode.K, KeyCode.Keypad2, KeyCode.DownArrow};
@@ -26,6 +26,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 	public int PlayerCount = 4;
 	public int MovementSpeed = 5;
 	public Player[] Players;
+	public Player PlayerWithPhone;
 
 
 	public bool RoundWon;
@@ -90,7 +91,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i].IsAlive = true;
 			Players[i].ItemsOwned = PickupType.None;
 			Players[i].GetComponent<UIPanel>().depth = 100-i;
-	
+			
 
 //			if (Input.GetJoystickNames().Length > 1)
 //			{
@@ -169,8 +170,9 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 		gos = FindObjectsOfType (typeof(GameObject)) as GameObject[];
 
-	
  		UIManager.instance.UpdateCharacterIcons ();
+
+		PlayerWithPhone = Players[0];
 	}
 
 

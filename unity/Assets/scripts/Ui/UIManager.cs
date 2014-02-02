@@ -26,7 +26,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	int bloodDepthCounter = 0;
 
 	public UILabel resetGame;
-
+	public UIPanel PassPhonePanel;
 	void Start ()
 	{
 
@@ -47,7 +47,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.F1))
 		{
-			AnswerPhone ();
+			PassPhone ();
 		}
 		if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.F2))
 		{
@@ -76,6 +76,15 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		}
 	}
 
+
+	public void PassPhone ()
+	{
+		if (VoiceSpeaker.GetVoiceState () == 0)
+		{
+			PassPhonePanel.gameObject.SetActive(true);
+		}
+	}
+
 	public void ReplayInstruction()
 	{
 		GameController.instance.SayCurrentInstruction();
@@ -93,6 +102,8 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 		foreach (Player p in PlayerController.instance.Players)
 		{
+			if (p.IsAlive)
+			{
 			switch (p.HoldingState)
 			{
 				case Player.ItemHoldingState.Both:
@@ -107,18 +118,16 @@ public class UIManager : SingletonBehaviour<UIManager> {
 					break;
 
 				case Player.ItemHoldingState.None:
-					if (p.IsAlive)
-					{
-						playerIcon.Icon.spriteName = ALIVE_ICON;
-					}
-					if (!p.IsAlive)
-					{
-						playerIcon.Icon.spriteName = DEAD_ICON;
-						continue;
-					}
+					playerIcon.Icon.spriteName = ALIVE_ICON;
 					break;
-				
+				}
 			}
+			else 
+			{
+				playerIcon.Icon.spriteName = DEAD_ICON;
+
+			}
+					
 
 			playerIcon = (PlayerIcon) playerIcon.Next;
 
