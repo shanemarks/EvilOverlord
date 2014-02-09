@@ -17,43 +17,43 @@ public class Movement : MonoBehaviour {
 
 	public event System.Action OnMoveEvent,OnStopEvent;
 	
-	public KeyCode UpKey { get { return _thePlayer.Index == 3 ? Player4Up : Player3Up; } }
-	public KeyCode DownKey { get { return _thePlayer.Index == 3 ? Player4Down : Player3Down; } }
-	public KeyCode LeftKey { get { return _thePlayer.Index == 3 ? Player4Left : Player3Left; } }
-	public KeyCode RightKey { get { return _thePlayer.Index == 3 ? Player4Right : Player3Right; } }
-	public KeyCode ActionKey { get { return _thePlayer.Index == 3 ? Player4Action : Player3Action; } }
-	public KeyCode PlayKey { get { return _thePlayer.Index == 3 ? Player4Play : Player3Play; } }
+	KeyCode UpKey { get { return _thePlayer.Index == 3 ? Player4Up : Player3Up; } }
+	KeyCode DownKey { get { return _thePlayer.Index == 3 ? Player4Down : Player3Down; } }
+	KeyCode LeftKey { get { return _thePlayer.Index == 3 ? Player4Left : Player3Left; } }
+	KeyCode RightKey { get { return _thePlayer.Index == 3 ? Player4Right : Player3Right; } }
+	KeyCode ActionKey { get { return _thePlayer.Index == 3 ? Player4Action : Player3Action; } }
+	KeyCode PlayKey { get { return _thePlayer.Index == 3 ? Player4Play : Player3Play; } }
 	
-	public KeyCode Player3Up = KeyCode.W;
-	public KeyCode Player3Down = KeyCode.S;
-	public KeyCode Player3Left = KeyCode.A;
-	public KeyCode Player3Right = KeyCode.D;
-	public KeyCode Player3Action = KeyCode.Space;
-	public KeyCode Player3Play = KeyCode.Tab;
-						 
-	public KeyCode Player4Up = KeyCode.UpArrow;
-	public KeyCode Player4Down = KeyCode.DownArrow;
-	public KeyCode Player4Left = KeyCode.LeftArrow;
-	public KeyCode Player4Right = KeyCode.RightArrow;
-	public KeyCode Player4Action = KeyCode.Return;
-	public KeyCode Player4Play = KeyCode.Backspace;
+	KeyCode Player3Up = KeyCode.W;
+	KeyCode Player3Down = KeyCode.S;
+	KeyCode Player3Left = KeyCode.A;
+	KeyCode Player3Right = KeyCode.D;
+	KeyCode Player3Action = KeyCode.Space;
+	KeyCode Player3Play = KeyCode.Tab;
+					 
+	KeyCode Player4Up = KeyCode.UpArrow;
+	KeyCode Player4Down = KeyCode.DownArrow;
+	KeyCode Player4Left = KeyCode.LeftArrow;
+	KeyCode Player4Right = KeyCode.RightArrow;
+	KeyCode Player4Action = KeyCode.Return;
+	KeyCode Player4Play = KeyCode.Backspace;
 	
-	public KeyCode KeyboardPassPlayer0Yellow = KeyCode.U;
-	public KeyCode KeyboardPassPlayer1Blue = KeyCode.H;
-	public KeyCode KeyboardPassPlayer2Green = KeyCode.J;
-	public KeyCode KeyboardPassPlayer3Red = KeyCode.K;
+	KeyCode KeyboardPassPlayer0Yellow = KeyCode.U;
+	KeyCode KeyboardPassPlayer1Blue = KeyCode.H;
+	KeyCode KeyboardPassPlayer2Green = KeyCode.J;
+	KeyCode KeyboardPassPlayer3Red = KeyCode.K;
 	
-	public PadButton playButton = PadButton.LeftTrigger;
-	public PadButton playButtonAlt = PadButton.LeftBumper;
+	PadButton playButton = PadButton.LeftTrigger;
+	PadButton playButtonAlt = PadButton.LeftBumper;
 
-	public PadButton actionButton = PadButton.LeftTrigger;
-	public PadButton actionButtonAlt = PadButton.LeftBumper;
+	PadButton actionButton = PadButton.RightTrigger;
+	PadButton actionButtonAlt = PadButton.RightBumper;
 
 	
-	public PadButton PassPlayer0Yellow = XBOXButton.Y;
-	public PadButton PassPlayer1Blue = XBOXButton.X;
-	public PadButton PassPlayer2Green = XBOXButton.A;
-	public PadButton PassPlayer3Red = XBOXButton.B;
+	PadButton PassPlayer0Yellow = XBOXButton.Y;
+	PadButton PassPlayer1Blue = XBOXButton.X;
+	PadButton PassPlayer2Green = XBOXButton.A;
+	PadButton PassPlayer3Red = XBOXButton.B;
 
 	Transform _trans;
 	

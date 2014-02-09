@@ -38,8 +38,6 @@ public class Player: MonoBehaviour {
 
 	public UISprite knifeIcon,maskIcon,PhoneIcon, RtIcon;
 
-	public event System.Action OnDeath;
-
 	bool notifiedAboutGasMask = false;
 
 	public Vector3 MaskPositionCache,KnifePostionCache;
@@ -226,6 +224,7 @@ public class Player: MonoBehaviour {
 		{
 			Debug.Log ("Kill player");
 			IsAlive =  false;
+
 			DropItem();
 			_movement.enabled = false;
 			notifiedAboutGasMask = false;
@@ -242,10 +241,6 @@ public class Player: MonoBehaviour {
 			HOTween.To(GetComponent<UIPanel>(), 1f, "alpha", 0f);
 
 			ScoreController.instance.timer = 0;
-			if (OnDeath != null)
-			{
-				OnDeath ();
-			}
 		}
 	}
 	
