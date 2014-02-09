@@ -723,10 +723,12 @@ public class GameController : SingletonBehaviour<GameController>
 #if UNITY_EDITOR
 		if (!Input.GetKey(KeyCode.F6))
 	    {
-		    VoiceSpeaker.instance.Talk (s);
+		    //VoiceSpeaker.instance.Talk (s);
+			VoiceSpeaker.instance.Talk (ii.CreateList ());
 		}
 #else
-		VoiceSpeaker.instance.Talk (s);
+		//VoiceSpeaker.instance.Talk (s);
+		VoiceSpeaker.instance.Talk(ii.CreateList());
 #endif
 	}
 

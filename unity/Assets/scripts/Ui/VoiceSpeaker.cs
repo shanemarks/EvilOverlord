@@ -18,6 +18,8 @@ using System;
 
 using System.Collections.Generic;
 
+using System.Collections;
+
 using System.Runtime.InteropServices;
 
 
@@ -179,7 +181,7 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 			
 		{
 			
-			FreeVoice();
+			FreeVoice(); 
 			
 		}
 		
@@ -215,12 +217,23 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 
 	public void Talk (List<AudioClip> clipList) 
 	{
+		StartCoroutine(ManageTalk(clipList));
+	}
+
+	IEnumerator ManageTalk(List<AudioClip> clipList)
+	{
+		Debug.Log("Playing call");
 		voiceBusy = true;
 		foreach(AudioClip cl in clipList)
 		{
-			this.audio.PlayOneShot(cl);
+			Debug.Log("Playing clip " + cl.name);
+			this.audio.clip = cl;
+			this.audio.Play();
+			while(this.audio.isPlaying) 
+				yield return 0;
 		}
 		voiceBusy = false;
+		Debug.Log("Finished call");
 	}
 
 	public void Talk (string s)

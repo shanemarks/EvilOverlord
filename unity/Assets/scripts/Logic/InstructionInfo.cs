@@ -230,14 +230,15 @@ public class InstructionInfo
 		case PickupType.BoobyTrap1:
 		case PickupType.BoobyTrap2:
 		case PickupType.BoobyTrap3:
+		case PickupType.BoobyTrap4:
 			return AudioList.instance.ObjectBoobyTrap;
 		case PickupType.FakeKnife:
 			return AudioList.instance.ObjectFakeKnife;
 		case PickupType.RealKnife1:
 		case PickupType.RealKnife2:
 			return AudioList.instance.ObjectRealKnife;
-		case PickupType.GasMask1:
-		case PickupType.GasMask2:
+		case PickupType.GasMask:
+//		case PickupType.GasMask2:
 			return AudioList.instance.ObjectGasMask;
 		case PickupType.GasTrap:
 			return AudioList.instance.ObjectGasTrap;

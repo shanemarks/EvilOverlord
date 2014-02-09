@@ -14,54 +14,54 @@ using UnityEngine;
 		{
 			public  AudioClip BewareSomeoneElseKnowsYouHaveInformation;
 			public  AudioClip NoInformation;
-	public  AudioClip InThisRoomPreviousGivenSameInfo;
-	public  AudioClip PassHeadphones;
-	public  AudioClip NextGivenSame;
-	public AudioClip NextGivenName;
-	public  AudioClip PreviousGivenSame;
-	public  AudioClip ToWhoeverHas;
-	public AudioClip TurnsIdentityAndLocation;
-	
-	public  AudioClip ThereIsA;
-	public  AudioClip ThereIsAnItem;
-	
-	public  AudioClip IsInfact;
-	public  AudioClip IsNotInfact;
-	
-	public  AudioClip ArticleThe;
-	public  AudioClip PrepositionIn;
-	public  AudioClip PrepositionBehind;
-	public  AudioClip PrepositionUnder;
+			public  AudioClip InThisRoomPreviousGivenSameInfo;
+			public  AudioClip PassHeadphones;
+			public  AudioClip NextGivenSame;
+			public AudioClip NextGivenName;
+			public  AudioClip PreviousGivenSame;
+			public  AudioClip ToWhoeverHas;
+			public AudioClip TurnsIdentityAndLocation;
+			
+			public  AudioClip ThereIsA;
+			public  AudioClip ThereIsAnItem;
+			
+			public  AudioClip IsInfact;
+			public  AudioClip IsNotInfact;
+			
+			public  AudioClip ArticleThe;
+			public  AudioClip PrepositionIn;
+			public  AudioClip PrepositionBehind;
+			public  AudioClip PrepositionUnder;
 
-	public  AudioClip NumberZero;
-	public  AudioClip NumberOne;
-	public  AudioClip NumberTwo;
-	public  AudioClip NumberThree;
-	public  AudioClip NumberFour;
-	public  AudioClip NumberFive;
-	public  AudioClip NumberSix;
-	
-	public  AudioClip LocationCleanVent;
-	public  AudioClip LocationGrate;
-	public  AudioClip LocationGreenBed;
-	public  AudioClip LocationLamp;
-	public  AudioClip LocationRedBed;
-	public  AudioClip LocationRustyVent;
-	public  AudioClip LocationShelf;
-	public  AudioClip LocationSink;
-	public  AudioClip LocationToilet;
-	
-	public  AudioClip ObjectANonItem;
-	public  AudioClip ObjectBoobyTrap;
-	public  AudioClip ObjectFakeKnife;
-	public  AudioClip ObjectGasMask;
-	public  AudioClip ObjectGasTrap;
-	public  AudioClip ObjectRealKnife;
+			public  AudioClip NumberZero;
+			public  AudioClip NumberOne;
+			public  AudioClip NumberTwo;
+			public  AudioClip NumberThree;
+			public  AudioClip NumberFour;
+			public  AudioClip NumberFive;
+			public  AudioClip NumberSix;
+			
+			public  AudioClip LocationCleanVent;
+			public  AudioClip LocationGrate;
+			public  AudioClip LocationGreenBed;
+			public  AudioClip LocationLamp;
+			public  AudioClip LocationRedBed;
+			public  AudioClip LocationRustyVent;
+			public  AudioClip LocationShelf;
+			public  AudioClip LocationSink;
+			public  AudioClip LocationToilet;
+			
+			public  AudioClip ObjectANonItem;
+			public  AudioClip ObjectBoobyTrap;
+			public  AudioClip ObjectFakeKnife;
+			public  AudioClip ObjectGasMask;
+			public  AudioClip ObjectGasTrap;
+			public  AudioClip ObjectRealKnife;
 
-	public static AudioClip PlaceholderItem;
-	public static AudioClip PlaceholderLocation;
-	public static AudioClip PlaceholderWarningTime;
-	public static AudioClip PlaceholderError;
+			public static AudioClip PlaceholderItem;
+			public static AudioClip PlaceholderLocation;
+			public static AudioClip PlaceholderWarningTime;
+			public static AudioClip PlaceholderError;
 		}
 
 
