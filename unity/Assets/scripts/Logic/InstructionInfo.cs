@@ -207,14 +207,15 @@ public class InstructionInfo
 		case PickupType.BoobyTrap1:
 		case PickupType.BoobyTrap2:
 		case PickupType.BoobyTrap3:
+		case PickupType.BoobyTrap4:
 			return "booby trap";
 		case PickupType.FakeKnife:
 			return "fake knife";
 		case PickupType.RealKnife1:
 		case PickupType.RealKnife2:
 			return "real knife";
-		case PickupType.GasMask1:
-		case PickupType.GasMask2:
+		case PickupType.GasMask:
+//		case PickupType.GasMask2:
 			return "gas mask";
 		case PickupType.GasTrap:
 			return "gas trap";

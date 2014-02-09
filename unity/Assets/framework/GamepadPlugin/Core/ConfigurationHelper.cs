@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -40,7 +40,7 @@ public static partial class GamepadInput
 	public struct InputDescription
 	{
 		public InputType inputType;// = InputType.None;
-		public Button button;// = Button.NullButton;
+		public PadButton button;// = Button.NullButton;
 		public Axis axis;// = Axis.NullAxis;
 		public Extent extent;// = Extent.None;
 		
@@ -68,7 +68,7 @@ public static partial class GamepadInput
 		GamepadAxes _axesRef = null;
 		string _calibrationBackup = "";
 		int _joystickIndex = -1;
-		Dictionary<Button, int> buttonCodes = new Dictionary<Button, int>();
+		Dictionary<PadButton, int> buttonCodes = new Dictionary<PadButton, int>();
 		float _timeSinceCalibration = -1f;
 		
 		
@@ -188,7 +188,7 @@ public static partial class GamepadInput
 				}
 				ua[a] = axisDesc;
 			}
-			foreach (Button b in System.Enum.GetValues(typeof(Button)))
+			foreach (PadButton b in System.Enum.GetValues(typeof(PadButton)))
 			{
 				if (buttonCodes.ContainsKey(b))
 					ua[b] = buttonCodes[b];
@@ -215,9 +215,9 @@ public static partial class GamepadInput
 			return inputDesc;
 		}
 		
-		public InputType GetUncalibratedInput(out Button button, out Axis axis, out Extent extent)
+		public InputType GetUncalibratedInput(out PadButton button, out Axis axis, out Extent extent)
 		{
-			button = Button.NullButton;
+			button = PadButton.NullButton;
 			axis = Axis.NullAxis;
 			extent = Extent.None;
 			
@@ -239,7 +239,7 @@ public static partial class GamepadInput
 						extent = e;
 						
 						button = GetMirroredButton(a,e);
-						if (button == Button.NullButton)
+						if (button == PadButton.NullButton)
 							return InputType.Axis;
 						else
 							return InputType.Either;
@@ -247,9 +247,9 @@ public static partial class GamepadInput
 				}
 			}
 			
-			foreach (Button b in System.Enum.GetValues(typeof(Button)))
+			foreach (PadButton b in System.Enum.GetValues(typeof(PadButton)))
 			{
-				if (b == Button.NullButton) continue;
+				if (b == PadButton.NullButton) continue;
 				if (!buttonCodes.ContainsKey(b))
 				{
 					button = b;
@@ -266,7 +266,7 @@ public static partial class GamepadInput
 			return InputType.None;
 		}
 		
-		public void CalibrateAsNoInput(Button button)
+		public void CalibrateAsNoInput(PadButton button)
 		{
 			buttonCodes[button] = GamepadAxes.NoInput;
 		}
@@ -302,7 +302,7 @@ public static partial class GamepadInput
 			return CalibrationState.NotCalibrated;
 		}
 		
-		public CalibrationState Calibrate(Button button)
+		public CalibrationState Calibrate(PadButton button)
 		{
 			// we are waiting for a neutral controller
 			if (_waitingForNeutralController)
@@ -336,10 +336,10 @@ public static partial class GamepadInput
 			if (_waitingForNeutralController)
 				return  CheckForNeutralController() ? CalibrationState.Calibrated : CalibrationState.WaitingForNeutralController;
 			
-			Button mirroredButton = GetMirroredButton(axis, extent);
+			PadButton mirroredButton = GetMirroredButton(axis, extent);
 			
 			CalibrationState success;
-			if (mirroredButton != Button.NullButton)
+			if (mirroredButton != PadButton.NullButton)
 			{
 				success = CalibrateButtonAndAxis(mirroredButton, axis, extent);
 			}
@@ -357,7 +357,7 @@ public static partial class GamepadInput
 		}
 		
 		
-		CalibrationState CalibrateButton(Button button)
+		CalibrationState CalibrateButton(PadButton button)
 		{
 			int buttonIndex = GetCurrentRawButton();
 			
@@ -439,7 +439,7 @@ public static partial class GamepadInput
 		}
 		
 		// TODO Trigger Buttons don't seem to be calibrating
-		CalibrationState CalibrateButtonAndAxis(Button button, Axis axis, Extent extent)
+		CalibrationState CalibrateButtonAndAxis(PadButton button, Axis axis, Extent extent)
 		{
 			CalibrationState buttonCalibrated = CalibrateButton(button);
 			if (buttonCalibrated == CalibrationState.Calibrated)
@@ -459,39 +459,39 @@ public static partial class GamepadInput
 			return axisCalibrated;
 		}
 		
-		static Button GetMirroredButton(Axis axis, Extent extent)
+		static PadButton GetMirroredButton(Axis axis, Extent extent)
 		{
 			switch (axis)
 			{
-			case Axis.DPadX:		return extent == GamepadInput.Extent.Left 	? Button.DPadLeft	: Button.DPadRight;
-			case Axis.DPadY:		return extent == GamepadInput.Extent.Up 	? Button.DPadUp		: Button.DPadDown;
+			case Axis.DPadX:		return extent == GamepadInput.Extent.Left 	? PadButton.DPadLeft	: PadButton.DPadRight;
+			case Axis.DPadY:		return extent == GamepadInput.Extent.Up 	? PadButton.DPadUp		: PadButton.DPadDown;
 				
-			case Axis.ActionButtonsX:		return extent == GamepadInput.Extent.Left 	? Button.ActionLeft	: Button.ActionRight;
-			case Axis.ActionButtonsY:		return extent == GamepadInput.Extent.Up 	? Button.ActionUp	: Button.ActionDown;
+			case Axis.ActionButtonsX:		return extent == GamepadInput.Extent.Left 	? PadButton.ActionLeft	: PadButton.ActionRight;
+			case Axis.ActionButtonsY:		return extent == GamepadInput.Extent.Up 	? PadButton.ActionUp	: PadButton.ActionDown;
 				
-			case Axis.LeftTrigger:	return Button.LeftTrigger;
-			case Axis.RightTrigger:	return Button.RightTrigger;
+			case Axis.LeftTrigger:	return PadButton.LeftTrigger;
+			case Axis.RightTrigger:	return PadButton.RightTrigger;
 			}
 			
-			return Button.NullButton;
+			return PadButton.NullButton;
 		}
 		
-		static Axis GetMirroredAxis(Button button, out Extent extent)
+		static Axis GetMirroredAxis(PadButton button, out Extent extent)
 		{
 			switch (button)
 			{
-			case Button.DPadLeft:		extent = Extent.Left;	return Axis.DPadX;
-			case Button.DPadRight:		extent = Extent.Right; 	return Axis.DPadX;
-			case Button.DPadUp:			extent = Extent.Up;  	return Axis.DPadY;
-			case Button.DPadDown:		extent = Extent.Down; 	return Axis.DPadY;
+			case PadButton.DPadLeft:		extent = Extent.Left;	return Axis.DPadX;
+			case PadButton.DPadRight:		extent = Extent.Right; 	return Axis.DPadX;
+			case PadButton.DPadUp:			extent = Extent.Up;  	return Axis.DPadY;
+			case PadButton.DPadDown:		extent = Extent.Down; 	return Axis.DPadY;
 				
-			case Button.ActionLeft:		extent = Extent.Left;	return Axis.ActionButtonsX;
-			case Button.ActionRight:	extent = Extent.Right;	return Axis.ActionButtonsX;
-			case Button.ActionUp:		extent = Extent.Up;		return Axis.ActionButtonsY;
-			case Button.ActionDown:		extent = Extent.Down;	return Axis.ActionButtonsY;
+			case PadButton.ActionLeft:		extent = Extent.Left;	return Axis.ActionButtonsX;
+			case PadButton.ActionRight:	extent = Extent.Right;	return Axis.ActionButtonsX;
+			case PadButton.ActionUp:		extent = Extent.Up;		return Axis.ActionButtonsY;
+			case PadButton.ActionDown:		extent = Extent.Down;	return Axis.ActionButtonsY;
 				
-			case Button.LeftTrigger:	extent = Extent.Max;	return Axis.LeftTrigger;
-			case Button.RightTrigger:	extent = Extent.Max;	return Axis.RightTrigger;
+			case PadButton.LeftTrigger:	extent = Extent.Max;	return Axis.LeftTrigger;
+			case PadButton.RightTrigger:	extent = Extent.Max;	return Axis.RightTrigger;
 			}
 			extent = Extent.None;
 			return Axis.NullAxis;

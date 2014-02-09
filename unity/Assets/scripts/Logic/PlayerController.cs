@@ -12,13 +12,13 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 	//hardcoded controls:
 
-	string[] PlayerNames = {"green","red","blue","yellow"};
+	string[] PlayerNames = {"orange","blue","green","red"};
 
-     private KeyCode[] Up = {KeyCode.W, KeyCode.I, 	KeyCode.Keypad8, KeyCode.UpArrow};
-	 private KeyCode[] Down = {KeyCode.S, KeyCode.K, KeyCode.Keypad2, KeyCode.DownArrow};
-	 private KeyCode[] Left = {KeyCode.A, KeyCode.J,KeyCode.Keypad4, KeyCode.LeftArrow};
-	 private KeyCode[] Right = {KeyCode.D, KeyCode.L, KeyCode.Keypad6, KeyCode.RightArrow};
-	 private KeyCode[] Action = {KeyCode.LeftControl,KeyCode.Space, KeyCode.Keypad5, KeyCode.RightControl};
+//     private KeyCode[] Up = {KeyCode.W, KeyCode.I, 	KeyCode.Keypad8, KeyCode.UpArrow};
+//	 private KeyCode[] Down = {KeyCode.S, KeyCode.K, KeyCode.Keypad2, KeyCode.DownArrow};
+//	 private KeyCode[] Left = {KeyCode.A, KeyCode.J,KeyCode.Keypad4, KeyCode.LeftArrow};
+//	 private KeyCode[] Right = {KeyCode.D, KeyCode.L, KeyCode.Keypad6, KeyCode.RightArrow};
+//	 private KeyCode[] Action = {KeyCode.LeftControl,KeyCode.Space, KeyCode.Keypad5, KeyCode.RightControl};
 
 	[SerializeField] private Color[] PlayerColors;
 
@@ -67,18 +67,21 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 		Debug.Log ("Starting Player Controller");
 
 		Players = new Player[PlayerCount];
-		Debug.Log (Up.Length);
+		PlayerIcon pIcon = (PlayerIcon) PlayerIcon.First(typeof(PlayerIcon));
 		for (int i = 0 ; i < PlayerCount; i++)
 		{
 			GameObject go = NGUITools.AddChild(UIManager.instance.PlayerPanel.gameObject, PlayerPrefab);
 
+
 			Players[i] = go.GetComponent<Player>();
+			pIcon.ThePlayer = Players[i];
+			pIcon = (PlayerIcon) pIcon.Next;
 			Players[i].name = "player" + (i+1);
-			Players[i]._movement.Up = Up[i];
-			Players[i]._movement.Down = Down[i];
-			Players[i]._movement.Left = Left[i];		
-			Players[i]._movement.Right = Right[i];	
-			Players[i]._movement.Action = Action[i];
+//			Players[i]._movement.Player1Up = Up[i];
+//			Players[i]._movement.Player1Down = Down[i];
+//			Players[i]._movement.Player1Left = Left[i];		
+//			Players[i]._movement.Player1Right = Right[i];	
+//			Players[i]._movement.Player1Action = Action[i];
 			Players[i].Index = i;
 			Players[i].StartPos = new Vector3 ((96 + i*350), -441.97f, 0);
 			Players[i].transform.localPosition = Players[i].StartPos;
@@ -122,42 +125,49 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 		
 			Debug.Log ("Setting up controllers ("+Input.GetJoystickNames().Length+")");
-			if (Input.GetJoystickNames().Length == 0)
+			
+			Players[i]._movement._controller = Movement.ControllerType.Keyboard;
+			if (i < Input.GetJoystickNames().Length)
 			{
-				Players[i]._movement._controller = Movement.ControllerType.Keyboard;
+				Players[i]._movement._controller = Movement.ControllerType.Xbox;
+				Players[i]._movement.ControllerNumber = i;
 			}
-			if (Input.GetJoystickNames().Length >= 1)
-			{
-				if (i == 1)
-				{
-					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
-					Players[i]._movement.ControllerNumber = 0;
-				}
-			}
-			if (Input.GetJoystickNames().Length >= 2)
-			{
-				if (i == 2)
-				{
-					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
-					Players[i]._movement.ControllerNumber = 1;
-				}
-			}
-			if (Input.GetJoystickNames().Length >= 3)
-			{
-				if (i == 3)
-				{
-					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
-					Players[i]._movement.ControllerNumber = 2;
-				}
-			}
-			if (Input.GetJoystickNames().Length >= 4)
-			{
-				if (i == 0)
-				{
-					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
-					Players[i]._movement.ControllerNumber = 3;
-				}
-			}
+//			if (Input.GetJoystickNames().Length == 0)
+//			{
+//				Players[i]._movement._controller = Movement.ControllerType.Keyboard;
+//			}
+//			if (Input.GetJoystickNames().Length >= 1)
+//			{
+//				if (i == 1)
+//				{
+//					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
+//					Players[i]._movement.ControllerNumber = 0;
+//				}
+//			}
+//			if (Input.GetJoystickNames().Length >= 2)
+//			{
+//				if (i == 2)
+//				{
+//					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
+//					Players[i]._movement.ControllerNumber = 1;
+//				}
+//			}
+//			if (Input.GetJoystickNames().Length >= 3)
+//			{
+//				if (i == 3)
+//				{
+//					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
+//					Players[i]._movement.ControllerNumber = 2;
+//				}
+//			}
+//			if (Input.GetJoystickNames().Length >= 4)
+//			{
+//				if (i == 0)
+//				{
+//					Players[i]._movement._controller = Movement.ControllerType.XboxLeft;
+//					Players[i]._movement.ControllerNumber = 3;
+//				}
+//			}
 			
 		}
 		int n = 0;
@@ -172,7 +182,8 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
  		UIManager.instance.UpdateCharacterIcons ();
 
-		PlayerWithPhone = Players[0];
+		Players[0].PassPhone(Players[0]);// pass phone to self
+
 	}
 
 

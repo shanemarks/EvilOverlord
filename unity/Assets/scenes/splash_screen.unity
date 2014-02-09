@@ -125,11 +125,11 @@ MonoBehaviour:
     e00: 540
     e01: 0
     e02: 0
-    e03: .969696999
+    e03: 0
     e10: 0
     e11: 540
     e12: 0
-    e13: 0
+    e13: -.891089141
     e20: 0
     e21: 0
     e22: 540
@@ -355,7 +355,7 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 1587
-  mHeight: 440
+  mHeight: 550
   mDepth: 4
   autoResizeBoxCollider: 0
   keepCrispWhenShrunk: 1
@@ -364,14 +364,17 @@ MonoBehaviour:
   mText: 'In order to escape, at least two of you will die.
 
 
-    There are 2 gasmasks, 3 knives (1 is fake), and a poisonous gas trap hidden the
+    There are 3 knives (1 is fake), a poisonous gas trap, and a gas mask hidden the
     room.
 
 
-    There are also 3 boobytraps hidden in the room. ;)
+    There are also 4 boobytraps hidden in the room. ;)
 
 
-    You will be given clues as to their location via headphones.'
+    You will be given clues as to their location via headphones.
+
+
+    Scheming is encouraged...'
   mFontSize: 55
   mFontStyle: 0
   mEncoding: 1
@@ -597,7 +600,7 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 8
   mWidth: 459
-  mHeight: 205
+  mHeight: 164
   mDepth: 4
   autoResizeBoxCollider: 0
   keepCrispWhenShrunk: 1
@@ -607,9 +610,9 @@ MonoBehaviour:
 
     4 players
 
-    headphones
+    4 controllers
 
-    Keyboard (or keyboard and up to 4 controllers)'
+    headphones'
   mFontSize: 41
   mFontStyle: 0
   mEncoding: 1
@@ -826,7 +829,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1842863613}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.969696999, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: .891089141, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 92635759}

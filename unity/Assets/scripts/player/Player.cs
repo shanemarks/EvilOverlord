@@ -20,8 +20,9 @@ public class Player: MonoBehaviour {
 
 	public Vector3 StartPos;
 	public Transform _trans;
-
+	
 	public bool hasPhone = false;
+	public bool canPassPhone = false;
 
 	public PickupType ItemsOwned;
 	public bool hasGasMask = false;
@@ -32,11 +33,10 @@ public class Player: MonoBehaviour {
 	public int Index = -1;
 
 	public UISprite PlayerSprite, PlayerHeadSprite, FrontFootSprite, BackFootSprite;
+
 	public RoomLocation OnRoomLocation;
 
-	public UISprite knifeIcon,maskIcon;
-
-	public event System.Action OnDeath;
+	public UISprite knifeIcon,maskIcon,PhoneIcon, RtIcon;
 
 	bool notifiedAboutGasMask = false;
 
@@ -45,6 +45,7 @@ public class Player: MonoBehaviour {
 	string KNIFE_ICON ="Knife",
 	MASK_ICONSE ="SEMask",
 	MASK_ICONSW ="SWMask";
+
 
 	public bool IsMoving;
 
@@ -58,17 +59,30 @@ public class Player: MonoBehaviour {
 
 		MaskPositionCache = maskIcon.transform.localPosition;
 		KnifePostionCache = knifeIcon.transform.localPosition;
-	
+		PhoneIcon.color =  PlayerSprite.color;
+		RtIcon.color = PlayerSprite.color;
 		_trans = gameObject.transform;
 		_trans.localPosition = StartPos;
 	}
 
+	public bool CanRecievePhone()
+	{
+		if (!IsAlive)
+			return false;
+
+		if (hasPhone)
+			return false;
+
+		return true;
+	}
 
 	public void PassPhone (Player p)
 	{
 		hasPhone = false;
 		p.hasPhone = true;
+		p.canPassPhone = false;
 		PlayerController.instance.PlayerWithPhone = p;
+
 	}
 	void Update ()
 	{
@@ -159,9 +173,57 @@ public class Player: MonoBehaviour {
 			maskIcon.spriteName = "";
 		}
 
+
+		if (hasPhone)
+		{
+			if (!PhoneIcon.gameObject.activeSelf)
+			{
+				PhoneIcon.gameObject.SetActive(true);
+			
+				PhoneIcon.color = PlayerSprite.color;
+
+			}
+
+		}
+
+		else
+		{
+			if (PhoneIcon.gameObject.activeSelf)
+			{
+				PhoneIcon.gameObject.SetActive(false);
+			}
+		}
 	
 		knifeIcon.Update();
 		maskIcon.Update();
+		bool canStab = (GameController.instance.FindStabablePlayer(this) != null && (HoldingState == ItemHoldingState.Both || HoldingState == ItemHoldingState.Knife));
+		if (OnRoomLocation != null || canStab)
+		{
+
+				RtIcon.spriteName = (canStab)? "rt_knife": "rt_hand";
+			
+
+
+			if (!RtIcon.gameObject.activeSelf)		// TODO: SWAP TO KNIFE HAND if player is in knife stabbing range
+			{ 
+
+		
+				RtIcon.gameObject.SetActive(true);
+			}
+
+		}
+
+		else
+		{
+			if (RtIcon.gameObject.activeSelf)
+			{
+
+				RtIcon.gameObject.SetActive(false);
+			}
+					
+		}
+
+
 
 
 	}
@@ -172,6 +234,7 @@ public class Player: MonoBehaviour {
 		{
 			Debug.Log ("Kill player");
 			IsAlive =  false;
+
 			DropItem();
 			_movement.enabled = false;
 			notifiedAboutGasMask = false;
@@ -188,10 +251,6 @@ public class Player: MonoBehaviour {
 			HOTween.To(GetComponent<UIPanel>(), 1f, "alpha", 0f);
 
 			ScoreController.instance.timer = 0;
-			if (OnDeath != null)
-			{
-				OnDeath ();
-			}
 		}
 	}
 	

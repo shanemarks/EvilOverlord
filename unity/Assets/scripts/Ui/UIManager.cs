@@ -43,6 +43,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	}
 	void Update ()
 	{
+		PassPhone ();
 		UpdateCharacterIcons();
 
 		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.F1))
@@ -79,11 +80,30 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public void PassPhone ()
 	{
-		if (VoiceSpeaker.GetVoiceState () == 0)
+	
+		bool showPassPhoneUI = PlayerController.instance.PlayerWithPhone.canPassPhone;
+		
+		foreach (PlayerIcon icon in PlayerIcon.First(typeof (PlayerIcon)))
 		{
-			PassPhonePanel.gameObject.SetActive(true);
+		
+
+			icon.ButtonIcon.gameObject.SetActive (showPassPhoneUI && icon.ThePlayer.CanRecievePhone());
 		}
+
+
+
 	}
+
+
+// public void HidePassButtons ()
+//	{
+//		foreach (PlayerIcon icon in PlayerIcon.First(typeof (PlayerIcon)))
+//		{
+//
+//				icon.ButtonIcon.gameObject.SetActive (false);
+//		}
+//	}
+
 
 	public void ReplayInstruction()
 	{

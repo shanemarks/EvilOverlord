@@ -173,13 +173,13 @@ public class ConfigureController : MonoBehaviour
 		}
 		
 		
-		DrawUnitVectorBox(0.35f, 0.70f, GamepadInput.GetXYAxis(XYAxis.LeftAnalog), GamepadInput.GetButton(Button.LeftAnalog));
+		DrawUnitVectorBox(0.35f, 0.70f, GamepadInput.GetXYAxis(XYAxis.LeftAnalog), GamepadInput.GetButton(PadButton.LeftAnalog));
 		DrawText(0.3f, 0.8f, "LS "+GamepadInput.GetXYAxis(XYAxis.LeftAnalog, selectedControllerIndex));
 		DrawText(0.3f, 0.85f, ""+GamepadInput.GetAxis(Axis.LeftAnalogX, selectedControllerIndex));
 		DrawText(0.3f, 0.9f, ""+GamepadInput.GetAxis(Axis.LeftAnalogY, selectedControllerIndex));
 
 		
-		DrawUnitVectorBox(0.75f, 0.70f, GamepadInput.GetXYAxis(XYAxis.RightAnalog), GamepadInput.GetButton(Button.RightAnalog));
+		DrawUnitVectorBox(0.75f, 0.70f, GamepadInput.GetXYAxis(XYAxis.RightAnalog), GamepadInput.GetButton(PadButton.RightAnalog));
 		DrawText(0.7f, 0.80f, "RS "+GamepadInput.GetXYAxis(XYAxis.RightAnalog, selectedControllerIndex));
 		DrawText(0.7f, 0.85f, ""+GamepadInput.GetAxis(Axis.RightAnalogX, selectedControllerIndex));
 		DrawText(0.7f, 0.90f, ""+GamepadInput.GetAxis(Axis.RightAnalogY, selectedControllerIndex));
@@ -190,17 +190,17 @@ public class ConfigureController : MonoBehaviour
 		DrawText(0.3f, 0.6f, ""+GamepadInput.GetAxis(Axis.DPadY, selectedControllerIndex));
 		
 		
-		DrawBox(0.35f, 0.4f, "U", GamepadInput.GetButton(Button.DPadUp, selectedControllerIndex));
-		DrawBox(0.35f, 0.45f, "D", GamepadInput.GetButton(Button.DPadDown, selectedControllerIndex));
-		DrawBox(0.325f, 0.425f, "L", GamepadInput.GetButton(Button.DPadLeft, selectedControllerIndex));
-		DrawBox(0.375f, 0.425f, "R", GamepadInput.GetButton(Button.DPadRight, selectedControllerIndex));
+		DrawBox(0.35f, 0.4f, "U", GamepadInput.GetButton(PadButton.DPadUp, selectedControllerIndex));
+		DrawBox(0.35f, 0.45f, "D", GamepadInput.GetButton(PadButton.DPadDown, selectedControllerIndex));
+		DrawBox(0.325f, 0.425f, "L", GamepadInput.GetButton(PadButton.DPadLeft, selectedControllerIndex));
+		DrawBox(0.375f, 0.425f, "R", GamepadInput.GetButton(PadButton.DPadRight, selectedControllerIndex));
 		
 		DrawUnitVectorBox(0.35f, 0.3f, GamepadInput.GetXYAxis(XYAxis.DPad, selectedControllerIndex));
 		
-		DrawBox(0.75f, 0.4f, "U",  GamepadInput.GetButton(Button.ActionUp, selectedControllerIndex));
-		DrawBox(0.75f, 0.45f, "D", GamepadInput.GetButton(Button.ActionDown, selectedControllerIndex));
-		DrawBox(0.7f, 0.425f, "L", GamepadInput.GetButton(Button.ActionLeft, selectedControllerIndex));
-		DrawBox(0.8f, 0.425f, "R", GamepadInput.GetButton(Button.ActionRight, selectedControllerIndex));
+		DrawBox(0.75f, 0.4f, "U",  GamepadInput.GetButton(PadButton.ActionUp, selectedControllerIndex));
+		DrawBox(0.75f, 0.45f, "D", GamepadInput.GetButton(PadButton.ActionDown, selectedControllerIndex));
+		DrawBox(0.7f, 0.425f, "L", GamepadInput.GetButton(PadButton.ActionLeft, selectedControllerIndex));
+		DrawBox(0.8f, 0.425f, "R", GamepadInput.GetButton(PadButton.ActionRight, selectedControllerIndex));
 		
 		DrawUnitVectorBox(0.75f, 0.3f, GamepadInput.GetXYAxis(XYAxis.ActionButtons, selectedControllerIndex));
 		
@@ -208,20 +208,20 @@ public class ConfigureController : MonoBehaviour
 		DrawText(0.75f, 0.55f, ""+GamepadInput.GetAxis(Axis.ActionButtonsX, selectedControllerIndex));
 		DrawText(0.75f, 0.6f, ""+GamepadInput.GetAxis(Axis.ActionButtonsY, selectedControllerIndex));
 		
-		DrawBox(0.5f,  0.5f, "Select", GamepadInput.GetButton(Button.Select, selectedControllerIndex), 2f);
-		DrawBox(0.55f, 0.5f, "Home", GamepadInput.GetButton(Button.Home, selectedControllerIndex),   2f);
-		DrawBox(0.6f,  0.5f, "Start", GamepadInput.GetButton(Button.Start, selectedControllerIndex),   2f);
+		DrawBox(0.5f,  0.5f, "Select", GamepadInput.GetButton(PadButton.Select, selectedControllerIndex), 2f);
+		DrawBox(0.55f, 0.5f, "Home", GamepadInput.GetButton(PadButton.Home, selectedControllerIndex),   2f);
+		DrawBox(0.6f,  0.5f, "Start", GamepadInput.GetButton(PadButton.Start, selectedControllerIndex),   2f);
 		
 		
 		DrawText(0.5f, 0.15f, "LT "+GamepadInput.GetAxis(Axis.LeftTrigger, selectedControllerIndex));
 		DrawUnitFloatBox(0.5f,  0.2f, 1f-GamepadInput.GetAxis(Axis.LeftTrigger, selectedControllerIndex));
 		
-		DrawBox(0.5f,  0.3f, "LB", GamepadInput.GetButton(Button.LeftBumper, selectedControllerIndex), 1f);
+		DrawBox(0.5f,  0.3f, "LB", GamepadInput.GetButton(PadButton.LeftBumper, selectedControllerIndex), 1f);
 		
 		DrawText(0.6f, 0.15f, "RT "+GamepadInput.GetAxis(Axis.RightTrigger, selectedControllerIndex));
 		DrawUnitFloatBox(0.6f,  0.2f, 1f-GamepadInput.GetAxis(Axis.RightTrigger, selectedControllerIndex));
 		
-		DrawBox(0.6f,  0.3f, "RB", GamepadInput.GetButton(Button.RightBumper, selectedControllerIndex), 1f);
+		DrawBox(0.6f,  0.3f, "RB", GamepadInput.GetButton(PadButton.RightBumper, selectedControllerIndex), 1f);
 		
 //		if (selectedAxes == null) return;
 		
@@ -239,8 +239,8 @@ public class ConfigureController : MonoBehaviour
 		}
 		for (int b = 0 ; b < GamepadInput.MaxButtons ; b++)
 		{
-			Button button = selectedAxes != null ? selectedAxes.FindButton(b) : (Button)(-1);
-			string buttonString = button == Button.NullButton ? "" : ""+button;
+			PadButton button = selectedAxes != null ? selectedAxes.FindButton(b) : (PadButton)(-1);
+			string buttonString = button == PadButton.NullButton ? "" : ""+button;
 			bool buttonValue = GamepadInput.GetRawButton(b, selectedControllerIndex);
 			DrawText(0.001f, (float)(GamepadInput.MaxAxes+b)/inputs, "Button "+b+"\t"+ buttonValue, buttonValue);
 			DrawText(0.15f, (float)(GamepadInput.MaxAxes+b)/inputs, buttonString);

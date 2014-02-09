@@ -7,9 +7,10 @@ using System.Collections.Generic;
 
 //public enum ItemType {None, SomethingUseful, SomeKnife, BoobyTrap, RealKnife, FakeKnife, GasMask}
 //
+
 public enum LocationType {RedBed, GreenBed, Sink, Toilet, Shelf, Grate, WallLamp, CleanVent, RustyVent}
 
-public enum PickupType {None = -1, BoobyTrap1, BoobyTrap2, BoobyTrap3, RealKnife1, RealKnife2, FakeKnife, GasMask1, GasMask2, GasTrap}
+public enum PickupType {None = -1, BoobyTrap1, BoobyTrap2, BoobyTrap3, BoobyTrap4, RealKnife1, RealKnife2, FakeKnife, GasMask, GasTrap}
 
 //public enum VentObject {}
 
@@ -405,7 +406,7 @@ public class GameController : SingletonBehaviour<GameController>
 	
 	List<InstructionInfo.InfoPacket> GetPositiveInfoPackets()
 	{
-		List<PickupType> nonBoobyTrapItems = InverseItemList(PickupType.BoobyTrap1, PickupType.BoobyTrap2, PickupType.BoobyTrap3, PickupType.None);
+		List<PickupType> nonBoobyTrapItems = InverseItemList(PickupType.BoobyTrap1, PickupType.BoobyTrap2, PickupType.BoobyTrap3, PickupType.BoobyTrap4, PickupType.None);
 
 		
 		Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
@@ -533,9 +534,11 @@ public class GameController : SingletonBehaviour<GameController>
 		case PickupType.BoobyTrap1:
 		case PickupType.BoobyTrap2:
 		case PickupType.BoobyTrap3:
+		case PickupType.BoobyTrap4:
 			yield return PickupType.BoobyTrap1;
 			yield return PickupType.BoobyTrap2;
 			yield return PickupType.BoobyTrap3;
+			yield return PickupType.BoobyTrap4;
 			break;
 		case PickupType.FakeKnife:
 			yield return PickupType.FakeKnife;
@@ -545,10 +548,10 @@ public class GameController : SingletonBehaviour<GameController>
 			yield return PickupType.RealKnife1;
 			yield return PickupType.RealKnife2;
 			break;
-		case PickupType.GasMask1:
-		case PickupType.GasMask2:
-			yield return PickupType.GasMask1;
-			yield return PickupType.GasMask2;
+		case PickupType.GasMask:
+//		case PickupType.GasMask2:
+			yield return PickupType.GasMask;
+//			yield return PickupType.GasMask2;
 			break;
 		case PickupType.GasTrap:
 			yield return PickupType.GasTrap;
@@ -761,13 +764,14 @@ public class GameController : SingletonBehaviour<GameController>
 		case PickupType.BoobyTrap1:
 		case PickupType.BoobyTrap2:
 		case PickupType.BoobyTrap3:
+		case PickupType.BoobyTrap4:
 			return "booby trap";
 		case PickupType.FakeKnife:
 		case PickupType.RealKnife1:
 		case PickupType.RealKnife2:
 			return "knife";
-		case PickupType.GasMask1:
-		case PickupType.GasMask2:
+		case PickupType.GasMask:
+//		case PickupType.GasMask2:
 			return "gas mask";
 		case PickupType.GasTrap:
 			return "gas trap";
@@ -784,35 +788,25 @@ public class GameController : SingletonBehaviour<GameController>
 			player.ItemsOwned == PickupType.RealKnife2 || 
 			player.ItemsOwned == PickupType.FakeKnife)
 		{
-
-			// find nearest player
-			Debug.Log ("Looking for closest player to "+player.name);
 			
-			float minDist = float.PositiveInfinity;
-			Player closestPlayer = null;
-			foreach (Player otherPlayer in PlayerController.instance.Players)
-			{
-				if (otherPlayer == player)
-					continue;
+			Player closestPlayer = FindStabablePlayer(player);
 
-				float dist = Vector2.Distance(otherPlayer.transform.position, player.transform.position);
-				Debug.Log ("Distance "+ dist);
-				if (dist < minDist)
-				{
-					Debug.Log ("Setting closest player to "+ otherPlayer.name+" ("+ dist+")");
-					closestPlayer = otherPlayer;
-					minDist = dist;
-				}
-			}
-
-			if (minDist <= GameController.instance.knifeRange)
+			if (closestPlayer != null) // STAB HIM
 			{
 				if (player.ItemsOwned == PickupType.RealKnife1 || 
 					player.ItemsOwned == PickupType.RealKnife2)
 				{
-					UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "Stab!");
-					UIManager.instance.CreateObjectPickupAnimation (closestPlayer.transform.position, "Death");
+					if (closestPlayer.hasGasMask)
+					{
+						player.hasGasMask = true;
+						UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "Stab!\nSteal gas mask!");
+					}
+					else
+					{
+						UIManager.instance.CreateObjectPickupAnimation (player.transform.position, "Stab!");
+					}
 					closestPlayer.KillPlayer();
+					UIManager.instance.CreateObjectPickupAnimation (closestPlayer.transform.position, "Death");
 
 					player.DropItem();
 					return true;
@@ -830,6 +824,36 @@ public class GameController : SingletonBehaviour<GameController>
 		}
 		return true;
 	
+	}
+
+	// returns null if no stabbale player
+	public Player FindStabablePlayer(Player player) 
+	{
+		// find nearest player
+		//Debug.Log ("Looking for closest player to "+player.name);
+		
+		float minDist = float.PositiveInfinity;
+		Player closestPlayer = null;
+		foreach (Player otherPlayer in PlayerController.instance.Players)
+		{
+			if (otherPlayer == player)
+				continue;
+			
+			float dist = Vector2.Distance(otherPlayer.transform.position, player.transform.position);
+		//	Debug.Log ("Distance "+ dist);
+			if (dist < minDist)
+			{
+				//Debug.Log ("Setting closest player to "+ otherPlayer.name+" ("+ dist+")");
+				closestPlayer = otherPlayer;
+				minDist = dist;
+			}
+		}
+		
+		if (minDist <= GameController.instance.knifeRange)
+		{
+			return closestPlayer;
+		}
+		return null;
 	}
 
 	public void PlayerActivatedLocation(Player player, LocationType roomLocation)
@@ -850,7 +874,8 @@ public class GameController : SingletonBehaviour<GameController>
 		}
 		if (roomItemLocations[roomLocation] == PickupType.BoobyTrap1 || 
 		    roomItemLocations[roomLocation] == PickupType.BoobyTrap2 || 
-		    roomItemLocations[roomLocation] == PickupType.BoobyTrap3)
+		    roomItemLocations[roomLocation] == PickupType.BoobyTrap3 || 
+		    roomItemLocations[roomLocation] == PickupType.BoobyTrap4)
 		{
 			UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Booby trap!");
 			player.KillPlayer();
@@ -881,7 +906,7 @@ public class GameController : SingletonBehaviour<GameController>
 				{
 					TakeObjectFrom(roomLocation);
 					player.hasGasMask = true;
-					UIManager.instance.CreateObjectPickupAnimation(player.transform.position, GetGenericItemName(PickupType.GasMask1)+"!");
+					UIManager.instance.CreateObjectPickupAnimation(player.transform.position, GetGenericItemName(PickupType.GasMask)+"!");
 				}
 				else
 				{

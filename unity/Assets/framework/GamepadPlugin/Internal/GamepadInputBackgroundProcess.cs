@@ -30,21 +30,21 @@ public class GamepadInputBackgroundProcess : MonoBehaviour
 			dpadDown  = states.dpadDown;
 		}
 		
-		public bool GetButton(Button button)
+		public bool GetButton(PadButton button)
 		{
 			switch (button)
 			{
-			case Button.DPadDown:
+			case PadButton.DPadDown:
 				return dpadDown;
-			case Button.DPadUp:
+			case PadButton.DPadUp:
 				return dpadUp;
-			case Button.DPadLeft:
+			case PadButton.DPadLeft:
 				return dpadLeft;
-			case Button.DPadRight:
+			case PadButton.DPadRight:
 				return dpadRight;
-			case Button.LeftTrigger:
+			case PadButton.LeftTrigger:
 				return triggerLeft;
-			case Button.RightTrigger:
+			case PadButton.RightTrigger:
 				return triggerRight;
 			}
 			return false;
@@ -72,7 +72,7 @@ public class GamepadInputBackgroundProcess : MonoBehaviour
 		}
 	}
 
-	public bool GetButtonDown (Button button, int controllerIndex)
+	public bool GetButtonDown (PadButton button, int controllerIndex)
 	{
 		if (previousStates == null || states == null || previousStates[controllerIndex] == null || states[controllerIndex] == null)
 		{
@@ -80,7 +80,7 @@ public class GamepadInputBackgroundProcess : MonoBehaviour
 		}
 		return !previousStates[controllerIndex].GetButton(button) && states[controllerIndex].GetButton(button);
 	}
-	public bool GetButtonUp (Button button, int controllerIndex)
+	public bool GetButtonUp (PadButton button, int controllerIndex)
 	{
 		if (previousStates == null || states == null || previousStates[controllerIndex] == null || states[controllerIndex] == null)
 		{

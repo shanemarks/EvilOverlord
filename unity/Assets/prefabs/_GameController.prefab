@@ -38,7 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b754273e241c54d43bc1384ec0061021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knifeRange: .5
+  knifeRange: .25
   chanceToRevealPreviousIntent: .300000012
   chanceToNegateInfo: 0
   chanceToGenerliseToSomethingUseful: .200000003
