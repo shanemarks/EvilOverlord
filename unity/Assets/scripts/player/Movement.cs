@@ -163,12 +163,13 @@ public class Movement : MonoBehaviour {
 				bool playVoiceDown = 
 					_controller == ControllerType.Keyboard  
 						? Input.GetKeyDown(PlayKey)
-						: GamepadInput.GetButtonDown(playButton) || GamepadInput.GetButtonDown(playButtonAlt);
+						: GamepadInput.GetButtonDown(playButton, ControllerNumber) || GamepadInput.GetButtonDown(playButtonAlt, ControllerNumber);
 
-				if (playVoiceDown)
+				if (playVoiceDown && VoiceSpeaker.GetVoiceState() == 0)
 				{
 					UIManager.instance.ReplayInstruction();
-					StartCoroutine(WaitForVoice());
+					
+					_thePlayer.canPassPhone = true;
 				}
 				
 				if (_thePlayer.canPassPhone)
@@ -184,10 +185,10 @@ public class Movement : MonoBehaviour {
 					}
 					else
 					{
-						passDown[0] = GamepadInput.GetButtonDown(PassPlayer0Yellow);
-						passDown[1] = GamepadInput.GetButtonDown(PassPlayer1Blue);
-						passDown[2] = GamepadInput.GetButtonDown(PassPlayer2Green);
-						passDown[3] = GamepadInput.GetButtonDown(PassPlayer3Red);
+						passDown[0] = GamepadInput.GetButtonDown(PassPlayer0Yellow, ControllerNumber);
+						passDown[1] = GamepadInput.GetButtonDown(PassPlayer1Blue, ControllerNumber);
+						passDown[2] = GamepadInput.GetButtonDown(PassPlayer2Green, ControllerNumber);
+						passDown[3] = GamepadInput.GetButtonDown(PassPlayer3Red, ControllerNumber);
 					}
 
 					for (int p = 0 ; p < 4 ; p++)
@@ -296,20 +297,20 @@ public class Movement : MonoBehaviour {
 	}
 
 
-	IEnumerator WaitForVoice ()
-	{
-		while (VoiceSpeaker.GetVoiceState() != 0) // then is talking
-		{
-			if (!_thePlayer.hasPhone) // somehow passed the phone
-			{
-				_thePlayer.canPassPhone = false;
-				yield break;
-			}
-			yield return null;
-		}
-		
-		_thePlayer.canPassPhone = true;
-	}
+//	IEnumerator WaitForVoice ()
+//	{
+//		while (VoiceSpeaker.GetVoiceState() != 0) // then is talking
+//		{
+//			if (!_thePlayer.hasPhone) // somehow passed the phone
+//			{
+//				_thePlayer.canPassPhone = false;
+//				yield break;
+//			}
+//			yield return null;
+//		}
+//		
+//		_thePlayer.canPassPhone = true;
+//	}
 
 
 	Vector3 GetRelativePositionInWorldSpace (Vector3 relative)

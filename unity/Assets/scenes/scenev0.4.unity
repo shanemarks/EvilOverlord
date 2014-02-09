@@ -639,8 +639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14f43c1041b9564882f3ff0b817d507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 165316634}
-  speed: 2
 --- !u!1 &183024355
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,7 +755,7 @@ MonoBehaviour:
     e10: 0
     e11: 100
     e12: 0
-    e13: -57.9108696
+    e13: -57.7020531
     e20: 0
     e21: 0
     e22: 540
@@ -1774,8 +1772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14f43c1041b9564882f3ff0b817d507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 582575899}
-  speed: 2
 --- !u!1 &605644143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2111,7 +2107,7 @@ MonoBehaviour:
     e10: 0
     e11: 540
     e12: 0
-    e13: -2.01869154
+    e13: -.891089141
     e20: 0
     e21: 0
     e22: 540
@@ -2293,7 +2289,7 @@ MonoBehaviour:
     e10: 0
     e11: 540
     e12: 0
-    e13: -2.01866102
+    e13: -.891058624
     e20: 0
     e21: 0
     e22: 540
@@ -2983,7 +2979,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 961775058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.01869154, z: 0}
+  m_LocalPosition: {x: 0, y: .891089141, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 212589718}
@@ -3971,8 +3967,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14f43c1041b9564882f3ff0b817d507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 1240301925}
-  speed: 2
 --- !u!1 &1241952092
 GameObject:
   m_ObjectHideFlags: 0
@@ -4037,8 +4031,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14f43c1041b9564882f3ff0b817d507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 1241952094}
-  speed: 2
 --- !u!1 &1251254746
 GameObject:
   m_ObjectHideFlags: 0
@@ -4146,7 +4138,7 @@ MonoBehaviour:
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-  m_PrefabInternal: {fileID: 1495016835}
+  m_PrefabInternal: {fileID: 1569216921}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1256485732}
@@ -4163,14 +4155,14 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: cdc8ce1ebeae80a489179db96d1af892,
     type: 2}
-  m_PrefabInternal: {fileID: 1495016835}
+  m_PrefabInternal: {fileID: 1569216921}
   m_GameObject: {fileID: 1256485730}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b754273e241c54d43bc1384ec0061021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knifeRange: .5
+  knifeRange: .25
   chanceToRevealPreviousIntent: .300000012
   chanceToNegateInfo: 0
   chanceToGenerliseToSomethingUseful: .200000003
@@ -4180,7 +4172,7 @@ MonoBehaviour:
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-  m_PrefabInternal: {fileID: 1495016835}
+  m_PrefabInternal: {fileID: 1569216921}
   m_GameObject: {fileID: 1256485730}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -4551,30 +4543,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: 0
-  Player3Up: 119
-  Player3Down: 115
-  Player3Left: 97
-  Player3Right: 100
-  Player3Action: 32
-  Player3Play: 9
-  Player4Up: 273
-  Player4Down: 274
-  Player4Left: 276
-  Player4Right: 275
-  Player4Action: 13
-  Player4Play: 8
-  KeyboardPassPlayer0Yellow: 117
-  KeyboardPassPlayer1Blue: 104
-  KeyboardPassPlayer2Green: 106
-  KeyboardPassPlayer3Red: 107
-  playButton: 15
-  playButtonAlt: 4
-  actionButton: 15
-  actionButtonAlt: 4
-  PassPlayer0Yellow: 1
-  PassPlayer1Blue: 2
-  PassPlayer2Green: 0
-  PassPlayer3Red: 3
   MovementSpeedBase: 1
   ControllerNumber: 0
   _thePlayer: {fileID: 1301667599}
@@ -4712,7 +4680,7 @@ MonoBehaviour:
     e10: -1.74845554e-05
     e11: 100
     e12: 0
-    e13: -21.1932983
+    e13: -20.9844818
     e20: 0
     e21: 0
     e22: 540
@@ -4847,7 +4815,7 @@ MonoBehaviour:
     e10: 0
     e11: 100
     e12: 0
-    e13: 29.8067245
+    e13: 30.0155392
     e20: 0
     e21: 0
     e22: 540
@@ -5026,50 +4994,6 @@ Transform:
   m_Children:
   - {fileID: 753040566}
   m_Father: {fileID: 0}
---- !u!1001 &1495016835
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2074411095}
-    m_Modifications:
-    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-      propertyPath: knifeRange
-      value: .5
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
-  m_RootGameObject: {fileID: 1256485730}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &1504441781
 GameObject:
   m_ObjectHideFlags: 0
@@ -5122,7 +5046,7 @@ MonoBehaviour:
     e10: 0
     e11: 540
     e12: 0
-    e13: -2.01869154
+    e13: -.891089141
     e20: 0
     e21: 0
     e22: 540
@@ -5292,6 +5216,46 @@ Transform:
   m_Children:
   - {fileID: 909607375}
   m_Father: {fileID: 1301667595}
+--- !u!1001 &1569216921
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2074411095}
+    m_Modifications:
+    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: cdc8ce1ebeae80a489179db96d1af892, type: 2}
+  m_RootGameObject: {fileID: 1256485730}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1575883917
 GameObject:
   m_ObjectHideFlags: 0
@@ -5528,7 +5492,7 @@ MonoBehaviour:
     e10: 0
     e11: 400
     e12: 0
-    e13: 47.3565216
+    e13: 48.1917877
     e20: 0
     e21: 0
     e22: 540
@@ -5910,7 +5874,7 @@ MonoBehaviour:
     e10: 0
     e11: 100
     e12: 0
-    e13: -11.1932745
+    e13: -10.9844589
     e20: 0
     e21: 0
     e22: 540
