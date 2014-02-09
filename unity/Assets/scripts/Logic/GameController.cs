@@ -786,7 +786,7 @@ public class GameController : SingletonBehaviour<GameController>
 			player.ItemsOwned == PickupType.FakeKnife)
 		{
 			
-			Player closestPlayer = FindStabablePlayer();
+			Player closestPlayer = FindStabablePlayer(player);
 
 			if (closestPlayer != null) // STAB HIM
 			{
@@ -816,7 +816,7 @@ public class GameController : SingletonBehaviour<GameController>
 	}
 
 	// returns null if no stabbale player
-	public Player FindStabablePlayer() 
+	public Player FindStabablePlayer(Player player) 
 	{
 		// find nearest player
 		Debug.Log ("Looking for closest player to "+player.name);
