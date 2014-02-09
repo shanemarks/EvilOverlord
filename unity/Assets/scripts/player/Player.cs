@@ -32,9 +32,10 @@ public class Player: MonoBehaviour {
 	public int Index = -1;
 
 	public UISprite PlayerSprite, PlayerHeadSprite, FrontFootSprite, BackFootSprite;
+
 	public RoomLocation OnRoomLocation;
 
-	public UISprite knifeIcon,maskIcon;
+	public UISprite knifeIcon,maskIcon,PhoneIcon, RtIcon;
 
 	public event System.Action OnDeath;
 
@@ -45,6 +46,7 @@ public class Player: MonoBehaviour {
 	string KNIFE_ICON ="Knife",
 	MASK_ICONSE ="SEMask",
 	MASK_ICONSW ="SWMask";
+
 
 	public bool IsMoving;
 
@@ -58,7 +60,8 @@ public class Player: MonoBehaviour {
 
 		MaskPositionCache = maskIcon.transform.localPosition;
 		KnifePostionCache = knifeIcon.transform.localPosition;
-	
+		PhoneIcon.color =  PlayerSprite.color;
+		RtIcon.color = PlayerSprite.color;
 		_trans = gameObject.transform;
 		_trans.localPosition = StartPos;
 	}
@@ -69,6 +72,8 @@ public class Player: MonoBehaviour {
 		hasPhone = false;
 		p.hasPhone = true;
 		PlayerController.instance.PlayerWithPhone = p;
+		UIManager.instance.HidePassButtons ();
+
 	}
 	void Update ()
 	{
@@ -159,9 +164,47 @@ public class Player: MonoBehaviour {
 			maskIcon.spriteName = "";
 		}
 
+
+		if (hasPhone)
+		{
+			if (!PhoneIcon.gameObject.activeSelf)
+			{
+				PhoneIcon.gameObject.SetActive(true);
+				PhoneIcon.color = PlayerSprite.color;
+
+			}
+
+		}
+
+		else
+		{
+			if (PhoneIcon.gameObject.activeSelf)
+			{
+				PhoneIcon.gameObject.SetActive(false);
+			}
+		}
 	
 		knifeIcon.Update();
 		maskIcon.Update();
+
+		if (OnRoomLocation != null)
+		{
+
+			if (!RtIcon.gameObject.activeSelf)		// TODO: SWAP TO KNIFE HAND if player is in knife stabbing range
+			{ 
+				RtIcon.gameObject.SetActive(true);
+			}
+
+		}
+
+		else
+		{
+			if (RtIcon.gameObject.activeSelf)
+			{
+				RtIcon.gameObject.SetActive(false);
+			}
+		}
+
 
 
 	}

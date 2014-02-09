@@ -81,9 +81,26 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	{
 		if (VoiceSpeaker.GetVoiceState () == 0)
 		{
-			PassPhonePanel.gameObject.SetActive(true);
+			foreach (PlayerIcon icon in PlayerIcon.First(typeof (PlayerIcon)))
+			{
+				if ((!icon.ThePlayer.hasPhone) && (icon.ThePlayer.IsAlive))
+				{
+					icon.ButtonIcon.gameObject.SetActive (true);
+				}
+			}
 		}
 	}
+
+
+	public void HidePassButtons ()
+	{
+		foreach (PlayerIcon icon in PlayerIcon.First(typeof (PlayerIcon)))
+		{
+
+				icon.ButtonIcon.gameObject.SetActive (false);
+		}
+	}
+
 
 	public void ReplayInstruction()
 	{

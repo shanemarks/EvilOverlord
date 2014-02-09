@@ -351,15 +351,20 @@ public class Movement : MonoBehaviour {
 	void FireAction ()
 	{
 		
-		//if (_thePlayer.ItemsOwned == PickupType.None || !GameController.instance.PlayerActivatedItem(_thePlayer))
-		//{
+		if (_thePlayer.ItemsOwned == PickupType.None || !GameController.instance.PlayerActivatedItem(_thePlayer))
+		{
 			if (_thePlayer.OnRoomLocation != null)
 			{
 
 				GameController.instance.PlayerActivatedLocation (_thePlayer, _thePlayer.OnRoomLocation.roomObjectType);
+				return;
 			}
-	//	}
+		}
 
+		else if (_thePlayer.IsAlive)
+		{
+			GameController.instance.PlayerActivatedItem (_thePlayer);
+		}
 	}
 
 	void FaceDirection (Boundary.Direction dir) 

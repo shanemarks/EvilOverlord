@@ -12,7 +12,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 	//hardcoded controls:
 
-	string[] PlayerNames = {"green","red","blue","yellow"};
+	string[] PlayerNames = {"orange","blue","green","red"};
 
      private KeyCode[] Up = {KeyCode.W, KeyCode.I, 	KeyCode.Keypad8, KeyCode.UpArrow};
 	 private KeyCode[] Down = {KeyCode.S, KeyCode.K, KeyCode.Keypad2, KeyCode.DownArrow};
@@ -67,12 +67,16 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 		Debug.Log ("Starting Player Controller");
 
 		Players = new Player[PlayerCount];
+		PlayerIcon pIcon = (PlayerIcon) PlayerIcon.First(typeof(PlayerIcon));
 		Debug.Log (Up.Length);
 		for (int i = 0 ; i < PlayerCount; i++)
 		{
 			GameObject go = NGUITools.AddChild(UIManager.instance.PlayerPanel.gameObject, PlayerPrefab);
 
+
 			Players[i] = go.GetComponent<Player>();
+			pIcon.ThePlayer = Players[i];
+			pIcon = (PlayerIcon) pIcon.Next;
 			Players[i].name = "player" + (i+1);
 			Players[i]._movement.Up = Up[i];
 			Players[i]._movement.Down = Down[i];
@@ -172,7 +176,8 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
  		UIManager.instance.UpdateCharacterIcons ();
 
-		PlayerWithPhone = Players[0];
+		Players[0].PassPhone(Players[0]);// pass phone to self
+
 	}
 
 
