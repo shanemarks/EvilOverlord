@@ -68,7 +68,6 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 
 		Players = new Player[PlayerCount];
 		PlayerIcon pIcon = (PlayerIcon) PlayerIcon.First(typeof(PlayerIcon));
-		Debug.Log (Up.Length);
 		for (int i = 0 ; i < PlayerCount; i++)
 		{
 			GameObject go = NGUITools.AddChild(UIManager.instance.PlayerPanel.gameObject, PlayerPrefab);

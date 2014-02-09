@@ -785,28 +785,10 @@ public class GameController : SingletonBehaviour<GameController>
 			player.ItemsOwned == PickupType.RealKnife2 || 
 			player.ItemsOwned == PickupType.FakeKnife)
 		{
-
-			// find nearest player
-			Debug.Log ("Looking for closest player to "+player.name);
 			
-			float minDist = float.PositiveInfinity;
-			Player closestPlayer = null;
-			foreach (Player otherPlayer in PlayerController.instance.Players)
-			{
-				if (otherPlayer == player)
-					continue;
+			Player closestPlayer = FindStabablePlayer();
 
-				float dist = Vector2.Distance(otherPlayer.transform.position, player.transform.position);
-				Debug.Log ("Distance "+ dist);
-				if (dist < minDist)
-				{
-					Debug.Log ("Setting closest player to "+ otherPlayer.name+" ("+ dist+")");
-					closestPlayer = otherPlayer;
-					minDist = dist;
-				}
-			}
-
-			if (minDist <= GameController.instance.knifeRange)
+			if (closestPlayer != null) // STAB HIM
 			{
 				if (player.ItemsOwned == PickupType.RealKnife1 || 
 					player.ItemsOwned == PickupType.RealKnife2)
@@ -831,6 +813,36 @@ public class GameController : SingletonBehaviour<GameController>
 		}
 		return true;
 	
+	}
+
+	// returns null if no stabbale player
+	public Player FindStabablePlayer() 
+	{
+		// find nearest player
+		Debug.Log ("Looking for closest player to "+player.name);
+		
+		float minDist = float.PositiveInfinity;
+		Player closestPlayer = null;
+		foreach (Player otherPlayer in PlayerController.instance.Players)
+		{
+			if (otherPlayer == player)
+				continue;
+			
+			float dist = Vector2.Distance(otherPlayer.transform.position, player.transform.position);
+			Debug.Log ("Distance "+ dist);
+			if (dist < minDist)
+			{
+				Debug.Log ("Setting closest player to "+ otherPlayer.name+" ("+ dist+")");
+				closestPlayer = otherPlayer;
+				minDist = dist;
+			}
+		}
+		
+		if (minDist <= GameController.instance.knifeRange)
+		{
+			return closestPlayer;
+		}
+		return null;
 	}
 
 	public void PlayerActivatedLocation(Player player, LocationType roomLocation)

@@ -84,7 +84,6 @@ public class Player: MonoBehaviour {
 		p.hasPhone = true;
 		p.canPassPhone = false;
 		PlayerController.instance.PlayerWithPhone = p;
-		UIManager.instance.HidePassButtons ();
 
 	}
 	void Update ()
