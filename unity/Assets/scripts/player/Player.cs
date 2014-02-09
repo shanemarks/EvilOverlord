@@ -179,6 +179,7 @@ public class Player: MonoBehaviour {
 			if (!PhoneIcon.gameObject.activeSelf)
 			{
 				PhoneIcon.gameObject.SetActive(true);
+			
 				PhoneIcon.color = PlayerSprite.color;
 
 			}
@@ -195,12 +196,18 @@ public class Player: MonoBehaviour {
 	
 		knifeIcon.Update();
 		maskIcon.Update();
-
-		if (OnRoomLocation != null)
+		bool canStab = (GameController.instance.FindStabablePlayer(this) != null && (HoldingState == ItemHoldingState.Both || HoldingState == ItemHoldingState.Knife));
+		if (OnRoomLocation != null || canStab)
 		{
+
+				RtIcon.spriteName = (canStab)? "rt_knife": "rt_hand";
+			
+
 
 			if (!RtIcon.gameObject.activeSelf)		// TODO: SWAP TO KNIFE HAND if player is in knife stabbing range
 			{ 
+
+		
 				RtIcon.gameObject.SetActive(true);
 			}
 
@@ -210,9 +217,12 @@ public class Player: MonoBehaviour {
 		{
 			if (RtIcon.gameObject.activeSelf)
 			{
+
 				RtIcon.gameObject.SetActive(false);
 			}
+					
 		}
+
 
 
 

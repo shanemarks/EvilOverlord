@@ -85,6 +85,8 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		
 		foreach (PlayerIcon icon in PlayerIcon.First(typeof (PlayerIcon)))
 		{
+		
+
 			icon.ButtonIcon.gameObject.SetActive (showPassPhoneUI && icon.ThePlayer.CanRecievePhone());
 		}
 

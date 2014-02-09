@@ -830,7 +830,7 @@ public class GameController : SingletonBehaviour<GameController>
 	public Player FindStabablePlayer(Player player) 
 	{
 		// find nearest player
-		Debug.Log ("Looking for closest player to "+player.name);
+		//Debug.Log ("Looking for closest player to "+player.name);
 		
 		float minDist = float.PositiveInfinity;
 		Player closestPlayer = null;
@@ -840,10 +840,10 @@ public class GameController : SingletonBehaviour<GameController>
 				continue;
 			
 			float dist = Vector2.Distance(otherPlayer.transform.position, player.transform.position);
-			Debug.Log ("Distance "+ dist);
+		//	Debug.Log ("Distance "+ dist);
 			if (dist < minDist)
 			{
-				Debug.Log ("Setting closest player to "+ otherPlayer.name+" ("+ dist+")");
+				//Debug.Log ("Setting closest player to "+ otherPlayer.name+" ("+ dist+")");
 				closestPlayer = otherPlayer;
 				minDist = dist;
 			}
