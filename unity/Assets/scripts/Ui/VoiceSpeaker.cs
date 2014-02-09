@@ -16,7 +16,7 @@ using UnityEngine;
 
 using System;
 
-using System.Collections;
+using System.Collections.Generic;
 
 using System.Runtime.InteropServices;
 
@@ -25,6 +25,10 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 	
 {
 	public AudioSource _bgmusic;
+
+	private AudioSource _vcSrc;
+
+	private static bool voiceBusy = false;
 	
 	[DllImport ("Voice_speaker.dll", EntryPoint="VoiceAvailable")] private static extern int    VoiceAvailable();
 	
@@ -56,7 +60,7 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 	
 	[DllImport ("Voice_speaker.dll", EntryPoint="SpeakToFile")]    private static extern int    SpeakToFile(string filename, string ttospeak);
 	
-	[DllImport ("Voice_speaker.dll", EntryPoint="GetVoiceState")]  public static extern int    GetVoiceState();
+	[DllImport ("Voice_speaker.dll", EntryPoint="GetVoiceState")]  public static extern int    GetVoiceState_();
 	
 	[DllImport ("Voice_speaker.dll", EntryPoint="GetVoiceVolume")] private static extern int    GetVoiceVolume();
 	
@@ -130,6 +134,35 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 		
 			
 			// Say("Tout les systèmes sont opérationnels. Moteurs, en ligne. Armement, en ligne. Nous sommes prêt. 9.,.8.,.7.,.6.,.5.,.4.,.3.,.2.,.1.,.0.,. .Décollage" );
+
+			/*InstructionInfo blah = new InstructionInfo();
+
+			foreach (LocationType cur in System.Enum.GetValues (typeof(LocationType))) {
+				SayToFile(blah.GetRoomLocationName(cur));
+				SayToFile (blah.GetPrepositionedForLocation(cur));
+			}
+
+			foreach (PickupType cur in System.Enum.GetValues (typeof(PickupType)))
+				SayToFile(blah.GetItemName (cur));
+
+			SayToFile("There is an item ");
+			SayToFile ("The next listener will be given the name of that item.");
+			SayToFile("There is a ");
+			SayToFile(" in this room. The previous listener was given its location");
+			SayToFile ("The ");
+			SayToFile (" is not ");
+			SayToFile (" The next listener will be given the same information.");
+			SayToFile (" The previous listener was given this same information.");
+			SayToFile ("In");
+			SayToFile (" turns, I will reveal the identity and location of the ");
+			SayToFile (" to whoever has the phone.");
+			SayToFile (" is ");
+			SayToFile (" Beware, someone else knows that you have important information");
+			SayToFile ("I have no information to give you at this time, but avoid ending your turn to early");*/
+
+			SayToFile ("Pass the headphones to another player when you are ready");
+
+
 			
 		}
 		
@@ -152,6 +185,18 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 		
 	}
 
+	public static int GetVoiceState()
+	{
+		if (GetVoiceState_() != 0)
+			return GetVoiceState_();
+
+		if(voiceBusy)
+			return 1;
+
+		return 0;
+
+	}
+
 	void Update ()
 	{
 		if (GetVoiceState() == 0)
@@ -168,11 +213,26 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 
 	}
 
+	public void Talk (List<AudioClip> clipList) 
+	{
+		voiceBusy = true;
+		foreach(AudioClip cl in clipList)
+		{
+			this.audio.PlayOneShot(cl);
+		}
+		voiceBusy = false;
+	}
+
 	public void Talk (string s)
 	{
-
 		s =  s.Replace ("\n","\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		Say (s);
+	}
+
+	public void SayToFile (string s)
+	{
+		string fileName = (s.Length > 20) ? s.Substring(0,20) : s;
+		SpeakToFile ("D:/Audio/" + fileName + ".wav",s);
 
 	}
 

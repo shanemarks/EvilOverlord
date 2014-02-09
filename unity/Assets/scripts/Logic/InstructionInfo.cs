@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 
 
@@ -51,6 +52,60 @@ public class InstructionInfo
 		return "There was an error in the game, please email the creators and punch them in the face.";
 	}
 
+	List<AudioClip> GetRawStringList()
+	{
+		List<AudioClip> outList = new List<AudioClip>();
+		switch (instructionType)
+		{
+		case InstructionType.Positive1Location:
+			outList.Add(AudioList.instance.ThereIsAnItem);
+			outList.Add(AudioList.PlaceholderLocation);
+			outList.Add(AudioList.instance.NextGivenName);
+			break;
+		case InstructionType.Positive2Item:
+			outList.Add(AudioList.instance.ThereIsA);
+			outList.Add (AudioList.PlaceholderItem);
+			outList.Add(AudioList.instance.InThisRoomPreviousGivenSameInfo);
+			break;
+		case InstructionType.Negative1Both:
+			outList.Add(AudioList.instance.ArticleThe);
+			outList.Add(AudioList.PlaceholderItem);
+			outList.Add(AudioList.instance.IsNotInfact);
+			outList.Add (AudioList.PlaceholderLocation);
+			outList.Add (AudioList.instance.NextGivenSame);
+			break;
+		case InstructionType.Negative2Both:
+			outList.Add(AudioList.instance.ArticleThe);
+			outList.Add(AudioList.PlaceholderItem);
+			outList.Add(AudioList.instance.IsNotInfact);
+			outList.Add(AudioList.PlaceholderLocation);
+			outList.Add (AudioList.instance.PreviousGivenSame);
+			break;
+		case InstructionType.CriticalWarning:
+			outList.Add (AudioList.instance.PrepositionIn);
+			outList.Add (AudioList.PlaceholderWarningTime);
+			outList.Add (AudioList.instance.TurnsIdentityAndLocation);
+			outList.Add (AudioList.PlaceholderItem);
+			outList.Add (AudioList.instance.ToWhoeverHas);
+			break;
+		case InstructionType.CriticalReveal:
+			outList.Add (AudioList.instance.ArticleThe);
+			outList.Add(AudioList.PlaceholderItem);
+			outList.Add (AudioList.instance.IsInfact);
+			outList.Add(AudioList.PlaceholderLocation);
+			outList.Add (AudioList.instance.BewareSomeoneElseKnowsYouHaveInformation);
+			break;
+		case InstructionType.PassOn:
+			outList.Add(AudioList.instance.NoInformation);
+			break;
+		}
+		
+		if(outList.Count == 0) outList.Add(AudioList.PlaceholderError);// "There was an error in the game, please email the creators and punch them in the face.");
+
+		return outList;
+	}
+
+
 	public string GetPrepositionedForLocation(LocationType roomLocation)
 	{
 		switch (roomLocation)
@@ -71,6 +126,28 @@ public class InstructionInfo
 
 		return "parallel to";
 	}
+
+	public AudioClip GetPrepositionedForLocationList(LocationType roomLocation)
+	{
+		switch (roomLocation)
+		{
+		case LocationType.RedBed:
+		case LocationType.GreenBed:
+		case LocationType.Shelf:
+			return AudioList.instance.PrepositionUnder;
+		case LocationType.Grate:
+		case LocationType.Sink:
+		case LocationType.Toilet:
+		case LocationType.WallLamp:
+			return AudioList.instance.PrepositionBehind;
+		case LocationType.RustyVent:
+		case LocationType.CleanVent:
+			return AudioList.instance.PrepositionIn;
+		}
+		
+		return AudioList.PlaceholderError;
+	}
+
 	public string GetRoomLocationName(LocationType roomLocation)
 	{
 		switch (roomLocation)
@@ -97,6 +174,32 @@ public class InstructionInfo
 		return "a non location";
 	}
 
+	public AudioClip GetRoomLocationNameList(LocationType roomLocation)
+	{
+		switch (roomLocation)
+		{
+		case LocationType.RedBed:
+			return AudioList.instance.LocationRedBed;
+		case LocationType.GreenBed:
+			return AudioList.instance.LocationGreenBed;
+		case LocationType.Shelf:
+			return AudioList.instance.LocationShelf;
+		case LocationType.Grate:
+			return AudioList.instance.LocationGrate;
+		case LocationType.Sink:
+			return AudioList.instance.LocationSink;
+		case LocationType.Toilet:
+			return AudioList.instance.LocationToilet;
+		case LocationType.WallLamp:
+			return AudioList.instance.LocationLamp;
+		case LocationType.CleanVent:
+			return AudioList.instance.LocationCleanVent;
+		case LocationType.RustyVent:
+			return AudioList.instance.LocationRustyVent;
+		}
+		return AudioList.PlaceholderError;
+	}
+
 	public string GetItemName(PickupType pickupType)
 	{
 		switch (pickupType)
@@ -119,12 +222,85 @@ public class InstructionInfo
 		return "a non item";
 	}
 
+	public AudioClip GetItemNameList(PickupType pickupType)
+	{
+		switch (pickupType)
+		{
+		case PickupType.BoobyTrap1:
+		case PickupType.BoobyTrap2:
+		case PickupType.BoobyTrap3:
+			return AudioList.instance.ObjectBoobyTrap;
+		case PickupType.FakeKnife:
+			return AudioList.instance.ObjectFakeKnife;
+		case PickupType.RealKnife1:
+		case PickupType.RealKnife2:
+			return AudioList.instance.ObjectRealKnife;
+		case PickupType.GasMask1:
+		case PickupType.GasMask2:
+			return AudioList.instance.ObjectGasMask;
+		case PickupType.GasTrap:
+			return AudioList.instance.ObjectGasTrap;
+		}
+		return AudioList.instance.ObjectANonItem;
+	}
+
+	public AudioClip GetWarningTime(int warn) 
+	{
+		switch (warn)
+		{
+		case 1:
+			return AudioList.instance.NumberOne;
+		case 2:
+			return AudioList.instance.NumberTwo;
+		case 3:
+			return AudioList.instance.NumberThree;
+		case 4:
+			return AudioList.instance.NumberFour;
+		case 5:
+			return AudioList.instance.NumberFive;
+		case 6:
+			return AudioList.instance.NumberSix;
+		}
+
+		return AudioList.instance.NumberZero;
+	}
+
+	public List<AudioClip> CreateList()
+	{
+		List<AudioClip> rawList = GetRawStringList(); 
+		
+		if (infoPacket == null) {
+			rawList.Add (AudioList.instance.PassHeadphones);
+			return rawList;
+		}
+
+		for(int i = 0; i < rawList.Count; i++)
+		{
+			if(rawList[i] == AudioList.PlaceholderItem) 
+				rawList[i] = GetItemNameList (infoPacket.item);
+			else if (rawList[i] == AudioList.PlaceholderLocation)
+			{
+				rawList[i] = GetRoomLocationNameList(infoPacket.location);
+				rawList.Insert(i,GetPrepositionedForLocationList(infoPacket.location));
+			}
+			else if (rawList[i] == AudioList.PlaceholderWarningTime)
+				rawList[i] = GetWarningTime(foreWarning);
+			else if (rawList[i] == AudioList.PlaceholderError)
+			{
+				Debug.LogError("Error item passed to CreateList (InstructionInfo.cs)");
+				return null;
+			}
+		}
+
+		return rawList;
+	}
+
 	public string CreateString()
 	{
 
 		string raw = GetRawString();
 
-		if (infoPacket == null)
+		if (infoPacket == null) 
 			return raw + " " + PassHeadphones;
 
 		return raw
