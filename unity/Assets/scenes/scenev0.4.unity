@@ -643,11 +643,11 @@ MonoBehaviour:
     e00: 100
     e01: 0
     e02: 0
-    e03: 58.9314919
+    e03: 58.8980675
     e10: 0
     e11: 100
     e12: 0
-    e13: -57.7278748
+    e13: -57.6942711
     e20: 0
     e21: 0
     e22: 540
@@ -2158,11 +2158,11 @@ MonoBehaviour:
     e00: 540
     e01: 0
     e02: 0
-    e03: 1.03004289
+    e03: .849557519
     e10: 0
     e11: 540
     e12: 0
-    e13: -1.03050387
+    e13: -.849026084
     e20: 0
     e21: 0
     e22: 540
@@ -2848,7 +2848,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 961775058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.03004289, y: 1.03053439, z: 0}
+  m_LocalPosition: {x: -.849557519, y: .849056602, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 212589718}
@@ -4196,6 +4196,7 @@ MonoBehaviour:
   StartPos: {x: 0, y: 0, z: 0}
   _trans: {fileID: 0}
   hasPhone: 0
+  canPassPhone: 0
   ItemsOwned: 0
   hasGasMask: 0
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
@@ -4223,12 +4224,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: 0
-  UseKeyboard: 1
-  Up: 119
-  Down: 115
-  Left: 97
-  Right: 100
-  Action: 32
+  Player3Up: 119
+  Player3Down: 115
+  Player3Left: 97
+  Player3Right: 100
+  Player3Action: 32
+  Player3Play: 9
+  Player4Up: 273
+  Player4Down: 274
+  Player4Left: 276
+  Player4Right: 275
+  Player4Action: 13
+  Player4Play: 8
+  KeyboardPassPlayer0Yellow: 117
+  KeyboardPassPlayer1Blue: 104
+  KeyboardPassPlayer2Green: 106
+  KeyboardPassPlayer3Red: 107
+  playButton: 15
+  playButtonAlt: 4
+  actionButton: 15
+  actionButtonAlt: 4
+  PassPlayer0Yellow: 1
+  PassPlayer1Blue: 2
+  PassPlayer2Green: 0
+  PassPlayer3Red: 3
   MovementSpeedBase: 1
   ControllerNumber: 0
   _thePlayer: {fileID: 1301667599}
@@ -4362,11 +4381,11 @@ MonoBehaviour:
     e00: 100
     e01: 1.74845554e-05
     e02: 0
-    e03: 112.931496
+    e03: 112.898071
     e10: -1.74845554e-05
     e11: 100
     e12: 0
-    e13: -21.0103054
+    e13: -20.9766979
     e20: 0
     e21: 0
     e22: 540
@@ -4497,11 +4516,11 @@ MonoBehaviour:
     e00: 100
     e01: 0
     e02: 0
-    e03: 76.931488
+    e03: 76.8980637
     e10: 0
     e11: 100
     e12: 0
-    e13: 29.9897156
+    e13: 30.0233231
     e20: 0
     e21: 0
     e22: 540
@@ -4719,11 +4738,11 @@ MonoBehaviour:
     e00: 540
     e01: 0
     e02: 0
-    e03: 847.730103
+    e03: 847.549622
     e10: 0
     e11: 540
     e12: 0
-    e13: -1.03053439
+    e13: -.849056602
     e20: 0
     e21: 0
     e22: 540
@@ -5121,11 +5140,11 @@ MonoBehaviour:
     e00: 400
     e01: 0
     e02: 0
-    e03: 5.02597046
+    e03: 4.89227295
     e10: 0
     e11: 400
     e12: 0
-    e13: 48.088501
+    e13: 48.2229156
     e20: 0
     e21: 0
     e22: 540
@@ -5626,11 +5645,11 @@ MonoBehaviour:
     e00: 100
     e01: 0
     e02: 0
-    e03: -44.068512
+    e03: -44.1019325
     e10: 0
     e11: 100
     e12: 0
-    e13: -11.0102825
+    e13: -10.976675
     e20: 0
     e21: 0
     e22: 540

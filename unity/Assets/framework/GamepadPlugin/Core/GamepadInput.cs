@@ -78,17 +78,17 @@ public static partial class GamepadInput
 	#endregion
 	
 	#region Simulated button presses from axes
-	static bool GetSimulatedDPadButton(Button dPadButton, int joystickIndex)
+	static bool GetSimulatedDPadButton(PadButton dPadButton, int joystickIndex)
 	{
 		switch (dPadButton)
 		{
-		case Button.DPadUp:
+		case PadButton.DPadUp:
 			return GetAxis(Axis.DPadY, joystickIndex) > 0;
-		case Button.DPadDown:
+		case PadButton.DPadDown:
 			return GetAxis(Axis.DPadY, joystickIndex) < 0;
-		case Button.DPadLeft:
+		case PadButton.DPadLeft:
 			return GetAxis(Axis.DPadX, joystickIndex) < 0;
-		case Button.DPadRight:
+		case PadButton.DPadRight:
 			return GetAxis(Axis.DPadX, joystickIndex) > 0;
 		}
 		return false;
@@ -115,30 +115,30 @@ public static partial class GamepadInput
 	#region Simulated Axes from button pressees
 	static Vector2 GetSimulatedDPadAxes(int joystickIndex)
 	{
-		float x = 	(GetButton(Button.DPadUp,    joystickIndex) ? +1f : 0f) +
-					(GetButton(Button.DPadDown,  joystickIndex) ? -1f : 0f);
+		float x = 	(GetButton(PadButton.DPadUp,    joystickIndex) ? +1f : 0f) +
+					(GetButton(PadButton.DPadDown,  joystickIndex) ? -1f : 0f);
 		
-		float y =	(GetButton(Button.DPadRight, joystickIndex) ? +1f : 0f) +
-					(GetButton(Button.DPadLeft,  joystickIndex) ? -1f : 0f);
+		float y =	(GetButton(PadButton.DPadRight, joystickIndex) ? +1f : 0f) +
+					(GetButton(PadButton.DPadLeft,  joystickIndex) ? -1f : 0f);
 		return new Vector2(x,y).normalized;
 	}
 	
 	static Vector2 GetSimulatedButtonsAxes(int joystickIndex)
 	{
-		float x = 	(GetButton(Button.ActionRight, joystickIndex) ? +1f : 0f) +
-					(GetButton(Button.ActionLeft,  joystickIndex) ? -1f : 0f);
+		float x = 	(GetButton(PadButton.ActionRight, joystickIndex) ? +1f : 0f) +
+					(GetButton(PadButton.ActionLeft,  joystickIndex) ? -1f : 0f);
 		
-		float y =	(GetButton(Button.ActionUp,    joystickIndex) ? +1f : 0f) +
-					(GetButton(Button.ActionDown,  joystickIndex) ? -1f : 0f);
+		float y =	(GetButton(PadButton.ActionUp,    joystickIndex) ? +1f : 0f) +
+					(GetButton(PadButton.ActionDown,  joystickIndex) ? -1f : 0f);
 		return new Vector2(x,y).normalized;
 	}
 	static float GetSimulatedLeftTriggerAxes(int joystickIndex)
 	{
-		return GetButton(Button.LeftTrigger, joystickIndex) ? 1f : 0f;
+		return GetButton(PadButton.LeftTrigger, joystickIndex) ? 1f : 0f;
 	}
 	static float GetSimulatedRightTriggerAxes(int joystickIndex)
 	{
-		return GetButton(Button.RightTrigger, joystickIndex) ? 1f : 0f;
+		return GetButton(PadButton.RightTrigger, joystickIndex) ? 1f : 0f;
 	}
 	#endregion
 	
@@ -245,18 +245,18 @@ public static partial class GamepadInput
 		return 0f;
 	}
 	
-	public static bool GetButtonUp(Button button) { return GetButtonUp(button, 0); }
-	public static bool GetButtonUp(Button button, int joystickIndex)	
+	public static bool GetButtonUp(PadButton button) { return GetButtonUp(button, 0); }
+	public static bool GetButtonUp(PadButton button, int joystickIndex)	
 	{
 		return GetButtonUpDown(button, joystickIndex, true);
 	}
-	public static bool GetButtonDown(Button button) { return GetButtonDown(button, 0); }
-	public static bool GetButtonDown(Button button, int joystickIndex)	
+	public static bool GetButtonDown(PadButton button) { return GetButtonDown(button, 0); }
+	public static bool GetButtonDown(PadButton button, int joystickIndex)	
 	{
 		return GetButtonUpDown(button, joystickIndex, false);
 	}
 	
-	static bool GetButtonUpDown(Button button, int joystickIndex, bool up)
+	static bool GetButtonUpDown(PadButton button, int joystickIndex, bool up)
 	{
 		CheckGamepads();
 		if (joystickIndex >= connectedGamepads.Length)
@@ -289,8 +289,8 @@ public static partial class GamepadInput
 	}
 	
 	
-	public static bool GetButton(Button button) { return GetButton(button, 0); }
-	public static bool GetButton(Button button, int joystickIndex)
+	public static bool GetButton(PadButton button) { return GetButton(button, 0); }
+	public static bool GetButton(PadButton button, int joystickIndex)
 	{
 		CheckGamepads();
 		if (joystickIndex >= connectedGamepads.Length)
@@ -302,15 +302,15 @@ public static partial class GamepadInput
 		{
 			switch (button)
 			{
-			case Button.DPadUp:
-			case Button.DPadDown:
-			case Button.DPadLeft:
-			case Button.DPadRight:
+			case PadButton.DPadUp:
+			case PadButton.DPadDown:
+			case PadButton.DPadLeft:
+			case PadButton.DPadRight:
 				return GetSimulatedDPadButton(button, joystickIndex);
 				
-			case Button.LeftTrigger:
+			case PadButton.LeftTrigger:
 				return GetSimulatedLeftTriggerButton(joystickIndex);
-			case Button.RightTrigger:
+			case PadButton.RightTrigger:
 				return GetSimulatedRightTriggerButton(joystickIndex);
 			}
 		}

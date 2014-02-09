@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 //public enum ItemType {None, SomethingUseful, SomeKnife, BoobyTrap, RealKnife, FakeKnife, GasMask}
 //
+
 public enum LocationType {RedBed, GreenBed, Sink, Toilet, Shelf, Grate, WallLamp, CleanVent, RustyVent}
 
 public enum PickupType {None = -1, BoobyTrap1, BoobyTrap2, BoobyTrap3, RealKnife1, RealKnife2, FakeKnife, GasMask1, GasMask2, GasTrap}
