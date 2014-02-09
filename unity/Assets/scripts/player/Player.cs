@@ -20,8 +20,9 @@ public class Player: MonoBehaviour {
 
 	public Vector3 StartPos;
 	public Transform _trans;
-
+	
 	public bool hasPhone = false;
+	public bool canPassPhone = false;
 
 	public PickupType ItemsOwned;
 	public bool hasGasMask = false;
@@ -66,11 +67,22 @@ public class Player: MonoBehaviour {
 		_trans.localPosition = StartPos;
 	}
 
+	public bool CanRecievePhone()
+	{
+		if (!IsAlive)
+			return false;
+
+		if (hasPhone)
+			return false;
+
+		return true;
+	}
 
 	public void PassPhone (Player p)
 	{
 		hasPhone = false;
 		p.hasPhone = true;
+		p.canPassPhone = false;
 		PlayerController.instance.PlayerWithPhone = p;
 		UIManager.instance.HidePassButtons ();
 

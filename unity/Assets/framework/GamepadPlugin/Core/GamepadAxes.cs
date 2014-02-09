@@ -18,7 +18,7 @@ public enum Axis {
 	NullAxis = -1
 };
 
-public enum Button {
+public enum PadButton {
 	ActionDown, ActionUp, ActionLeft, ActionRight, 
 	LeftBumper, RightBumper, 
 	LeftAnalog, RightAnalog, 
@@ -32,18 +32,18 @@ public enum Button {
 
 public static class XBOXButton
 {
-	public static Button A = Button.ActionDown;
-	public static Button B = Button.ActionRight;
-	public static Button X = Button.ActionLeft;
-	public static Button Y = Button.ActionUp;
+	public static PadButton A = PadButton.ActionDown;
+	public static PadButton B = PadButton.ActionRight;
+	public static PadButton X = PadButton.ActionLeft;
+	public static PadButton Y = PadButton.ActionUp;
 }
 
 public static class PSButton
 {
-	public static Button Cross    = Button.ActionDown;
-	public static Button Circle   = Button.ActionRight;
-	public static Button Square   = Button.ActionLeft;
-	public static Button Triangle = Button.ActionUp;
+	public static PadButton Cross    = PadButton.ActionDown;
+	public static PadButton Circle   = PadButton.ActionRight;
+	public static PadButton Square   = PadButton.ActionLeft;
+	public static PadButton Triangle = PadButton.ActionUp;
 }
 
 [System.Serializable]
@@ -316,7 +316,7 @@ public class GamepadAxes
 			s += ToCode(ad.minExtent);
 			s += ToCode(ad.maxExtent);
 		}
-		foreach (Button b in System.Enum.GetValues(typeof(Button)))
+		foreach (PadButton b in System.Enum.GetValues(typeof(PadButton)))
 		{
 			s += ToCode(this[b]);
 		}
@@ -336,7 +336,7 @@ public class GamepadAxes
 			i++;
 			this[a] = ad;
 		}
-		foreach (Button b in System.Enum.GetValues(typeof(Button)))
+		foreach (PadButton b in System.Enum.GetValues(typeof(PadButton)))
 		{
 			this[b] = ToInt(s[i]);
 			i++;
@@ -351,15 +351,15 @@ public class GamepadAxes
 		}
 		return Axis.NullAxis;
 	}
-	public Button FindButton(int i)
+	public PadButton FindButton(int i)
 	{
-		foreach (Button b in System.Enum.GetValues(typeof(Button)))
+		foreach (PadButton b in System.Enum.GetValues(typeof(PadButton)))
 		{
 			if (this[b] == i)
 				return b;
 		}
 		
-		return Button.NullButton;
+		return PadButton.NullButton;
 	}
 
 	public float DeadZone(XYAxis axis)
@@ -467,61 +467,61 @@ public class GamepadAxes
 //			}
 		}
 	}
-	public int this [Button button]
+	public int this [PadButton button]
 	{
 		get
 		{
 			switch(button)
 			{
-			case Button.LeftAnalog:
+			case PadButton.LeftAnalog:
 				return leftAnalogButton;
 				
-			case Button.RightAnalog:
+			case PadButton.RightAnalog:
 				return rightAnalogButton;
 				
-			case Button.LeftBumper:
+			case PadButton.LeftBumper:
 				return leftBumper;
 				
-			case Button.RightBumper:
+			case PadButton.RightBumper:
 				return rightBumper;
 				
-			case Button.LeftTrigger:
+			case PadButton.LeftTrigger:
 				return leftTriggerButton;
 				
-			case Button.RightTrigger:
+			case PadButton.RightTrigger:
 				return rightTriggerButton;
 				
-			case Button.Start:
+			case PadButton.Start:
 				return startButton;
 				
-			case Button.Select:
+			case PadButton.Select:
 				return selectButton;
 				
-			case Button.Home:
+			case PadButton.Home:
 				return homeButton;
 				
-			case Button.ActionDown:
+			case PadButton.ActionDown:
 				return actionDown;
 				
-			case Button.ActionUp:
+			case PadButton.ActionUp:
 				return actionUp;
 				
-			case Button.ActionLeft:
+			case PadButton.ActionLeft:
 				return actionLeft;
 				
-			case Button.ActionRight:
+			case PadButton.ActionRight:
 				return actionRight;
 				
-			case Button.DPadUp:
+			case PadButton.DPadUp:
 				return dPadUp;
 				
-			case Button.DPadDown:
+			case PadButton.DPadDown:
 				return dPadDown;
 				
-			case Button.DPadLeft:
+			case PadButton.DPadLeft:
 				return dPadLeft;
 				
-			case Button.DPadRight:
+			case PadButton.DPadRight:
 				return dPadRight;
 				
 			}
@@ -532,63 +532,63 @@ public class GamepadAxes
 //			int oldVal = this[button];
 			switch(button)
 			{
-			case Button.LeftAnalog:
+			case PadButton.LeftAnalog:
 				leftAnalogButton = value;
 				break;
 				
-			case Button.RightAnalog:
+			case PadButton.RightAnalog:
 				rightAnalogButton = value;
 				break;
 				
-			case Button.LeftBumper:
+			case PadButton.LeftBumper:
 				leftBumper = value;
 				break;
 				
-			case Button.RightBumper:
+			case PadButton.RightBumper:
 				rightBumper = value;
 				break;
 				
-			case Button.Start:
+			case PadButton.Start:
 				startButton = value;
 				break;
 				
-			case Button.Select:
+			case PadButton.Select:
 				selectButton = value;
 				break;
 				
-			case Button.Home:
+			case PadButton.Home:
 				homeButton = value;
 				break;
 				
-			case Button.ActionDown:
+			case PadButton.ActionDown:
 				actionDown = value;
 				break;
 				
-			case Button.ActionUp:
+			case PadButton.ActionUp:
 				actionUp = value;
 				break;
 				
-			case Button.ActionLeft:
+			case PadButton.ActionLeft:
 				actionLeft = value;
 				break;
 				
-			case Button.ActionRight:
+			case PadButton.ActionRight:
 				actionRight = value;
 				break;
 				
-			case Button.DPadUp:
+			case PadButton.DPadUp:
 				dPadUp = value;
 				break;
 				
-			case Button.DPadDown:
+			case PadButton.DPadDown:
 				dPadDown = value;
 				break;
 				
-			case Button.DPadLeft:
+			case PadButton.DPadLeft:
 				dPadLeft = value;
 				break;
 				
-			case Button.DPadRight:
+			case PadButton.DPadRight:
 				dPadRight = value;
 				break;
 				
