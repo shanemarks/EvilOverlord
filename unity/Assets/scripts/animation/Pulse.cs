@@ -11,10 +11,14 @@ public class Pulse : MonoBehaviour {
 
 	void Update ()
 	{
-		c = new Color (1,1,1, Mathf.Abs (Mathf.Sin (counter) ) );
 		counter += Time.deltaTime*speed;
-		_sprite.color = c;
+		_sprite.alpha = Mathf.Abs (Mathf.Sin (counter) );
 
+	}
+
+	void OnDisable()
+	{
+		_sprite.alpha = 1;
 	}
 
 

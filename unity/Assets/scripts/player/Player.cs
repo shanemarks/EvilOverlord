@@ -227,10 +227,13 @@ public class Player: MonoBehaviour {
 			if (canStab)
 			{
 				RtIcon.spriteName = "rt_knife";
-				//RtIcon.gameObject.AddComponent ("Pulse");
+				RtIcon.gameObject.GetComponent<Pulse>().enabled = true;
 			}
 			else
+			{
 				RtIcon.spriteName = "rt_hand";
+				RtIcon.gameObject.GetComponent<Pulse>().enabled = false;
+			}
 			
 
 
