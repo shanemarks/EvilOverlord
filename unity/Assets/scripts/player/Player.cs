@@ -49,6 +49,16 @@ public class Player: MonoBehaviour {
 
 	public bool IsMoving;
 
+	private int _phoneCount = 0;
+
+	public int PhoneCount 
+	{
+		get 
+		{
+			return _phoneCount;
+		}
+	}
+
 	public void DropItem ()
 	{
 		ItemsOwned = PickupType.None;
@@ -78,10 +88,12 @@ public class Player: MonoBehaviour {
 
 	public void PassPhone (Player p)
 	{
+		_phoneCount++;
 		hasPhone = false;
 		p.hasPhone = true;
 		p.canPassPhone = false;
 		PlayerController.instance.PlayerWithPhone = p;
+
 
 	}
 	void Update ()

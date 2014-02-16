@@ -11,6 +11,8 @@ public class PlayerIcon : LinkBase {
 	public UILabel  Points;
 	public UISprite Icon;
 	public UISprite ButtonIcon;
+	public UILabel  PhoneCount;
+
 
 	public Player ThePlayer;
 

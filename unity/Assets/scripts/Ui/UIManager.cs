@@ -122,6 +122,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 		foreach (Player p in PlayerController.instance.Players)
 		{
+			playerIcon.PhoneCount.text = playerIcon.ThePlayer.PhoneCount.ToString();
 			if (p.IsAlive)
 			{
 			switch (p.HoldingState)

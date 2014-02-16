@@ -1292,6 +1292,7 @@ MonoBehaviour:
   Points: {fileID: 11400010}
   Icon: {fileID: 11400038}
   ButtonIcon: {fileID: 0}
+  PhoneCount: {fileID: 0}
   ThePlayer: {fileID: 0}
 --- !u!114 &11400044
 MonoBehaviour:
@@ -1371,6 +1372,7 @@ MonoBehaviour:
   Points: {fileID: 11400074}
   Icon: {fileID: 11400026}
   ButtonIcon: {fileID: 0}
+  PhoneCount: {fileID: 0}
   ThePlayer: {fileID: 0}
 --- !u!114 &11400050
 MonoBehaviour:
@@ -1391,6 +1393,7 @@ MonoBehaviour:
   Points: {fileID: 11400070}
   Icon: {fileID: 11400028}
   ButtonIcon: {fileID: 0}
+  PhoneCount: {fileID: 0}
   ThePlayer: {fileID: 0}
 --- !u!114 &11400052
 MonoBehaviour:
@@ -1411,6 +1414,7 @@ MonoBehaviour:
   Points: {fileID: 11400046}
   Icon: {fileID: 11400034}
   ButtonIcon: {fileID: 0}
+  PhoneCount: {fileID: 0}
   ThePlayer: {fileID: 0}
 --- !u!114 &11400060
 MonoBehaviour:
