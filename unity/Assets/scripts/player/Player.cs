@@ -30,6 +30,7 @@ public class Player: MonoBehaviour {
 
 	public bool handcuffsOn = false;
 
+	public bool enableLeave;
 
 	public Color PlayerColor;
 
@@ -226,11 +227,17 @@ public class Player: MonoBehaviour {
 		if (OnRoomLocation != null || canStab)
 		{
 
-				RtIcon.spriteName = (canStab)? "rt_knife": "rt_hand";
+			if (canStab)
+			{
+				RtIcon.spriteName = "rt_knife";
+				//RtIcon.gameObject.AddComponent ("Pulse");
+			}
+			else
+				RtIcon.spriteName = "rt_hand";
 			
 
 
-			if (!RtIcon.gameObject.activeSelf)		// TODO: SWAP TO KNIFE HAND if player is in knife stabbing range
+			if (!RtIcon.gameObject.activeSelf)	
 			{ 
 
 		
@@ -285,6 +292,7 @@ public class Player: MonoBehaviour {
 		hasGasMask = false;
 		_movement.enabled = true;
 		GetComponent<UIPanel>().alpha = 1;
+		enableLeave = false;
 	}
 
 

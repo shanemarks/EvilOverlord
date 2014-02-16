@@ -11,6 +11,8 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 	public int winScore = 3;
 
+	public bool roundEnd = false;
+
 
 	public PlayerInfo [] playerInfos;
 	 bool[] isLiving = {true,true,true,true};

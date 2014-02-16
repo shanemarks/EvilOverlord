@@ -27,8 +27,8 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 	public int MovementSpeed = 5;
 	public Player[] Players;
 	public Player PlayerWithPhone;
-
-
+	public Player LastPlayerWithPhone;
+	public Player PlayerWithLeastInformation;
 	public bool RoundWon;
 	public List<Player> _livingPlayers;
 	public class yComparerClass : IComparer {
@@ -187,6 +187,21 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 	}
 
 
+	public void TallyPlayerInformation ()
+	{
+		PlayerWithLeastInformation = Players[0];
+	
+
+		foreach (Player p in Players)
+		{
+
+			if  (p.PhoneCount < PlayerWithLeastInformation.PhoneCount)
+			{
+				PlayerWithLeastInformation = p;
+			}
+
+		}
+	}
 
 	void Update ()
 	{

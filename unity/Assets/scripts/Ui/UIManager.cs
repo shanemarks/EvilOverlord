@@ -60,14 +60,6 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		PassPhone ();
 		UpdateCharacterIcons();
 
-		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.F1))
-		{
-			PassPhone ();
-		}
-		if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.F2))
-		{
-			ReplayInstruction();
-		}
 
 #if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.F3))
@@ -79,6 +71,14 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		if (ScoreController.instance.HaveWinners)
 		{
 			resetGame.text = "New game";
+		}
+
+		if(PlayerController.instance.RoundWon)
+		{
+			foreach(Player pl in PlayerController.instance.Players) 
+			if(!pl.enableLeave) { Debug.Log ("Player " + pl.Index + " still not ready to go"); return; }
+
+			ResetGame ();
 		}
 	}
 	
@@ -96,15 +96,41 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	{
 	
 		bool showPassPhoneUI = PlayerController.instance.PlayerWithPhone.canPassPhone;
-		
-		foreach (PlayerIcon icon in PlayerIcon.First(typeof (PlayerIcon)))
+		bool haveTarget = false;
+		if (showPassPhoneUI)
 		{
-		
+			foreach (PlayerIcon icon in PlayerIcon.First(typeof (PlayerIcon)))
+			{
+				if (icon.ThePlayer.CanRecievePhone())
+				{
+					icon.ButtonIcon.gameObject.SetActive (true);
+					haveTarget  = true;
+				}
 
-			icon.ButtonIcon.gameObject.SetActive (showPassPhoneUI && icon.ThePlayer.CanRecievePhone());
+			}
+		/*	if (!haveTarget)
+			{
+				foreach (PlayerIcon icon in PlayerIcon.First(typeof (PlayerIcon)))
+				{
+					if (icon.ThePlayer == PlayerController.instance.PlayerWithLeastInformation)
+					{
+						icon.ButtonIcon.gameObject.SetActive (true);
+					}
+					    
+				}
+
+			}
+			 */
 		}
 
-
+		else
+		{
+			
+			foreach (PlayerIcon icon in PlayerIcon.First(typeof (PlayerIcon)))
+			{
+				icon.ButtonIcon.gameObject.SetActive (false);
+			}
+		}
 
 	}
 
