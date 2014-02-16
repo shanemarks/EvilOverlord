@@ -66,6 +66,14 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		{
 			resetGame.text = "New game";
 		}
+
+		if(PlayerController.instance.RoundWon)
+		{
+			foreach(Player pl in PlayerController.instance.Players) 
+			if(!pl.enableLeave) { Debug.Log ("Player " + pl.Index + " still not ready to go"); return; }
+
+			ResetGame ();
+		}
 	}
 	
 	public void AnswerPhone ()

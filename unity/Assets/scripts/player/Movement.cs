@@ -63,7 +63,6 @@ public class Movement : MonoBehaviour {
 	public int ControllerNumber;
 
 	private Collider2D lastCollider;
-	private bool enableLeave;
 
 	Collider _playerCollider;
 	[SerializeField] Player _thePlayer;
@@ -420,6 +419,7 @@ public class Movement : MonoBehaviour {
 
 	void FireAction ()
 	{
+		if (ScoreController.instance.roundEnd) _thePlayer.enableLeave = true;
 		
 		if (_thePlayer.ItemsOwned == PickupType.None || !GameController.instance.PlayerActivatedItem(_thePlayer))
 		{
