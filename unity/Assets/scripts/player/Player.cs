@@ -88,11 +88,11 @@ public class Player: MonoBehaviour {
 
 	public void PassPhone (Player p)
 	{
-		_phoneCount++;
 		hasPhone = false;
 		p.hasPhone = true;
 		p.canPassPhone = false;
 		PlayerController.instance.PlayerWithPhone = p;
+		p._phoneCount++;
 
 
 	}
