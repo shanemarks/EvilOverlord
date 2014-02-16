@@ -32,6 +32,8 @@ public class GameController : SingletonBehaviour<GameController>
 
 	int criticalInfoCounter = 0;
 
+	int handcuffTurnsLeft = 4;
+
 	public void TriggerGasTrap ()
 	{
 		poisonVentOpen = true;
@@ -119,6 +121,8 @@ public class GameController : SingletonBehaviour<GameController>
 		state[GameState.GiveHeadphone].changeToStateFunction = GiveHeadphones;
 		state[GameState.Instructing].changeToStateFunction = Instructing;
 
+
+
 		state.ChangeState(GameState.Intro);
 	}
 
@@ -140,6 +144,8 @@ public class GameController : SingletonBehaviour<GameController>
 	{
 		Debug.Log ("Restarting Game");
 		SetupRoomObjects();
+
+		UIManager.instance.SetHandcuffTime(handcuffTurnsLeft);
 
 		poisonVentOpen = false;
 		ResetCriticalCounter();
@@ -633,6 +639,8 @@ public class GameController : SingletonBehaviour<GameController>
 	{
 		if (state.CurrentState == GameState.GiveHeadphone)
 		{
+
+			DecrementHeadphoneTurnCount();
 			IncrementInstruction();
 			state.ChangeState(GameState.Instructing);
 		}
@@ -681,6 +689,7 @@ public class GameController : SingletonBehaviour<GameController>
 		Debug.Log("IncrementInstruction");
 		instructionList.RemoveAt(0);
 
+
 //		CheckInfoPackets();
 
 		// append new instructions
@@ -702,6 +711,24 @@ public class GameController : SingletonBehaviour<GameController>
 				AddNonCriticalInstruction();
 			}
 		}
+	}
+
+	void DecrementHeadphoneTurnCount()
+	{
+		
+		handcuffTurnsLeft -= 1;
+		
+		UIManager.instance.SetHandcuffTime(handcuffTurnsLeft);
+		if (handcuffTurnsLeft == 0)
+		{
+			foreach (Player player in PlayerController.instance.Players)
+			{
+				player.handcuffsOn = false;
+				UIManager.instance.CreateObjectPickupAnimation(player.transform.position, "Handcuffs are off!");
+				
+			}
+		}
+
 	}
 
 	void Instructing(GameState oldState, GameState newState)

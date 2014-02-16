@@ -193,7 +193,7 @@ public class Movement : MonoBehaviour {
 
 					for (int p = 0 ; p < 4 ; p++)
 					{
-						Debug.Log(p+" "+passDown[p] +" : "+PlayerController.instance.Players[p].CanRecievePhone());
+//						Debug.Log(p+" "+passDown[p] +" : "+PlayerController.instance.Players[p].CanRecievePhone());
 						if (passDown[p] && PlayerController.instance.Players[p].CanRecievePhone())
 						{
 							_thePlayer.PassPhone(PlayerController.instance.Players[p]);
@@ -421,7 +421,7 @@ public class Movement : MonoBehaviour {
 	void FireAction ()
 	{
 		
-		if (_thePlayer.ItemsOwned == PickupType.None || !GameController.instance.PlayerActivatedItem(_thePlayer))
+		if (!_thePlayer.handcuffsOn && _thePlayer.ItemsOwned == PickupType.None || !GameController.instance.PlayerActivatedItem(_thePlayer))
 		{
 			if (_thePlayer.OnRoomLocation != null)
 			{
