@@ -36,6 +36,7 @@ public class Player: MonoBehaviour {
 
 	public RoomLocation OnRoomLocation;
 
+
 	public UISprite knifeIcon,maskIcon,PhoneIcon, RtIcon;
 
 	bool notifiedAboutGasMask = false;
@@ -77,25 +78,29 @@ public class Player: MonoBehaviour {
 
 	public bool CanRecievePhone()
 	{
-		if (!IsAlive)
-			return false;
+		//if (!IsAlive || hasPhone || this == PlayerController.instance.LastPlayerWithPhone )
 
-		if (hasPhone)
-			return false;
+		if (!IsAlive || hasPhone || Mathf.Abs (PlayerController.instance.PlayerWithLeastInformation.PhoneCount - PhoneCount) >= 3 )
+
+		return false;
+
 
 		return true;
 	}
 
 	public void PassPhone (Player p)
 	{
+		PlayerController.instance.LastPlayerWithPhone = this;
 		hasPhone = false;
 		p.hasPhone = true;
 		p.canPassPhone = false;
 		PlayerController.instance.PlayerWithPhone = p;
 		p._phoneCount++;
-
+		PlayerController.instance.TallyPlayerInformation ();
 
 	}
+
+
 	void Update ()
 	{
 	
