@@ -40,13 +40,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 100000, guid: fd9e74bd25f43264aa46dbd2e4627809, type: 2}
   PlayerColors:
+  - {r: 1, g: .889655232, b: 0, a: 1}
+  - {r: .241379261, g: 0, b: 1, a: 1}
+  - {r: 0, g: .705882311, b: .0924950168, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: .379310369, a: 1}
-  - {r: 0, g: .5448277, b: 1, a: 1}
-  - {r: 1, g: .79411763, b: .79411763, a: 1}
   PlayerCount: 4
   MovementSpeed: 5
   Players: []
+  PlayerWithPhone: {fileID: 0}
+  LastPlayerWithPhone: {fileID: 0}
+  PlayerWithLeastInformation: {fileID: 0}
+  RoundWon: 0
+  _livingPlayers: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
