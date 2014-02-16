@@ -1,2 +1,6 @@
 unity/Library/
 unity/Temp/
+*.csproj
+unity/unity-csharp.sln
+*.sln
+*.userprefs
