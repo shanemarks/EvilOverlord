@@ -108,6 +108,7 @@ public class GamepadInputConfigurations : AutoSingletonBehaviour<GamepadInputCon
 		
 		ret[0] = GetWinXBOXGamepadAxes();
 		ret[0].AddName("Controller (XBOX 360 For Windows)");
+		ret[0].AddName("Controller (Xbox 360 Wireless Receiver for Windows)");
 		
 		return ret;
 	}
