@@ -27,9 +27,23 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public UILabel resetGame;
 	public UIPanel PassPhonePanel;
+
+	public UILabel handcuffLabel;
 	void Start ()
 	{
 
+	}
+
+	public void SetHandcuffTime(int turnsLeft)
+	{
+		if (turnsLeft > 0)
+		{
+			handcuffLabel.text = "Cannot interact while handcuffs are on.\n"+turnsLeft+" turns until hand are free.";
+		}
+		else
+		{
+			handcuffLabel.text = "Handcuffs are off, you can interact with obkects in the room now!";
+		}
 	}
 
 	public void PutBlood (Vector3 v)
@@ -197,7 +211,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 			go.transform.position = v;
 	}
 	
- void CreateObjectPickupAnimation (Vector3 v, string s, Color c)
+ 	void CreateObjectPickupAnimation (Vector3 v, string s, Color c)
 	{
 		GameObject go = 	NGUITools.AddChild(Transient.gameObject,ObjectPickupPrefab);
 		go.transform.position = v;

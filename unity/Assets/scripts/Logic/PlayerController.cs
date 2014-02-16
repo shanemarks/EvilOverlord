@@ -95,7 +95,7 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 			Players[i].ItemsOwned = PickupType.None;
 			Players[i].GetComponent<UIPanel>().depth = 100-i;
 			
-
+			Players[i].handcuffsOn = true;
 //			if (Input.GetJoystickNames().Length > 1)
 //			{
 //				if (i == 0)

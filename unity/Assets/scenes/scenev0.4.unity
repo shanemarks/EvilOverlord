@@ -200,7 +200,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 69187874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 518.549988, y: -155.399994, z: 0}
+  m_LocalPosition: {x: 498.87207, y: -155.399979, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 762651553}
@@ -384,6 +384,8 @@ MonoBehaviour:
   MovementSpeed: 5
   Players: []
   PlayerWithPhone: {fileID: 0}
+  LastPlayerWithPhone: {fileID: 0}
+  PlayerWithLeastInformation: {fileID: 0}
   RoundWon: 0
   _livingPlayers: []
 --- !u!4 &144993271
@@ -2092,6 +2094,7 @@ Transform:
   - {fileID: 2107281616}
   - {fileID: 2045126598}
   - {fileID: 69187875}
+  - {fileID: 1672992642}
   m_Father: {fileID: 961775059}
 --- !u!114 &762651554
 MonoBehaviour:
@@ -2492,6 +2495,10 @@ Prefab:
       propertyPath: PassPhonePanel
       value: 
       objectReference: {fileID: 1445048234}
+    - target: {fileID: 11400000, guid: 3fb9c6dcdcbbea34f9a01c4233c2210c, type: 2}
+      propertyPath: handcuffLabel
+      value: 
+      objectReference: {fileID: 1672992643}
     m_RemovedComponents:
     - {fileID: 11400002, guid: 3fb9c6dcdcbbea34f9a01c4233c2210c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3fb9c6dcdcbbea34f9a01c4233c2210c, type: 2}
@@ -2769,6 +2776,7 @@ MonoBehaviour:
   ScreenMessage: {fileID: 2003618438}
   resetGame: {fileID: 496655232}
   PassPhonePanel: {fileID: 1445048234}
+  handcuffLabel: {fileID: 1672992643}
 --- !u!4 &918878525
 Transform:
   m_ObjectHideFlags: 0
@@ -3673,6 +3681,10 @@ Prefab:
     - target: {fileID: 400000, guid: fd9e74bd25f43264aa46dbd2e4627809, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: fd9e74bd25f43264aa46dbd2e4627809, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fd9e74bd25f43264aa46dbd2e4627809, type: 2}
@@ -4639,6 +4651,7 @@ MonoBehaviour:
   ItemsOwned: 0
   hasGasMask: 0
   handcuffsOn: 0
+  enableLeave: 0
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
   Index: -1
   PlayerSprite: {fileID: 1113354045}
@@ -5695,6 +5708,69 @@ MonoBehaviour:
   mClipRange: {x: 0, y: 0, z: 0, w: 0}
   mClipSoftness: {x: 40, y: 40}
   mDepth: 0
+--- !u!1 &1672992641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100008, guid: c7f874a5b97e99c498bac51e1b1300e3, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1672992642}
+  - 114: {fileID: 1672992643}
+  m_Layer: 8
+  m_Name: Handcuff label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1672992642
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400008, guid: c7f874a5b97e99c498bac51e1b1300e3, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1672992641}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 501, y: -202, z: 0}
+  m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
+  m_Children: []
+  m_Father: {fileID: 762651553}
+--- !u!114 &1672992643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400014, guid: c7f874a5b97e99c498bac51e1b1300e3,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1672992641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 0
+  mWidth: 439
+  mHeight: 222
+  mDepth: 8
+  autoResizeBoxCollider: 0
+  keepCrispWhenShrunk: 1
+  mTrueTypeFont: {fileID: 12800000, guid: 896bf0ace3dc1ea43ba3a7e889cc61ff, type: 3}
+  mFont: {fileID: 0}
+  mText: Handcuff info
+  mFontSize: 38
+  mFontStyle: 0
+  mEncoding: 1
+  mMaxLineCount: 0
+  mEffectStyle: 1
+  mEffectColor: {r: .0514705777, g: .0514705777, b: .0514705777, a: 1}
+  mSymbols: 1
+  mEffectDistance: {x: 1, y: 1}
+  mOverflow: 1
+  mShrinkToFit: 0
+  mMaxLineWidth: 0
+  mMaxLineHeight: 0
+  mLineWidth: 0
+  mMultiline: 1
 --- !u!1 &1695255400
 GameObject:
   m_ObjectHideFlags: 0
@@ -5869,6 +5945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winScore: 3
+  roundEnd: 0
   timer: 0
 --- !u!4 &1865603637
 Transform:
