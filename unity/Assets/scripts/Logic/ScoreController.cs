@@ -49,7 +49,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		if (winner1 !=  null)
 		{
 			playerInfos[winner1.Index].score += 1;
-			PlayerPrefs.SetInt("Player" + (winner1.Index+1).ToString(),playerInfos[winner1.Index].score);
+			PlayerPrefs.SetInt("Player" + (winner1.Index+1).ToString(), playerInfos[winner1.Index].score);
 			PlayerPrefs.Save();
 
 
@@ -57,42 +57,91 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		if (winner2 != null)
 		{
 			playerInfos[winner2.Index].score += 1;
-			PlayerPrefs.SetInt("Player" + (winner2.Index+1).ToString(),playerInfos[winner2.Index].score);
+			PlayerPrefs.SetInt("Player" + (winner2.Index+1).ToString(), playerInfos[winner2.Index].score);
 			PlayerPrefs.Save();
 		}
-		if (winner1 == null && winner2==null)
+		if (winner1 == null && winner2 == null)
 		{
 			Debug.Log ("None Wins");
 
-			UIManager.instance.ScreenMessage.text = "No one wins this round";
+		}
+
+		roundEnd = true;
+			
+		CheckWinners();
+		SetRoundWinnersText(winner1, winner2);
+
+		if (HaveOverallWinners)
+		{
+			SetGameWinnersText();
+			StartCoroutine(DoFinalCountdown());
 		}
 		else
-		{	
+		{
 			
-			CheckWinners();
-			UIManager.instance.ScreenMessage.text = winningPlayers.Count.ToString()+ " Round Winners: \n" + winner1.name  + ((winner2 != null) ?  " - " + winner2.name : "") ;
-
-
-			if (HaveWinners)
-			{
-				string [] names = winningPlayers.ConvertAll((i) => PlayerController.instance.Players[i].name).ToArray();
-				
-				UIManager.instance.ScreenMessage.text += "\nGame Winners: "+ string.Join(", ", names);
-			}
-			else
-				StartCoroutine("DoCountdown");
+			StartCoroutine(DoCountdown(winner1, winner2));
 		}
 
 
 	}
+	
+	void SetGameWinnersText()
+	{
+		
+		string [] names = winningPlayers.ConvertAll((i) => PlayerController.instance.Players[i].name).ToArray();
+		
+		UIManager.instance.ScreenMessage.text = "\nGame Winners: "+ string.Join(", ", names);
+	}
+
+	void SetRoundWinnersText(Player winner1, Player winner2)
+	{
+		if (UIManager.instance.ScreenMessage == null)
+			return;
+		if (winner1 == null && winner2 == null)
+		{
+			
+			UIManager.instance.ScreenMessage.text = "No one wins this round";
+
+		}
+		else
+		{
+			if (winner1 == null)
+			{
+				winner1 = winner2;
+				winner2 = null;
+			}
+
+			UIManager.instance.ScreenMessage.text = /*winningPlayers.Count.ToString()+ */"Round Winners: \n" + winner1.name  + ((winner2 != null) ?  " - " + winner2.name : "") ;
+		}
+	}
 
 	
-	IEnumerable DoCountdown() {
+	IEnumerator DoFinalCountdown() {
+		Debug.Log("Starting coroutine");
 		yield return new WaitForSeconds(5.0f);
+		
+		for (int i = 3; i > 0; i--) 
+		{
+			if (UIManager.instance.ScreenMessage == null) yield break;
+
+			SetGameWinnersText();
+			UIManager.instance.ScreenMessage.text += "\nNew game in " + i;
+			yield return new WaitForSeconds(1.0f);
+		}
+		UIManager.instance.ResetGame();
+		
+	}
+	
+	IEnumerator DoCountdown(Player winner1, Player winner2) {
+		Debug.Log("Starting coroutine");
+		yield return new WaitForSeconds(2.0f);
 
 		for (int i = 5; i > 0; i--) 
 		{
-			UIManager.instance.ScreenMessage.text = "Game Restarting in " + i + " seconds.";
+			if (UIManager.instance.ScreenMessage == null) yield break;
+
+			SetRoundWinnersText(winner1, winner2);
+			UIManager.instance.ScreenMessage.text += "\nGame Restarting in " + i;
 			yield return new WaitForSeconds(1.0f);
 		}
 
@@ -129,7 +178,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		}
 	}
 
-	public bool HaveWinners { get { return winningPlayers.Count > 0; } }
+	public bool HaveOverallWinners { get { return winningPlayers.Count > 0; } }
 	
 	List<int> winningPlayers = new List<int>();
 
@@ -137,7 +186,9 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 	public float timer =0;
 	public 	void LateUpdate ()
 	{	
-	
+		if (roundEnd)
+			return;
+
 #if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.F5))
 		{

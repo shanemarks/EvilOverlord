@@ -419,7 +419,7 @@ public class Movement : MonoBehaviour {
 
 	void FireAction ()
 	{
-		if (ScoreController.instance.roundEnd) _thePlayer.enableLeave = true;
+		//if (ScoreController.instance.roundEnd) _thePlayer.enableLeave = true;
 		
 		if (!_thePlayer.handcuffsOn && _thePlayer.ItemsOwned == PickupType.None || !GameController.instance.PlayerActivatedItem(_thePlayer))
 		{

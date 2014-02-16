@@ -68,16 +68,16 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		}
 #endif
 
-		if (ScoreController.instance.HaveWinners)
-		{
-			resetGame.text = "New game";
-		}
+//		if (ScoreController.instance.HaveOverallWinners)
+//		{
+//			resetGame.text = "New game";
+//		}
 
-		if(PlayerController.instance.RoundWon)
-		{
-
-			ResetGame ();
-		}
+//		if(PlayerController.instance.RoundWon)
+//		{
+//
+//			ResetGame ();
+//		}
 	}
 	
 	public void AnswerPhone ()
@@ -223,7 +223,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	public void ResetGame ()
 	{
 		Debug.Log ("Reset Game");
-		if (ScoreController.instance.HaveWinners)
+		if (ScoreController.instance.HaveOverallWinners)
 		{
 			Application.LoadLevel(0);
 		}

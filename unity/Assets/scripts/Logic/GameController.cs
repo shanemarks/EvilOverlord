@@ -128,6 +128,12 @@ public class GameController : SingletonBehaviour<GameController>
 
 	void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.F7))
+		{
+			handcuffTurnsLeft = 1;
+			DecrementHeadphoneTurnCount();
+		}
+
 		if (Input.GetKeyDown(KeyCode.F4))
 		{
 			criticalInfoCounter = 0;
@@ -230,7 +236,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 	public static LocationType PickRandomRoomFromList(params LocationType [] objs)
 	{
-		Debug.Log ("PickRandomRoom.Length "+objs.Length);
+//		Debug.Log ("PickRandomRoom.Length "+objs.Length);
 		// range is from 1 snce we do not want to pick None
 		return objs[Random.Range(0, objs.Length)];
 	}
@@ -238,7 +244,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 	public static List<LocationType> InverseRoomList(params LocationType [] notObjs)
 	{
-		Debug.Log ("PickRandomInverseRoom.Length "+notObjs.Length);
+//		Debug.Log ("PickRandomInverseRoom.Length "+notObjs.Length);
 		List<LocationType> availableObjects = new List<LocationType>();
 		foreach (LocationType obj in System.Enum.GetValues(typeof(LocationType)))
 		{
