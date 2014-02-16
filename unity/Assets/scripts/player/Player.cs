@@ -7,6 +7,7 @@ public class Player: MonoBehaviour {
 	public enum ItemHoldingState
 		{
 		None,
+		Handcuffs,
 		Knife,
 		Mask,
 		Both
@@ -27,6 +28,8 @@ public class Player: MonoBehaviour {
 	public PickupType ItemsOwned;
 	public bool hasGasMask = false;
 
+	public bool handcuffsOn = false;
+
 
 	public Color PlayerColor;
 
@@ -36,7 +39,7 @@ public class Player: MonoBehaviour {
 
 	public RoomLocation OnRoomLocation;
 
-	public UISprite knifeIcon,maskIcon,PhoneIcon, RtIcon;
+	public UISprite knifeIcon,maskIcon,PhoneIcon, RtIcon, handcuffSprite;
 
 	bool notifiedAboutGasMask = false;
 
@@ -119,25 +122,32 @@ public class Player: MonoBehaviour {
 		bool knife = ItemsOwned == PickupType.FakeKnife || ItemsOwned == PickupType.RealKnife2 || ItemsOwned == PickupType.RealKnife1;
 		bool mask = hasGasMask;
 
-
-		if (mask && knife)
-		{
-			HoldingState = ItemHoldingState.Both;
-		}
 		
-		else if (!mask && !knife)
+		if (handcuffsOn)
 		{
-			HoldingState = ItemHoldingState.None;
+			HoldingState = ItemHoldingState.Handcuffs;
 		}
-
-		else if (mask)
+		else
 		{
-			HoldingState = ItemHoldingState.Mask;
-		}
+			if (mask && knife)
+			{
+				HoldingState = ItemHoldingState.Both;
+			}
+			
+			else if (!mask && !knife)
+			{
+				HoldingState = ItemHoldingState.None;
+			}
 
-		else if (knife)
-		{
-			HoldingState = ItemHoldingState.Knife;
+			else if (mask)
+			{
+				HoldingState = ItemHoldingState.Mask;
+			}
+
+			else if (knife)
+			{
+				HoldingState = ItemHoldingState.Knife;
+			}
 		}
 
 		if (knife)
@@ -184,7 +194,8 @@ public class Player: MonoBehaviour {
 
 			maskIcon.spriteName = "";
 		}
-
+		
+		handcuffSprite.enabled = HoldingState == ItemHoldingState.Handcuffs;
 
 		if (hasPhone)
 		{
