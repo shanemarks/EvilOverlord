@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class ScoreController : SingletonBehaviour<ScoreController> 
 {
@@ -78,10 +79,27 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 				
 				UIManager.instance.ScreenMessage.text += "\nGame Winners: "+ string.Join(", ", names);
 			}
+			else
+				StartCoroutine("DoCountdown");
 		}
 
 
 	}
+
+	
+	IEnumerable DoCountdown() {
+		yield return new WaitForSeconds(5.0f);
+
+		for (int i = 5; i > 0; i--) 
+		{
+			UIManager.instance.ScreenMessage.text = "Game Restarting in " + i + " seconds.";
+			yield return new WaitForSeconds(1.0f);
+		}
+
+		UIManager.instance.ResetGame();
+
+	}
+
 
 
 	void CheckWinners()

@@ -75,8 +75,6 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 		if(PlayerController.instance.RoundWon)
 		{
-			foreach(Player pl in PlayerController.instance.Players) 
-			if(!pl.enableLeave) { Debug.Log ("Player " + pl.Index + " still not ready to go"); return; }
 
 			ResetGame ();
 		}
@@ -222,7 +220,7 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	}
 
 
-	void ResetGame ()
+	public void ResetGame ()
 	{
 		Debug.Log ("Reset Game");
 		if (ScoreController.instance.HaveWinners)
