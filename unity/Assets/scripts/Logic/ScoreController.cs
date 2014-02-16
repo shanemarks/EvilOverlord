@@ -13,6 +13,9 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 	public int winScore = 3;
 
 	public bool roundEnd = false;
+	public float roundEndTimer;
+	public Player winner1;
+	public Player winner2;
 
 
 	public PlayerInfo [] playerInfos;
@@ -41,7 +44,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 	}
 
 
-	public void UpdateGameFinished(Player winner1, Player winner2)
+	public void UpdateGameFinished()
 	{
 		Debug.Log (winner1);
 		Debug.Log (winner2);
@@ -67,20 +70,21 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		}
 
 		roundEnd = true;
+		roundEndTimer = 8;
 			
 		CheckWinners();
-		SetRoundWinnersText(winner1, winner2);
-
-		if (HaveOverallWinners)
-		{
-			SetGameWinnersText();
-			StartCoroutine(DoFinalCountdown());
-		}
-		else
-		{
-			
-			StartCoroutine(DoCountdown(winner1, winner2));
-		}
+//		SetRoundWinnersText(winner1, winner2);
+//
+//		if (HaveOverallWinners)
+//		{
+//			SetGameWinnersText();
+//			StartCoroutine(DoFinalCountdown());
+//		}
+//		else
+//		{
+//			
+//			StartCoroutine(DoCountdown(winner1, winner2));
+//		}
 
 
 	}
@@ -93,10 +97,11 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		UIManager.instance.ScreenMessage.text = "\nGame Winners: "+ string.Join(", ", names);
 	}
 
-	void SetRoundWinnersText(Player winner1, Player winner2)
+	void SetRoundWinnersText()
 	{
 		if (UIManager.instance.ScreenMessage == null)
 			return;
+
 		if (winner1 == null && winner2 == null)
 		{
 			
@@ -105,12 +110,6 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		}
 		else
 		{
-			if (winner1 == null)
-			{
-				winner1 = winner2;
-				winner2 = null;
-			}
-
 			UIManager.instance.ScreenMessage.text = /*winningPlayers.Count.ToString()+ */"Round Winners: \n" + winner1.name  + ((winner2 != null) ?  " - " + winner2.name : "") ;
 		}
 	}
@@ -132,7 +131,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		
 	}
 	
-	IEnumerator DoCountdown(Player winner1, Player winner2) {
+	IEnumerator DoCountdown() {
 		Debug.Log("Starting coroutine");
 		yield return new WaitForSeconds(2.0f);
 
@@ -140,7 +139,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 		{
 			if (UIManager.instance.ScreenMessage == null) yield break;
 
-			SetRoundWinnersText(winner1, winner2);
+			SetRoundWinnersText();
 			UIManager.instance.ScreenMessage.text += "\nGame Restarting in " + i;
 			yield return new WaitForSeconds(1.0f);
 		}
@@ -187,7 +186,36 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 	public 	void LateUpdate ()
 	{	
 		if (roundEnd)
-			return;
+		{
+			
+			roundEndTimer -= Time.deltaTime;
+
+			if (HaveOverallWinners)
+			{
+				
+				SetGameWinnersText();
+				if (roundEndTimer < 3)
+				{
+					UIManager.instance.ScreenMessage.text += "\nNew game in " + Mathf.CeilToInt(roundEndTimer);
+				}
+			}
+			else
+			{
+				SetRoundWinnersText();
+				if (roundEndTimer < 5)
+				{
+					UIManager.instance.ScreenMessage.text += "\nGame Restarting in " + Mathf.CeilToInt(roundEndTimer);
+				}
+			}
+
+			if (roundEndTimer < 0)
+			{
+				Debug.Log ("Restting game");
+				UIManager.instance.ResetGame();
+				return;
+			}
+
+		}
 
 #if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.F5))
@@ -197,7 +225,6 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 #endif
 
-		CheckWinners();
 
 
 //		if (winningPlayers.Count > 0)
@@ -217,7 +244,10 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 
 			foreach (PlayerIcon p in PlayerIcon.First (typeof (PlayerIcon)))
 			{
-				p.Points.text =  playerInfos[n].score.ToString() ;
+				if (p.Points != null)
+				{
+					p.Points.text =  playerInfos[n].score.ToString() ;
+				}
 				n++;		
 			}
 	
@@ -260,7 +290,7 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 					{
 						if(!firstFound)
 						{
-							 if (PlayerController.instance.Players[i].IsAlive)
+							if (PlayerController.instance.Players[i].IsAlive)
 							{
 								p = PlayerController.instance.Players[i];
 								firstFound = true;
@@ -276,7 +306,9 @@ public class ScoreController : SingletonBehaviour<ScoreController>
 						}
 
 					}
-					UpdateGameFinished (p,p1);
+					winner1 = p;
+					winner2 = p1;
+					UpdateGameFinished ();
 				
 				}
 			}

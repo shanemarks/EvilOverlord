@@ -5966,6 +5966,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winScore: 3
   roundEnd: 0
+  roundEndTimer: 0
+  winner1: {fileID: 0}
+  winner2: {fileID: 0}
   timer: 0
 --- !u!4 &1865603637
 Transform:
