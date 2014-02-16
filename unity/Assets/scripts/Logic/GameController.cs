@@ -735,7 +735,7 @@ public class GameController : SingletonBehaviour<GameController>
 	{
 		Debug.Log ("GameController::Instructing");
 
-		SayCurrentInstruction();
+		//SayCurrentInstruction();
 		state.ChangeState(GameState.GiveHeadphone);
 	}
 
