@@ -865,7 +865,7 @@ public class GameController : SingletonBehaviour<GameController>
 		Player closestPlayer = null;
 		foreach (Player otherPlayer in PlayerController.instance.Players)
 		{
-			if (otherPlayer == player)
+			if (otherPlayer == player || !otherPlayer.IsAlive)
 				continue;
 			
 			float dist = Vector2.Distance(otherPlayer.transform.position, player.transform.position);
