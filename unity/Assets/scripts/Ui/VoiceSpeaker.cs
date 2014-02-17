@@ -226,6 +226,12 @@ public class VoiceSpeaker : SingletonBehaviour<VoiceSpeaker>
 		voiceBusy = true;
 		foreach(AudioClip cl in clipList)
 		{
+			if (cl == null) 
+			{
+				Debug.LogWarning("Missing an audio clip");
+				continue;
+			}
+
 			Debug.Log("Playing clip " + cl.name);
 			this.audio.clip = cl;
 			this.audio.Play();

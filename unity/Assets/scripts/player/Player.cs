@@ -97,6 +97,7 @@ public class Player: MonoBehaviour {
 		p.canPassPhone = false;
 		PlayerController.instance.PlayerWithPhone = p;
 		p._phoneCount++;
+		GameController.instance.lastPlayerToPass = Index;
 		GameController.instance.NextInstructions();
 
 	}

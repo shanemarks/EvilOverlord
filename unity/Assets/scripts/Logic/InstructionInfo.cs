@@ -269,32 +269,61 @@ public class InstructionInfo
 
 	public List<AudioClip> CreateList()
 	{
-		List<AudioClip> rawList = GetRawStringList(); 
-		
-		if (infoPacket == null) {
-			rawList.Add (AudioList.instance.PassHeadphones);
-			return rawList;
-		}
-
-		for(int i = 0; i < rawList.Count; i++)
+		List<AudioClip> clips = new List<AudioClip>();
+		switch(this.instructionType)
 		{
-			if(rawList[i] == AudioList.PlaceholderItem) 
-				rawList[i] = GetItemNameList (infoPacket.item);
-			else if (rawList[i] == AudioList.PlaceholderLocation)
-			{
-				rawList[i] = GetRoomLocationNameList(infoPacket.location);
-				rawList.Insert(i,GetPrepositionedForLocationList(infoPacket.location));
-			}
-			else if (rawList[i] == AudioList.PlaceholderWarningTime)
-				rawList[i] = GetWarningTime(foreWarning);
-			else if (rawList[i] == AudioList.PlaceholderError)
-			{
-				Debug.LogError("Error item passed to CreateList (InstructionInfo.cs)");
-				return null;
-			}
+		case InstructionType.Positive1Location:
+			clips.AddRange(VoiceActList.Positive1First(infoPacket.location));
+			break;
+		case InstructionType.Positive2Item:
+			clips.AddRange(VoiceActList.Positive1Second(infoPacket.item, GameController.instance.lastPlayerToPass));
+			break;
+		case InstructionType.Negative1Both:
+			clips.AddRange(VoiceActList.Negative2First(infoPacket.location, infoPacket.item));
+			break;
+		case InstructionType.Negative2Both:
+			clips.AddRange(VoiceActList.Negative2Second(infoPacket.location, infoPacket.item, GameController.instance.lastPlayerToPass));
+			break;
+		case InstructionType.PassOn:
+			clips.AddRange(VoiceActList.NoInfo3());
+			break;
+		case InstructionType.CriticalWarning:
+			clips.AddRange(VoiceActList.Critical4Warning(this.foreWarning == 3));
+			break;
+		case InstructionType.CriticalReveal:
+			clips.AddRange(VoiceActList.Critical4Reveal(infoPacket.location));
+			if (infoPacket.item != PickupType.GasTrap)
+				Debug.LogWarning("Critical info about something that is NOT the gas trap, something went wrong!");
+			break;
 		}
 
-		return rawList;
+		return clips;
+//		List<AudioClip> rawList = GetRawStringList(); 
+//		
+//		if (infoPacket == null) {
+//			rawList.Add (AudioList.instance.PassHeadphones);
+//			return rawList;
+//		}
+//
+//		for(int i = 0; i < rawList.Count; i++)
+//		{
+//			if(rawList[i] == AudioList.PlaceholderItem) 
+//				rawList[i] = GetItemNameList (infoPacket.item);
+//			else if (rawList[i] == AudioList.PlaceholderLocation)
+//			{
+//				rawList[i] = GetRoomLocationNameList(infoPacket.location);
+//				rawList.Insert(i,GetPrepositionedForLocationList(infoPacket.location));
+//			}
+//			else if (rawList[i] == AudioList.PlaceholderWarningTime)
+//				rawList[i] = GetWarningTime(foreWarning);
+//			else if (rawList[i] == AudioList.PlaceholderError)
+//			{
+//				Debug.LogError("Error item passed to CreateList (InstructionInfo.cs)");
+//				return null;
+//			}
+//		}
+//
+//		return rawList;
 	}
 
 	public string CreateString()

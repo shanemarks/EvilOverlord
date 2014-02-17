@@ -11,6 +11,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 82: {fileID: 8200000}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: Speaker
   m_TagString: Untagged
@@ -121,8 +122,10 @@ MonoBehaviour:
     type: 3}
   PassHeadphones: {fileID: 8300000, guid: 80727ce9659ac3c41bd87fa15a70fc45, type: 3}
   NextGivenSame: {fileID: 8300000, guid: 4ff3ebf58820abf4bb3ae8fdbe7351b3, type: 3}
+  NextGivenName: {fileID: 0}
   PreviousGivenSame: {fileID: 8300000, guid: 32f02f447a7416d49b91a951feb36a80, type: 3}
   ToWhoeverHas: {fileID: 8300000, guid: 40ce55f9f4562f743a7648999de643e6, type: 3}
+  TurnsIdentityAndLocation: {fileID: 0}
   ThereIsA: {fileID: 8300000, guid: ea0e9261f6c44a742b0ea7092a336d85, type: 3}
   ThereIsAnItem: {fileID: 8300000, guid: c23a6a1746ff6f34a9b5803617d20ec2, type: 3}
   IsInfact: {fileID: 8300000, guid: 51eceaa37c2b42d4582d13d13779e6a7, type: 3}
@@ -153,6 +156,114 @@ MonoBehaviour:
   ObjectGasMask: {fileID: 8300000, guid: d1f220f8912fc604799b5640bf03ec7f, type: 3}
   ObjectGasTrap: {fileID: 8300000, guid: 02e1cc152a1681c409ca48a228df1ca2, type: 3}
   ObjectRealKnife: {fileID: 8300000, guid: f8cb72280c08e7d46a1e417ae73dd17a, type: 3}
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7163d5880e56e5f478b5a6dbee739b7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positive1LocationSink: {fileID: 8300000, guid: 0a525ff75531f224ebd51df8dab7768b,
+    type: 3}
+  positive1LocationRedBed: {fileID: 8300000, guid: 79b7af48f1aa52d4da2c8f56041442ea,
+    type: 3}
+  positive1LocationGreenBed: {fileID: 8300000, guid: c8a4530ace17bbc41baf5db95dd731bf,
+    type: 3}
+  positive1LocationToilet: {fileID: 8300000, guid: f047f9fe1c95fb345a6c96268ac3d2e3,
+    type: 3}
+  positive1LocationShelf: {fileID: 8300000, guid: a0c520f89a0a51a4ca2aa02a85f1807a,
+    type: 3}
+  positive1LocationGrate: {fileID: 8300000, guid: 2abfd7553b695074c843c14fdbefc100,
+    type: 3}
+  positive1LocationWallLight: {fileID: 8300000, guid: 427b3b9c15c1ed74b980fde3cd74ac4c,
+    type: 3}
+  positive1LocationRustVent: {fileID: 8300000, guid: d47b746d8329eff4299ed4cc51a94864,
+    type: 3}
+  positive1LocationCleanVent: {fileID: 8300000, guid: cc647fafcef1a174c8c8163db000d2bc,
+    type: 3}
+  positive1NextPlayerMessage: {fileID: 8300000, guid: 11ab99314ccd44c4caa0643ec6b9b8ba,
+    type: 3}
+  positive1ItemKnife: {fileID: 8300000, guid: 32b3285c60c5a844389e8555793c659a, type: 3}
+  positive1ItemFakeKnife: {fileID: 8300000, guid: 2e4239f8e9c7280468e37a5e694447de,
+    type: 3}
+  positive1ItemGasTrap: {fileID: 8300000, guid: 79875621eb3a9a24c9a654d432fc6216,
+    type: 3}
+  positive1ItemGasMask: {fileID: 8300000, guid: d698df4dbcef17545ac72d8e2d948bc7,
+    type: 3}
+  positive1ItemBoobyTrap: {fileID: 8300000, guid: 9cd475b0504057a4d82b8a58625837a4,
+    type: 3}
+  positive1PlayerGivenInfo0Yellow: {fileID: 8300000, guid: 41d6978f4e7a67741b3d53a69cd48fd2,
+    type: 3}
+  positive1PlayerGivenInfo1Blue: {fileID: 8300000, guid: 6237c8a8c0d1f9e48833cf1bf26a6555,
+    type: 3}
+  positive1PlayerGivenInfo2Green: {fileID: 8300000, guid: 8c27cb05892ddbc42bfc138adf7145ea,
+    type: 3}
+  positive1PlayerGivenInfo3Red: {fileID: 8300000, guid: 00b809ca6e967fe44b604ff15835315e,
+    type: 3}
+  positive1PassOn: {fileID: 8300000, guid: f00d07f6e4b8f93448ec9b792f372cab, type: 3}
+  negative2LocationSink: {fileID: 8300000, guid: 21e2f58c73541b54087f0dbb8d9c9bce,
+    type: 3}
+  negative2LocationRedBed: {fileID: 8300000, guid: 5bc0a45ee02bb8841ae70245d41044f7,
+    type: 3}
+  negative2LocationGreenBed: {fileID: 8300000, guid: 84e21bff05d97124ba4e14d199b4d742,
+    type: 3}
+  negative2LocationToilet: {fileID: 8300000, guid: c6a07617793fdc146910456619e71b07,
+    type: 3}
+  negative2LocationShelf: {fileID: 8300000, guid: 558420e047c465e449872b80c789f576,
+    type: 3}
+  negative2LocationGrate: {fileID: 8300000, guid: a525a0199a6e4f04c97eebeb5a5dba37,
+    type: 3}
+  negative2LocationWallLight: {fileID: 8300000, guid: 9d63e45f076d0d440a3f91a08a3014b1,
+    type: 3}
+  negative2LocationRustVent: {fileID: 8300000, guid: 6ab0cbbfbf4590d4e898c722e5da5dd3,
+    type: 3}
+  negative2LocationCleanVent: {fileID: 8300000, guid: a3e6f6f8e4d30b94382c8bc274d0a0d0,
+    type: 3}
+  negative2ItemKnife: {fileID: 8300000, guid: 7a47d0f115dd93f419c9db1bb6aa6f8b, type: 3}
+  negative2ItemFakeKnife: {fileID: 8300000, guid: a793d413542216b41b2df6e998f6de41,
+    type: 3}
+  negative2ItemGasTrap: {fileID: 8300000, guid: 61f39b692ddc80542809f7fcbf4be17c,
+    type: 3}
+  negative2ItemGasMask: {fileID: 8300000, guid: 794f3b8665d712d46b4f11af93e25c59,
+    type: 3}
+  negative2ItemBoobyTrap: {fileID: 8300000, guid: 0bfd34c3640d61f478cabce0f6340379,
+    type: 3}
+  negative2WillRepeatMessage: {fileID: 0}
+  negative2RepeatedFromMessage0Yellow: {fileID: 0}
+  negative2RepeatedFromMessage1Blue: {fileID: 0}
+  negative2RepeatedFromMessage2Green: {fileID: 0}
+  negative2RepeatedFromMessage3Red: {fileID: 0}
+  negative2PassOn: {fileID: 0}
+  noInfo3PassOn: {fileID: 8300000, guid: 925b5d8cb1cba094fb2dcaea8265723f, type: 3}
+  critical4InTwoTurns: {fileID: 8300000, guid: 9c07d0ba61994664898bcb048698ae71, type: 3}
+  critical4InThreeTurns: {fileID: 8300000, guid: 2be23758cc116d648ba40b75a9bddafa,
+    type: 3}
+  critical4RememberThisAndPassOn: {fileID: 8300000, guid: aa7a2044df3741843a880f0275b172a9,
+    type: 3}
+  critical4LocationSink: {fileID: 8300000, guid: b674218abaac9c544a35431cd3924ad9,
+    type: 3}
+  critical4LocationRedBed: {fileID: 8300000, guid: be38eb3436109f645a5f08acc4bf14ed,
+    type: 3}
+  critical4LocationGreenBed: {fileID: 8300000, guid: 4040c8ecb6391424f8a860e6c6903b18,
+    type: 3}
+  critical4LocationToilet: {fileID: 8300000, guid: 5739eaa64d8acf145b0a0bb005c276e4,
+    type: 3}
+  critical4LocationShelf: {fileID: 8300000, guid: f0cd9c06de0dfc54fbe7604ee36644ed,
+    type: 3}
+  critical4LocationGrate: {fileID: 8300000, guid: 1577d38a20310c14892ca237d54d829f,
+    type: 3}
+  critical4LocationWallLight: {fileID: 8300000, guid: 8a47ff66b450c80428c85196bc900688,
+    type: 3}
+  critical4LocationRustVent: {fileID: 8300000, guid: c53bbc854a2c3974fbaa46a97e8131e2,
+    type: 3}
+  critical4LocationCleanVent: {fileID: 8300000, guid: 3f09b4d64b3a0d34d972eacfde8460e1,
+    type: 3}
+  critical4AnotherPlayerKnowsPassOn: {fileID: 8300000, guid: 26afc3e85922224499f7ba99d3dfd5da,
+    type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

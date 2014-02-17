@@ -34,6 +34,8 @@ public class GameController : SingletonBehaviour<GameController>
 
 	int handcuffTurnsLeft = 4;
 
+	public int lastPlayerToPass = -1;
+
 	public void TriggerGasTrap ()
 	{
 		poisonVentOpen = true;
@@ -173,11 +175,14 @@ public class GameController : SingletonBehaviour<GameController>
 
 		// add 1 or 2 pass on instructions
 		
-//		AddPassOnInstruction(); // adding an instruction to skip
+		AddPassOnInstruction(); // adding an instruction to skip
 
-		AddPassOnInstruction();
-		if (Random.value < 0.5)
-			AddPassOnInstruction();
+//		AddPassOnInstruction();
+//		if (Random.value < 0.5)
+//			AddPassOnInstruction();
+
+		
+		IncrementInstruction();
 
 		state.ChangeState(GameState.GiveHeadphone);
 	}
@@ -470,7 +475,7 @@ public class GameController : SingletonBehaviour<GameController>
 	
 	List<InstructionInfo.InfoPacket> GetCriticalInfoPackets()
 	{
-		List<PickupType> criticalItems = new List<PickupType>() {PickupType.RealKnife1, PickupType.RealKnife2, PickupType.GasTrap};
+		List<PickupType> criticalItems = new List<PickupType>() {/*PickupType.RealKnife1, PickupType.RealKnife2, */PickupType.GasTrap};
 		
 		Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
 		
@@ -693,6 +698,7 @@ public class GameController : SingletonBehaviour<GameController>
 	void IncrementInstruction()
 	{
 		Debug.Log("IncrementInstruction");
+
 		instructionList.RemoveAt(0);
 
 
