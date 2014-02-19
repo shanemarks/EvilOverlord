@@ -81,10 +81,14 @@ public class Player: MonoBehaviour {
 
 	public bool CanRecievePhone()
 	{
+
 		if (!IsAlive)
 			return false;
 
 		if (hasPhone)
+			return false;
+
+		if (Mathf.Abs (PlayerController.instance.PlayerWithLeastInformation.PhoneCount - PhoneCount) >= 3 )
 			return false;
 
 		return true;

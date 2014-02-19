@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Pulse : MonoBehaviour {
 
-	public UISprite _sprite;
+	public UIWidget _sprite;
 	Color c = Color.white;
 	
 	float counter = 0;

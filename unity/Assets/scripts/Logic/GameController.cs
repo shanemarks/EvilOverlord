@@ -456,6 +456,12 @@ public class GameController : SingletonBehaviour<GameController>
 
 			List<PickupType> similarItems = new List<PickupType>(GetSimilarItems(pickupItem));
 
+			// if this is the "real knife" it is actually "any knife"
+			if (pickupItem == PickupType.RealKnife1 || pickupItem == PickupType.RealKnife2)
+			{
+				similarItems.Add(PickupType.FakeKnife);
+			}
+
 	//		Dictionary<PickupType, RoomLocation> reverseItemLookup = roomItemLocations.CreateReverseLookup(
 
 			Dictionary<PickupType, LocationType> whereItemsAre = roomItemLocations.CreateReverseLookup();
@@ -470,6 +476,9 @@ public class GameController : SingletonBehaviour<GameController>
 	//		LocationType notLocation = PickRandomInverseRoom(roomLocation);
 
 		}
+
+		Debug.Log(string.Join ("\n", infoPackets.ConvertAll((i)=>i.item+" not at "+i.location).ToArray()));
+
 		return infoPackets;
 	}
 	
@@ -669,7 +678,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 	void ResetCriticalCounter()
 	{
-		criticalInfoCounter = Random.Range(7,10);
+		criticalInfoCounter = Random.Range(5,7);
 	}
 
 	void AddNonCriticalInstruction()

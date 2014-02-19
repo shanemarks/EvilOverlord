@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   - 82: {fileID: 8200000}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: Speaker
@@ -102,60 +101,8 @@ MonoBehaviour:
   _bgmusic: {fileID: 0}
   voice_nb: 2
   voiceRate: -1
-  noVoiceVolume: .600000024
-  voiceVolume: .200000003
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da7e12f64bafdd342a7813c5544e431c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BewareSomeoneElseKnowsYouHaveInformation: {fileID: 8300000, guid: 1137bd8bfc03e384e9425e4fc51ea77a,
-    type: 3}
-  NoInformation: {fileID: 8300000, guid: ef57ec3cbf425384195b412871332d78, type: 3}
-  InThisRoomPreviousGivenSameInfo: {fileID: 8300000, guid: 4907b5f4757f69c47943c63c2d25e0ee,
-    type: 3}
-  PassHeadphones: {fileID: 8300000, guid: 80727ce9659ac3c41bd87fa15a70fc45, type: 3}
-  NextGivenSame: {fileID: 8300000, guid: 4ff3ebf58820abf4bb3ae8fdbe7351b3, type: 3}
-  NextGivenName: {fileID: 0}
-  PreviousGivenSame: {fileID: 8300000, guid: 32f02f447a7416d49b91a951feb36a80, type: 3}
-  ToWhoeverHas: {fileID: 8300000, guid: 40ce55f9f4562f743a7648999de643e6, type: 3}
-  TurnsIdentityAndLocation: {fileID: 0}
-  ThereIsA: {fileID: 8300000, guid: ea0e9261f6c44a742b0ea7092a336d85, type: 3}
-  ThereIsAnItem: {fileID: 8300000, guid: c23a6a1746ff6f34a9b5803617d20ec2, type: 3}
-  IsInfact: {fileID: 8300000, guid: 51eceaa37c2b42d4582d13d13779e6a7, type: 3}
-  IsNotInfact: {fileID: 8300000, guid: 4e293ebcf4bfa444c828ddcfbf2e8bcc, type: 3}
-  ArticleThe: {fileID: 8300000, guid: 2456464260116fa489af4ab462f4c0e9, type: 3}
-  PrepositionIn: {fileID: 8300000, guid: 8681065558cdc7f49a671b4449afc11c, type: 3}
-  PrepositionBehind: {fileID: 8300000, guid: 1a2514984d9045d45a1cb736d86a65cb, type: 3}
-  PrepositionUnder: {fileID: 8300000, guid: 29149031306306e48a48b64de5250267, type: 3}
-  NumberZero: {fileID: 8300000, guid: 42218ed9c495eac42b8d74de03829305, type: 3}
-  NumberOne: {fileID: 8300000, guid: 819949910ac11834393f49933b9ca519, type: 3}
-  NumberTwo: {fileID: 8300000, guid: fe9d54a26daa3d842bc9513939b323e5, type: 3}
-  NumberThree: {fileID: 8300000, guid: 3385588a2b07af44e84986024fc3cbbd, type: 3}
-  NumberFour: {fileID: 8300000, guid: 27bd77a152147624ca6cf90e700982da, type: 3}
-  NumberFive: {fileID: 8300000, guid: 9d81b8c6defbd734d80d1bd509647c3e, type: 3}
-  NumberSix: {fileID: 8300000, guid: 69945ab4e1b5dbe4d803fae674f9f805, type: 3}
-  LocationCleanVent: {fileID: 8300000, guid: a8765bc97ee518d40b2f94ea3a8c32dd, type: 3}
-  LocationGrate: {fileID: 8300000, guid: 419af72dea3073544b546e88f60e72f5, type: 3}
-  LocationGreenBed: {fileID: 8300000, guid: e990493d0532e5f43a1be9a303a5a7d4, type: 3}
-  LocationLamp: {fileID: 8300000, guid: 91c82521b7708e647a04fc46c13c17f9, type: 3}
-  LocationRedBed: {fileID: 8300000, guid: da439c303595bb44eb3087d0feb0ea89, type: 3}
-  LocationRustyVent: {fileID: 8300000, guid: 09de710a979f6354aaa95c93c49646ad, type: 3}
-  LocationShelf: {fileID: 8300000, guid: 3218dfbf31b887f459496a7b2802cf57, type: 3}
-  LocationSink: {fileID: 8300000, guid: bd85e60307bfc44449ae31b881700dca, type: 3}
-  LocationToilet: {fileID: 8300000, guid: 5700435b1a98d844ca4163e0013d5ba6, type: 3}
-  ObjectANonItem: {fileID: 8300000, guid: 7a13015dc1e05ff4592c350109476400, type: 3}
-  ObjectBoobyTrap: {fileID: 8300000, guid: 4703558b8e59af544a0a66e011fe13bf, type: 3}
-  ObjectFakeKnife: {fileID: 8300000, guid: 515f36d6b162c0e42ba973804e4fc654, type: 3}
-  ObjectGasMask: {fileID: 8300000, guid: d1f220f8912fc604799b5640bf03ec7f, type: 3}
-  ObjectGasTrap: {fileID: 8300000, guid: 02e1cc152a1681c409ca48a228df1ca2, type: 3}
-  ObjectRealKnife: {fileID: 8300000, guid: f8cb72280c08e7d46a1e417ae73dd17a, type: 3}
+  noVoiceVolume: .400000006
+  voiceVolume: .100000001
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,12 +179,17 @@ MonoBehaviour:
     type: 3}
   negative2ItemBoobyTrap: {fileID: 8300000, guid: 0bfd34c3640d61f478cabce0f6340379,
     type: 3}
-  negative2WillRepeatMessage: {fileID: 0}
-  negative2RepeatedFromMessage0Yellow: {fileID: 0}
-  negative2RepeatedFromMessage1Blue: {fileID: 0}
-  negative2RepeatedFromMessage2Green: {fileID: 0}
-  negative2RepeatedFromMessage3Red: {fileID: 0}
-  negative2PassOn: {fileID: 0}
+  negative2WillRepeatMessage: {fileID: 8300000, guid: 4e477e371a1bbd3469638897f8d1ba77,
+    type: 3}
+  negative2RepeatedFromMessage0Yellow: {fileID: 8300000, guid: af6ed64efc129d64b8dc1c0972a01958,
+    type: 3}
+  negative2RepeatedFromMessage1Blue: {fileID: 8300000, guid: 471f61cf826729f4c9b7b441e45158e8,
+    type: 3}
+  negative2RepeatedFromMessage2Green: {fileID: 8300000, guid: 424d2c644d56e78498b965fb13e9d190,
+    type: 3}
+  negative2RepeatedFromMessage3Red: {fileID: 8300000, guid: 603ae17c9461e59489f218f2bb164fb7,
+    type: 3}
+  negative2PassOn: {fileID: 8300000, guid: def489386caa647449b305f91329214f, type: 3}
   noInfo3PassOn: {fileID: 8300000, guid: 925b5d8cb1cba094fb2dcaea8265723f, type: 3}
   critical4InTwoTurns: {fileID: 8300000, guid: 9c07d0ba61994664898bcb048698ae71, type: 3}
   critical4InThreeTurns: {fileID: 8300000, guid: 2be23758cc116d648ba40b75a9bddafa,

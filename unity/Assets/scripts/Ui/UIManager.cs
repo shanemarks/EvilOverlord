@@ -27,8 +27,11 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public UILabel resetGame;
 	public UIPanel PassPhonePanel;
-
+	
 	public UILabel handcuffLabel;
+	public UISprite handcuffSprite;
+
+	public UILabel passPhoneLabel;
 	void Start ()
 	{
 
@@ -38,11 +41,13 @@ public class UIManager : SingletonBehaviour<UIManager> {
 	{
 		if (turnsLeft > 0)
 		{
-			handcuffLabel.text = "Cannot interact while handcuffs are on.\n"+turnsLeft+" turns until hand are free.";
+			handcuffLabel.text = "Cannot interact while handcuffs are on.\n"+turnsLeft+" turns until hands are free.";
+			handcuffSprite.enabled = true;
 		}
 		else
 		{
-			handcuffLabel.text = "Handcuffs are off, you can interact with obkects in the room now!";
+			handcuffLabel.text = "Handcuffs are off, you can interact with objects in the room!\n(Right Trigger button)";
+			handcuffSprite.enabled = false;
 		}
 	}
 
@@ -92,11 +97,14 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public void PassPhone ()
 	{
-	
+		PlayerController.instance.TallyPlayerInformation();
 		bool showPassPhoneUI = PlayerController.instance.PlayerWithPhone.canPassPhone;
 		bool haveTarget = false;
+		
+		passPhoneLabel.enabled = showPassPhoneUI;
 		if (showPassPhoneUI)
 		{
+
 			foreach (PlayerIcon icon in PlayerIcon.First(typeof (PlayerIcon)))
 			{
 				if (icon.ThePlayer.CanRecievePhone())
