@@ -6625,7 +6625,7 @@ MonoBehaviour:
   mDepth: 22
   autoResizeBoxCollider: 0
   mAtlas: {fileID: 11400000, guid: c002d50b8f7c5314ab52483927cf3f58, type: 2}
-  mSpriteName: cuffs
+  mSpriteName: handcuffs
   mFillCenter: 1
   mType: 0
   mFillDirection: 4
