@@ -420,7 +420,12 @@ public class Movement : MonoBehaviour {
 	void FireAction ()
 	{
 		//if (ScoreController.instance.roundEnd) _thePlayer.enableLeave = true;
-		
+
+		if (_thePlayer.handcuffsOn)
+		{
+			UIManager.instance.CreateObjectPickupAnimation(_thePlayer.transform.position, "Handcuffed!");
+		}
+
 		if (!_thePlayer.handcuffsOn && _thePlayer.ItemsOwned == PickupType.None || !GameController.instance.PlayerActivatedItem(_thePlayer))
 		{
 			if (_thePlayer.OnRoomLocation != null)
