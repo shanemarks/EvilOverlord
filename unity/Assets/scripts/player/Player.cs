@@ -44,7 +44,7 @@ public class Player: MonoBehaviour {
 
 	bool notifiedAboutGasMask = false;
 
-	public Vector3 MaskPositionCache,KnifePostionCache;
+	public Vector3 MaskPositionCache,KnifePostionCache,HandPositionCache;
 
 	string KNIFE_ICON ="Knife",
 	MASK_ICONSE ="SEMask",
@@ -73,6 +73,7 @@ public class Player: MonoBehaviour {
 
 		MaskPositionCache = maskIcon.transform.localPosition;
 		KnifePostionCache = knifeIcon.transform.localPosition;
+		HandPositionCache = handcuffSprite.transform.localPosition;
 		PhoneIcon.color =  PlayerSprite.color;
 		RtIcon.color = PlayerSprite.color;
 		_trans = gameObject.transform;
@@ -135,6 +136,48 @@ public class Player: MonoBehaviour {
 		if (handcuffsOn)
 		{
 			HoldingState = ItemHoldingState.Handcuffs;
+			if (PlayerHeadSprite.spriteName == "SWHead")
+			{
+				handcuffSprite.transform.localPosition =  HandPositionCache - new Vector3 (75,0,0);
+
+				handcuffSprite.spriteName = "SWHandcuff";
+				handcuffSprite.width  = 83;
+				handcuffSprite.height = 53;
+
+				
+			}
+
+			else if (PlayerHeadSprite.spriteName == "SEHead")
+			{
+				
+				handcuffSprite.transform.localPosition = HandPositionCache;
+				handcuffSprite.spriteName = "SEHandcuff";
+				handcuffSprite.width  = 83;
+				handcuffSprite.height = 53;
+				
+			}
+
+			else if (PlayerHeadSprite.spriteName == "NWHead")
+			{
+				
+				handcuffSprite.transform.localPosition =  HandPositionCache - new Vector3 (128,-10,0);
+				handcuffSprite.spriteName = "NWHandcuff";
+				handcuffSprite.width  = 28;
+				handcuffSprite.height = 28;
+				
+			}
+
+			
+			else if (PlayerHeadSprite.spriteName == "NEHead")
+			{
+				
+				handcuffSprite.transform.localPosition =  HandPositionCache - new Vector3 (-50,-10,0);
+				handcuffSprite.spriteName = "NEHandcuff";
+				handcuffSprite.width = 28;
+				handcuffSprite.height = 28;
+				
+			}
+			
 		}
 		else
 		{
@@ -187,12 +230,14 @@ public class Player: MonoBehaviour {
 			{
 				maskIcon.spriteName = MASK_ICONSW;
 				maskIcon.transform.localPosition = MaskPositionCache + new Vector3(-15,0,0);
+
 			}
 			else if (PlayerHeadSprite.spriteName == "SEHead")
 			{
 
 				maskIcon.spriteName = MASK_ICONSE;
 				maskIcon.transform.localPosition = MaskPositionCache;
+
 			}
 
 			else maskIcon.spriteName ="";

@@ -54,8 +54,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: Alive
-    x: 975
-    y: 150
+    x: 826
+    y: 22
     width: 30
     height: 30
     borderLeft: 0
@@ -236,8 +236,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Foot
-    x: 826
-    y: 4
+    x: 891
+    y: 44
     width: 25
     height: 17
     borderLeft: 0
@@ -341,7 +341,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: Holding
     x: 679
-    y: 43
+    y: 10
     width: 31
     height: 32
     borderLeft: 0
@@ -367,7 +367,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: HoldingKnife
     x: 679
-    y: 10
+    y: 43
     width: 31
     height: 32
     borderLeft: 0
@@ -418,7 +418,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 4
   - name: LTLB
-    x: 610
+    x: 585
     y: 27
     width: 24
     height: 48
@@ -432,9 +432,22 @@ MonoBehaviour:
     paddingBottom: 9
   - name: NE&SWBody
     x: 981
-    y: 238
+    y: 210
     width: 35
     height: 27
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: NEHandcuff
+    x: 305
+    y: 4
+    width: 7
+    height: 12
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -458,9 +471,22 @@ MonoBehaviour:
     paddingBottom: 0
   - name: NW&SEBody
     x: 981
-    y: 210
+    y: 238
     width: 35
     height: 27
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: NWHandcuff
+    x: 621
+    y: 14
+    width: 8
+    height: 12
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -483,7 +509,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: phone
-    x: 826
+    x: 891
     y: 84
     width: 64
     height: 96
@@ -509,7 +535,7 @@ MonoBehaviour:
     paddingTop: 33
     paddingBottom: 29
   - name: rbrt
-    x: 585
+    x: 610
     y: 27
     width: 24
     height: 48
@@ -548,7 +574,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 3
   - name: rt_hand
-    x: 761
+    x: 826
     y: 84
     width: 64
     height: 96
@@ -561,7 +587,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rt_knife
-    x: 891
+    x: 761
     y: 84
     width: 64
     height: 96
@@ -586,8 +612,21 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: SEHandcuff
+    x: 975
+    y: 84
+    width: 25
+    height: 20
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: SEHead
-    x: 549
+    x: 513
     y: 37
     width: 35
     height: 38
@@ -664,8 +703,21 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: SWHandcuff
+    x: 826
+    y: 1
+    width: 25
+    height: 20
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: SWHead
-    x: 513
+    x: 549
     y: 37
     width: 35
     height: 38
@@ -743,8 +795,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: Y
-    x: 826
-    y: 22
+    x: 975
+    y: 150
     width: 30
     height: 30
     borderLeft: 0
