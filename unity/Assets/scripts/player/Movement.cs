@@ -173,6 +173,7 @@ public class Movement : MonoBehaviour {
 				
 				if (_thePlayer.canPassPhone)
 				{
+//					Debug.Log (_thePlayer.PlayerName+" can pass");
 					int playerIndexToPassTo = -1;
 					bool [] passDown = new bool [4] {false,false,false,false};
 					if (_controller == ControllerType.Keyboard)
@@ -189,6 +190,8 @@ public class Movement : MonoBehaviour {
 						passDown[2] = GamepadInput.GetButtonDown(PassPlayer2Green, ControllerNumber);
 						passDown[3] = GamepadInput.GetButtonDown(PassPlayer3Red, ControllerNumber);
 					}
+					
+//					Debug.Log (_thePlayer.PlayerName+" can pass "+passDown[_thePlayer.Index]);
 
 					for (int p = 0 ; p < 4 ; p++)
 					{

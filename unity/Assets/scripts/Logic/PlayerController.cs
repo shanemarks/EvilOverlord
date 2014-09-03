@@ -181,8 +181,10 @@ public class PlayerController : SingletonBehaviour<PlayerController>
 		gos = FindObjectsOfType (typeof(GameObject)) as GameObject[];
 
  		UIManager.instance.UpdateCharacterIcons ();
-
-		Players[0].PassPhone(Players[0]);// pass phone to self
+		
+//		Players[0].PassPhone(Players[0]);// pass phone to self
+		int index = Random.Range(0,4);
+		Players[index].PassPhone(Players[index]);// pass phone to self
 
 	}
 

@@ -112,6 +112,18 @@ public class Player: MonoBehaviour {
 	void Update ()
 	{
 	
+		if (hasPhone && !IsAlive)
+		{
+			List<Player> alivePlayers = new List<Player>();
+			foreach (Player p in PlayerController.instance.Players)
+				if (p.IsAlive)
+					alivePlayers.Add(p);
+
+			int randomIndex = Random.Range (0, alivePlayers.Count);
+
+			PassPhone(PlayerController.instance.Players[randomIndex]);
+			UIManager.instance.CreateObjectPickupAnimation (PlayerController.instance.Players[randomIndex].transform.position, "Have the phone");
+		}
 
 		if (GameController.instance.GasTrapTriggered)
 		{

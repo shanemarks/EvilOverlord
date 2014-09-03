@@ -230,6 +230,9 @@ public class UIManager : SingletonBehaviour<UIManager> {
 
 	public void ResetGame ()
 	{
+		while (VoiceSpeaker.GetVoiceState() != 1)
+		{
+		}
 		Debug.Log ("Reset Game");
 		if (ScoreController.instance.HaveOverallWinners)
 		{
@@ -239,5 +242,6 @@ public class UIManager : SingletonBehaviour<UIManager> {
 		{
 			Application.LoadLevel(1);
 		}
+		
 	}
 }

@@ -130,6 +130,12 @@ public class GameController : SingletonBehaviour<GameController>
 
 	void Update()
 	{
+		if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R))
+		{
+			UIManager.instance.ResetGame();
+			return;
+		}
+
 		if (Input.GetKeyDown(KeyCode.F7))
 		{
 			handcuffTurnsLeft = 1;
@@ -178,8 +184,8 @@ public class GameController : SingletonBehaviour<GameController>
 		AddPassOnInstruction(); // adding an instruction to skip
 
 //		AddPassOnInstruction();
-//		if (Random.value < 0.5)
-//			AddPassOnInstruction();
+		if (Random.value < 0.75)
+			AddPassOnInstruction();
 
 		
 		IncrementInstruction();
@@ -690,7 +696,7 @@ public class GameController : SingletonBehaviour<GameController>
 			
 			AddPassOnInstruction();
 		}
-		else if (randomValue < 0.35f)
+		else if (randomValue < 0.70f)
 		{
 			// 25% positive
 			
